@@ -16,6 +16,8 @@ module.exports = {
     'no-empty': 'off',
     'no-multiple-empty-lines': 'off',
     'semi': 'off',
+    'vue/multi-word-component-names': 'off',
+    'eol-last': 'off',
     'quote-props': 'off'
   }
 }
