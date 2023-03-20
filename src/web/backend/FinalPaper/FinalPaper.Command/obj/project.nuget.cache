@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zgAF3SqdFrwg9jpOh/uLf4IBPWVat2/0Yf4EMJuDk4rma7op8neOJH4rj6XwFe4ccfrWyJ5T7P65vFR+ljthaQ==",
+  "dgSpecHash": "puxqnTN3vwEpcBys/6Ak7IDYy5AKH4lhSkLP+omJbwR2922sdMn7UuwZPG8AOhSkrV9twDY7/G0z39cD3Oy6Ww==",
   "success": true,
-  "projectFilePath": "C:\\Workspace\\College\\final-paper-portal\\src\\web\\backend\\FinalPaper\\FinalPaper.Command\\FinalPaper.Command.csproj",
+  "projectFilePath": "C:\\Git\\final-paper-portal\\src\\web\\backend\\FinalPaper\\FinalPaper.Command\\FinalPaper.Command.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

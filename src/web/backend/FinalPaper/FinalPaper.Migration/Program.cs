@@ -1,25 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
+namespace FinalPaper.Migration; 
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    static void Main(string[] args)
+    {
+//TODO: Fix this
+        Console.WriteLine("Creating context");
+        // var context = new MigrationDbContextBuilder<ClearinghouseDbContext>().CreateDbContext(new[] { "ClearinghouseRuntimeDb" });
+
+        Console.WriteLine("Migrating database");
+        // context.Database.Migrate();
+
+        Console.WriteLine("Completed");
+        Environment.Exit(0);
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

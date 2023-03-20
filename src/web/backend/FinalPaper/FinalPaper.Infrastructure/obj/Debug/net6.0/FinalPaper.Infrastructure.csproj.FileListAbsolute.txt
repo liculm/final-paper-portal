@@ -1,0 +1,17 @@
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\bin\Debug\net6.0\FinalPaper.Infrastructure.deps.json
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\bin\Debug\net6.0\FinalPaper.Infrastructure.runtimeconfig.json
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\bin\Debug\net6.0\FinalPaper.Infrastructure.dll
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\bin\Debug\net6.0\FinalPaper.Infrastructure.pdb
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\bin\Debug\net6.0\FinalPaper.Domain.dll
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\bin\Debug\net6.0\FinalPaper.Domain.pdb
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.csproj.AssemblyReference.cache
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.AssemblyInfoInputs.cache
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.AssemblyInfo.cs
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.csproj.CopyComplete
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.dll
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\refint\FinalPaper.Infrastructure.dll
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.pdb
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\FinalPaper.Infrastructure.genruntimeconfig.cache
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Infrastructure\obj\Debug\net6.0\ref\FinalPaper.Infrastructure.dll
