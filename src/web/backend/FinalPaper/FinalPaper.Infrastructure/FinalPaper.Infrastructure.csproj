@@ -22,5 +22,17 @@
     <ItemGroup>
       <ProjectReference Include="..\FinalPaper.Domain\FinalPaper.Domain.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="obj\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="obj\**" />
+    </ItemGroup>
     
 </Project>

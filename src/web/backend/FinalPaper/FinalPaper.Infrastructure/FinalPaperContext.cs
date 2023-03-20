@@ -26,12 +26,12 @@ public class FinalPaperContext : BaseDbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityConfiguration<>).Assembly);
-        modelBuilder.Entity<User>(builder =>
-        {
-            // Date is a DateOnly property and date on database
-            // builder.Property(x => x.Date)
-            //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
-        });
+        // modelBuilder.Entity<User>(builder =>
+        // {
+        //     // Date is a DateOnly property and date on database
+        //     // builder.Property(x => x.Date)
+        //     //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+        // });
 
         SeedEnums(modelBuilder);
     }
