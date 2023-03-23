@@ -22,3 +22,27 @@ src/web/backend/FinalPaper/FinalPaper.Migration/obj/Debug/net6.0/
 src/web/backend/FinalPaper/FinalPaper.Migration/obj/
 
 src/web/backend/FinalPaper/obj/
+
+src/web/backend/FinalPaper/FinalPaper.Command/obj/Debug/net6.0/FinalPaper.Command.assets.cache
+
+*.cache
+
+*.editorconfig
+
+src/web/backend/FinalPaper/FinalPaper.Command/obj/FinalPaper.Command.csproj.nuget.dgspec.json
+
+*.props
+
+src/web/backend/FinalPaper/FinalPaper.Command/obj/project.assets.json
+
+src/web/backend/FinalPaper/FinalPaper.Command/obj/project.packagespec.json
+
+*.info
+
+src/web/backend/FinalPaper/FinalPaper.Domain/obj/FinalPaper.Domain.csproj.nuget.dgspec.json
+
+src/web/backend/FinalPaper/FinalPaper.Domain/obj/project.assets.json
+
+src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/FinalPaper.Infrastructure.csproj.nuget.dgspec.json
+
+src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/project.packagespec.json
