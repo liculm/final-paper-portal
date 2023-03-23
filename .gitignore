@@ -23,6 +23,8 @@ src/web/backend/FinalPaper/FinalPaper.Migration/obj/
 
 src/web/backend/FinalPaper/obj/
 
+*.targets
+
 src/web/backend/FinalPaper/FinalPaper.Command/obj/Debug/net6.0/FinalPaper.Command.assets.cache
 
 *.cache

@@ -15,9 +15,9 @@ public abstract class Enumeration : IComparable
         Name = name;
     }
 
-    public string Name { get; }
+    public string Name { get; set; }
 
-    public int Id { get; }
+    public int Id { get; set; }
 
     public int CompareTo(object? other)
     {
