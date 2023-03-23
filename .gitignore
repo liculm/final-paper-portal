@@ -22,3 +22,5 @@ src/web/backend/FinalPaper/FinalPaper.Migration/obj/Debug/net6.0/
 src/web/backend/FinalPaper/FinalPaper.Migration/obj/
 
 src/web/backend/FinalPaper/obj/
+
+*.targets

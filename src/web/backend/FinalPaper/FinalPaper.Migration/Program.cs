@@ -1,15 +1,17 @@
+using FinalPaper.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 namespace FinalPaper.Migration; 
 
 public class Program
 {
     static void Main(string[] args)
     {
-//TODO: Fix this
         Console.WriteLine("Creating context");
-        // var context = new MigrationDbContextBuilder<ClearinghouseDbContext>().CreateDbContext(new[] { "ClearinghouseRuntimeDb" });
+        var context = new MigrationDbContextBuilder<FinalPaperContext>().CreateDbContext(new[] { "FinalPaperRuntimeDb" });
 
         Console.WriteLine("Migrating database");
-        // context.Database.Migrate();
+        context.Database.Migrate();
 
         Console.WriteLine("Completed");
         Environment.Exit(0);

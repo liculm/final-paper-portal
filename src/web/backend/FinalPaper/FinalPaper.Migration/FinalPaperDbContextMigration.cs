@@ -6,8 +6,7 @@ namespace FinalPaper.Migration;
 public class FinalPaperDbContextMigration : IDesignTimeDbContextFactory<FinalPaperContext>{
     public FinalPaperContext CreateDbContext(string[] args)
     {
-        // return new MigrationDbContextBuilder<FinalPaperContext>().CreateDbContext(new[]
-        //     { "ClearinghouseRuntimeDb" });
-        return null;
+        return new MigrationDbContextBuilder<FinalPaperContext>().CreateDbContext(new[]
+             { "FinalPaperRuntimeDb" });
     }
 }
