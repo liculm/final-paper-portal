@@ -1,4 +1,3 @@
-using FinalPaper.Domain.Entities.Base;
 using FinalPaper.Domain.Utility;
 
 namespace FinalPaper.Domain.Enums;
