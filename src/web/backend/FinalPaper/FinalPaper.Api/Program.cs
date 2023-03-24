@@ -47,12 +47,12 @@ builder.Services.AddCors(options =>
 // if (commandAssembly != null && queryAssembly != null)
 //     builder.Services.AddMediator(commandAssembly, queryAssembly);
 
-builder.Services.AddDbContext<FinalPaperContext>(options => options
+builder.Services.AddDbContext<FinalPaperDBContext>(options => options
     .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddLogging()
     .AddMemoryCache()
-    .RegisterDbContext<FinalPaperContext>(builder.Configuration)
+    .RegisterDbContext<FinalPaperDBContext>(builder.Configuration)
     .RegisterScoped(builder.Configuration)
     // .AddCurrentADUser()
     // .AddVersioningAndSwagger(config =>

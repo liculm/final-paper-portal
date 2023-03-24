@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using FinalPaper.Domain.Entities.Base;
+using FinalPaper.Domain.Enums;
 
 namespace FinalPaper.Domain.Entities;
 
@@ -15,6 +16,9 @@ public class Course : Entity
     public bool IsActive { get; set; }
     public int MentorId { get; set; }
     public int CourseTypeId { get; set; }
+    public User? User { get; set; }
+    public CourseTypes? CourseType { get; set; }
+    public ICollection<Thesis>? Theses { get; set; }
 
     public void Update(string name, bool isActive, int mentorId, int courseTypeId)
     {

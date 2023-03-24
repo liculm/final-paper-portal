@@ -8,7 +8,7 @@ public class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Creating context");
-        var context = new MigrationDbContextBuilder<FinalPaperContext>().CreateDbContext(new[] { "FinalPaperRuntimeDb" });
+        var context = new MigrationDbContextBuilder<FinalPaperDBContext>().CreateDbContext(new[] { "FinalPaperRuntimeDb" });
 
         Console.WriteLine("Migrating database");
         context.Database.Migrate();

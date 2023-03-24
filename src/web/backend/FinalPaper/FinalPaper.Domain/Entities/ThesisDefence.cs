@@ -15,6 +15,8 @@ public class ThesisDefence : Entity
     public int DefenceScore { get; set; }
     public int FinalPaperScore { get; set; }
     public int ThesesId { get; set; }
+    public Thesis? Thesis { get; set; }
+    public ICollection<ThesisDefenceUser>? ThesesDefenceUsers { get; set; }
 
     public void Update(DateTime date, string room, int defenceScore,
         int finalPaperScore, int thesesId)

@@ -9,18 +9,24 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinalPaper.Infrastructure; 
 
-public class FinalPaperContext : BaseDbContext
+public class FinalPaperDBContext : BaseDbContext
 {
-    public FinalPaperContext(DbContextOptions<FinalPaperContext> options) : base(options)
+    public FinalPaperDBContext(DbContextOptions<FinalPaperDBContext> options) : base(options)
     {
     }
 
-    public FinalPaperContext(DbContextOptions<FinalPaperContext> options, IMediator mediator, IDateTime dateTime) :
+    public FinalPaperDBContext(DbContextOptions<FinalPaperDBContext> options, IMediator mediator, IDateTime dateTime) :
         base(options, mediator, dateTime)
     {
     }
 
     public DbSet<User>? Users { get; set; }
+    public DbSet<Course>? Course { get; set; }
+    public DbSet<Thesis>? Thesis { get; set; }
+    public DbSet<ThesisDefence>? ThesisDefence { get; set; }
+    public DbSet<ThesisDefenceUser>? ThesisDefenceUser { get; set; }
+    public DbSet<Roles>? Role { get; set; }
+    public DbSet<CourseTypes>? CourseTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
