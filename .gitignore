@@ -48,3 +48,11 @@ src/web/backend/FinalPaper/FinalPaper.Domain/obj/project.assets.json
 src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/FinalPaper.Infrastructure.csproj.nuget.dgspec.json
 
 src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/project.packagespec.json
+
+src/web/backend/FinalPaper/FinalPaper.Command/bin/Debug/net6.0/
+
+src/web/backend/FinalPaper/FinalPaper.Command/obj/Debug/net6.0/
+
+src/web/backend/FinalPaper/FinalPaper.Domain/obj/
+
+src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/

@@ -6,7 +6,8 @@ namespace FinalPaper.Infrastructure.EntityConfigurations;
 
 public class CourseEntityConfiguration : IEntityTypeConfiguration<Course>
 {
-    void IEntityTypeConfiguration<Course>.Configure(EntityTypeBuilder<Course> builder){
+    void IEntityTypeConfiguration<Course>.Configure(EntityTypeBuilder<Course> builder)
+    {
         builder.HasKey(k => k.Id);
         builder.Property(p => p.Id).ValueGeneratedOnAdd().IsRequired();
 

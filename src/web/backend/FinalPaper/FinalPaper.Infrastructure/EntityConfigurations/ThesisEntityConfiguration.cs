@@ -6,7 +6,8 @@ namespace FinalPaper.Infrastructure.EntityConfigurations;
 
 public class ThesisEntityConfiguration : IEntityTypeConfiguration<Thesis>
 {
-    void IEntityTypeConfiguration<Thesis>.Configure(EntityTypeBuilder<Thesis> builder){
+    void IEntityTypeConfiguration<Thesis>.Configure(EntityTypeBuilder<Thesis> builder)
+    {
         builder.HasKey(k => k.Id);
         builder.Property(p => p.Id).ValueGeneratedOnAdd().IsRequired();
 
