@@ -14,10 +14,11 @@ public class ThesisEntityConfiguration : IEntityTypeConfiguration<Thesis>
         builder.HasOne(o => o.User)
             .WithMany()
             .HasForeignKey(f => f.StudentId)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         builder.HasOne(o => o.Course)
-            .WithMany()
+            .WithMany(o=>o.Theses)
             .HasForeignKey(f => f.CourseId)
             .IsRequired();
 

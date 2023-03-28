@@ -13,6 +13,7 @@ public class ThesisDefenceEntityConfiguration : IEntityTypeConfiguration<ThesisD
         builder.HasOne(o => o.Thesis)
             .WithMany()
             .HasForeignKey(f => f.ThesesId)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         builder.HasMany(m => m.ThesesDefenceUsers)

@@ -18,6 +18,7 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.HasMany(m => m.Theses)
             .WithOne(o => o.User)
             .HasForeignKey(f => f.StudentId)
+            .OnDelete(DeleteBehavior.Restrict)
             .IsRequired();
 
         builder.HasMany(m => m.ThesesDefenceUsers)
