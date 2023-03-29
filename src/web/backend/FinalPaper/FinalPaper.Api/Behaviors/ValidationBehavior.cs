@@ -2,7 +2,7 @@ using System.Text;
 using FluentValidation;
 using MediatR;
 
-namespace Api.Behaviors; 
+namespace Api.Behaviors;
 
 /// <summary>
 ///     Behavior used by the MediatR pipeline which intercepts and validates Commands
@@ -11,21 +11,18 @@ namespace Api.Behaviors;
 /// <typeparam name="TRequest"></typeparam>
 /// <typeparam name="TResponse"></typeparam>
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
-{
+    where TRequest : IRequest<TResponse> {
     private readonly ILogger<ValidationBehavior<TRequest, TResponse>> logger;
     private readonly IEnumerable<IValidator<TRequest>> validators;
 
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators,
-        ILogger<ValidationBehavior<TRequest, TResponse>> logger)
-    {
+        ILogger<ValidationBehavior<TRequest, TResponse>> logger) {
         this.validators = validators;
         this.logger = logger;
     }
 
     public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken,
-        RequestHandlerDelegate<TResponse> next)
-    {
+        RequestHandlerDelegate<TResponse> next) {
         var typeName = request.GetGenericTypeName();
 
         logger.LogInformation("Validating command {CommandType}", typeName);
@@ -36,41 +33,43 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
             .Where(error => error != null)
             .ToList();
 
-        if (failures.Any())
-        {
+        if (failures.Any()) {
             logger.LogWarning("Validation errors - {CommandType} - Command: {@Command} - Errors: {@ValidationErrors}",
                 typeName, request, failures);
 
             var errorMessage = new StringBuilder($"Command Validation Errors for type {typeof(TRequest).Name}:");
-            foreach (var failure in failures) errorMessage.Append($" {failure.ErrorMessage}");
+            foreach (var failure in failures) {
+                errorMessage.Append($" {failure.ErrorMessage}");
+            }
+
             throw new ValidationException(errorMessage.ToString());
         }
 
         return await next();
+    }
+
+    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken) {
+        throw new NotImplementedException();
     }
 }
 
 /// <summary>
 ///     Utility class for working with Type Names.
 /// </summary>
-public static class GenericTypeExtensions
-{
+public static class GenericTypeExtensions {
     /// <summary>
     ///     Return Generic Type Name for the given Type.
     /// </summary>
     /// <param name="type"></param>
     /// <returns>Type Name as string</returns>
-    public static string GetGenericTypeName(this Type type)
-    {
+    public static string GetGenericTypeName(this Type type) {
         var typeName = string.Empty;
 
-        if (type.IsGenericType)
-        {
+        if (type.IsGenericType) {
             var genericTypes = string.Join(",", type.GetGenericArguments().Select(t => t.Name).ToArray());
             typeName = $"{type.Name.Remove(type.Name.IndexOf('`'))}<{genericTypes}>";
         }
-        else
-        {
+        else {
             typeName = type.Name;
         }
 
@@ -82,8 +81,7 @@ public static class GenericTypeExtensions
     /// </summary>
     /// <param name="object"></param>
     /// <returns>Type Name as string</returns>
-    public static string GetGenericTypeName(this object @object)
-    {
+    public static string GetGenericTypeName(this object @object) {
         return @object.GetType().GetGenericTypeName();
     }
 }

@@ -2,13 +2,13 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalPaper.Api", "FinalPaper.Api\FinalPaper.Api.csproj", "{22D14B60-457D-455D-B995-A65441F313D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalPaper.Migration", "FinalPaper.Migration\FinalPaper.Migration.csproj", "{C85365B1-DF36-4515-8F5B-0DB3D486F19F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalPaper.Command", "FinalPaper.Command\FinalPaper.Command.csproj", "{648F71FA-1851-427C-83CC-3577E8EDFA90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalPaper.Domain", "FinalPaper.Domain\FinalPaper.Domain.csproj", "{E45C4B90-2E80-4763-8FF4-121225B53FA5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalPaper.Infrastructure", "FinalPaper.Infrastructure\FinalPaper.Infrastructure.csproj", "{E476FD25-0A51-4EF5-B211-AF75D1886545}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalPaper.Query", "FinalPaper.Query\FinalPaper.Query.csproj", "{FD84E105-819B-455E-BC9D-5205B4EF32EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,10 +20,6 @@ Global
 		{22D14B60-457D-455D-B995-A65441F313D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22D14B60-457D-455D-B995-A65441F313D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22D14B60-457D-455D-B995-A65441F313D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C85365B1-DF36-4515-8F5B-0DB3D486F19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C85365B1-DF36-4515-8F5B-0DB3D486F19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C85365B1-DF36-4515-8F5B-0DB3D486F19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C85365B1-DF36-4515-8F5B-0DB3D486F19F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{648F71FA-1851-427C-83CC-3577E8EDFA90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{648F71FA-1851-427C-83CC-3577E8EDFA90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{648F71FA-1851-427C-83CC-3577E8EDFA90}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,5 +32,9 @@ Global
 		{E476FD25-0A51-4EF5-B211-AF75D1886545}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E476FD25-0A51-4EF5-B211-AF75D1886545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E476FD25-0A51-4EF5-B211-AF75D1886545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD84E105-819B-455E-BC9D-5205B4EF32EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD84E105-819B-455E-BC9D-5205B4EF32EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD84E105-819B-455E-BC9D-5205B4EF32EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD84E105-819B-455E-BC9D-5205B4EF32EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

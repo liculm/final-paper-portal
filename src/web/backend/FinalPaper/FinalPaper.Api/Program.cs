@@ -1,7 +1,6 @@
 using Api.Extensions.Startup;
 using FinalPaper.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,9 +37,6 @@ builder.Services.AddCors(options =>
 // var queryAssembly = Assembly.GetAssembly(typeof(CreateProjectsCommandHandler));
 // if (commandAssembly != null && queryAssembly != null)
 //     builder.Services.AddMediator(commandAssembly, queryAssembly);
-
-builder.Services.AddDbContext<FinalPaperDBContext>(options => options
-    .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddLogging()
     .AddMemoryCache()

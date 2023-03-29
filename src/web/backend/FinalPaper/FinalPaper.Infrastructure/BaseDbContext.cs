@@ -99,6 +99,10 @@ public class NoMediator : IMediator
         return Task.FromResult<TResponse>(result);
     }
 
+    public Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = new CancellationToken()) where TRequest : IRequest {
+        return Task.FromResult(default(object?));
+    }
+
     public Task<object?> Send(object request, CancellationToken cancellationToken = default)
     {
         return Task.FromResult(default(object?));

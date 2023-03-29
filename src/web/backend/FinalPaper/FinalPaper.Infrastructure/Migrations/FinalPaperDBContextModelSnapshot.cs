@@ -20,7 +20,7 @@ namespace FinalPaper.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("FinalPaper.Domain.Entities.Course", b =>
                 {
@@ -28,7 +28,7 @@ namespace FinalPaper.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CourseTypeId")
                         .HasColumnType("int");
@@ -61,7 +61,7 @@ namespace FinalPaper.Infrastructure.Migrations
 
                     b.HasIndex("MentorId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("FinalPaper.Domain.Entities.Thesis", b =>
@@ -70,7 +70,7 @@ namespace FinalPaper.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
@@ -103,7 +103,7 @@ namespace FinalPaper.Infrastructure.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Thesis");
+                    b.ToTable("Thesis", (string)null);
                 });
 
             modelBuilder.Entity("FinalPaper.Domain.Entities.ThesisDefence", b =>
@@ -112,7 +112,7 @@ namespace FinalPaper.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedByName")
                         .HasColumnType("nvarchar(max)");
@@ -146,7 +146,7 @@ namespace FinalPaper.Infrastructure.Migrations
 
                     b.HasIndex("ThesesId");
 
-                    b.ToTable("ThesisDefence");
+                    b.ToTable("ThesisDefence", (string)null);
                 });
 
             modelBuilder.Entity("FinalPaper.Domain.Entities.ThesisDefenceUser", b =>
@@ -173,7 +173,7 @@ namespace FinalPaper.Infrastructure.Migrations
 
                     b.HasIndex("ThesisDefenceId");
 
-                    b.ToTable("ThesisDefenceUser");
+                    b.ToTable("ThesisDefenceUser", (string)null);
                 });
 
             modelBuilder.Entity("FinalPaper.Domain.Entities.User", b =>
@@ -182,7 +182,7 @@ namespace FinalPaper.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedByName")
                         .HasColumnType("nvarchar(max)");
@@ -214,7 +214,7 @@ namespace FinalPaper.Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("FinalPaper.Domain.Enums.CourseTypes", b =>
@@ -223,7 +223,7 @@ namespace FinalPaper.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -231,7 +231,7 @@ namespace FinalPaper.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourseTypes");
+                    b.ToTable("CourseTypes", (string)null);
                 });
 
             modelBuilder.Entity("FinalPaper.Domain.Enums.Roles", b =>
@@ -240,7 +240,7 @@ namespace FinalPaper.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -248,7 +248,7 @@ namespace FinalPaper.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Role", (string)null);
 
                     b.HasData(
                         new
