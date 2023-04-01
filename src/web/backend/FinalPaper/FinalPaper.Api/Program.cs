@@ -1,8 +1,12 @@
+using System.Reflection;
 using System.Text;
 using Api.Extensions.Startup;
-using FinalPaper.Domain.Interfaces;
+using FinalPaper.Command.CommandHandlers.LoginCommand;
 using FinalPaper.Infrastructure;
-using FinalPaper.Infrastructure.Services;
+using FinalPaper.Query.QueryHandlers.GetAllUsers;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -17,11 +21,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
+builder.Services.AddCors(options => {
     options.AddPolicy("final-paper-api",
-        builder =>
-        {
+        builder => {
             builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
@@ -29,8 +31,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
+    .AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -43,39 +44,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
-builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 
+builder.Services.AddControllers();
 
-// builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
-// builder.Services
-//     .AddControllers()
-//     .AddFluentValidation(fv =>
-//     {
-//         fv.RegisterValidatorsFromAssemblyContaining(typeof(GetProjectsQuery));
-//         fv.RegisterValidatorsFromAssemblyContaining(typeof(CreateProjectsCommand));
-//     })
-//     .AddShipsJsonOptions();
-//
-// var commandAssembly = Assembly.GetAssembly(typeof(GetProjectsQueryHandler));
-// var queryAssembly = Assembly.GetAssembly(typeof(CreateProjectsCommandHandler));
-// if (commandAssembly != null && queryAssembly != null)
-//     builder.Services.AddMediator(commandAssembly, queryAssembly);
+builder.Services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters()
+    .AddValidatorsFromAssemblies(new[]
+    {
+        typeof(GetAllUsersQuery).Assembly,
+        typeof(LoginCommand).Assembly
+    });
+
+var commandAssembly = Assembly.GetAssembly(typeof(LoginCommandHandler));
+var queryAssembly = Assembly.GetAssembly(typeof(GetAllUsersQuery));
+if (commandAssembly != null && queryAssembly != null)
+    builder.Services.AddMediatR(commandAssembly, queryAssembly);
 
 builder.Services.AddLogging()
     .AddMemoryCache()
     .RegisterDbContext<FinalPaperDBContext>(builder.Configuration)
     .RegisterScoped(builder.Configuration)
-    // .AddCurrentADUser()
-    // .AddVersioningAndSwagger(config =>
-    // {
-    //     config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Api.xml"));
-    //     config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Command.xml"));
-    //     config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Query.xml"));
-    //     config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Infrastructure.xml"));
-    //     config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Domain.xml"));
-    // })
-    ;
+    .AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -83,8 +73,7 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+if (app.Environment.IsDevelopment()) {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -96,6 +85,6 @@ app.UseCors("final-paper-api");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+app.UseEndpoints(endpoints => endpoints.MapControllers());
 
 app.Run();

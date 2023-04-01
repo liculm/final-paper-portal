@@ -37,3 +37,5 @@ src/web/backend/FinalPaper/obj/
 
 
 *.info
+
+*.pdb
