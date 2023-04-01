@@ -1,58 +1,39 @@
 
-src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/Debug/net6.0/
+src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/
 
-src/web/backend/FinalPaper/FinalPaper.Migration/bin/Debug/net6.0/
-
-*.dll
-
-src/web/backend/FinalPaper/FinalPaper.Api/bin/Debug/net6.0/
-
-src/web/backend/FinalPaper/FinalPaper.Api/obj/Debug/net6.0/
-
-src/web/backend/FinalPaper/FinalPaper.Domain/bin/Debug/net6.0/
-
-src/web/backend/FinalPaper/FinalPaper.Domain/obj/Debug/net6.0/
-
-src/web/backend/FinalPaper/FinalPaper.Infrastructure/bin/Debug/net6.0/
+src/web/backend/FinalPaper/FinalPaper.Infrastructure/bin/
 
 src/web/backend/FinalPaper/FinalPaper.Api/obj/
 
-src/web/backend/FinalPaper/FinalPaper.Migration/obj/Debug/net6.0/
+src/web/backend/FinalPaper/FinalPaper.Api/bin/
 
 src/web/backend/FinalPaper/FinalPaper.Migration/obj/
+
+src/web/backend/FinalPaper/FinalPaper.Migration/bin/
+
+src/web/backend/FinalPaper/FinalPaper.Domain/obj/
+
+src/web/backend/FinalPaper/FinalPaper.Domain/bin/
+
+src/web/backend/FinalPaper/FinalPaper.Command/obj/
+
+src/web/backend/FinalPaper/FinalPaper.Command/bin/
+
+src/web/backend/FinalPaper/FinalPaper.Query/obj/
+
+src/web/backend/FinalPaper/FinalPaper.Query/bin/
+
+*.dll
 
 src/web/backend/FinalPaper/obj/
 
 *.targets
 
-src/web/backend/FinalPaper/FinalPaper.Command/obj/Debug/net6.0/FinalPaper.Command.assets.cache
-
 *.cache
 
 *.editorconfig
 
-src/web/backend/FinalPaper/FinalPaper.Command/obj/FinalPaper.Command.csproj.nuget.dgspec.json
-
 *.props
 
-src/web/backend/FinalPaper/FinalPaper.Command/obj/project.assets.json
-
-src/web/backend/FinalPaper/FinalPaper.Command/obj/project.packagespec.json
 
 *.info
-
-src/web/backend/FinalPaper/FinalPaper.Domain/obj/FinalPaper.Domain.csproj.nuget.dgspec.json
-
-src/web/backend/FinalPaper/FinalPaper.Domain/obj/project.assets.json
-
-src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/FinalPaper.Infrastructure.csproj.nuget.dgspec.json
-
-src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/project.packagespec.json
-
-src/web/backend/FinalPaper/FinalPaper.Command/bin/Debug/net6.0/
-
-src/web/backend/FinalPaper/FinalPaper.Command/obj/Debug/net6.0/
-
-src/web/backend/FinalPaper/FinalPaper.Domain/obj/
-
-src/web/backend/FinalPaper/FinalPaper.Infrastructure/obj/
