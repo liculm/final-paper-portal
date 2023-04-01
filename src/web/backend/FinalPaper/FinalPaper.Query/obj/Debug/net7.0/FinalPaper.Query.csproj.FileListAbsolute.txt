@@ -10,3 +10,5 @@ C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Query\obj\Debug\
 C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Query\obj\Debug\net7.0\refint\FinalPaper.Query.dll
 C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Query\obj\Debug\net7.0\FinalPaper.Query.pdb
 C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Query\obj\Debug\net7.0\ref\FinalPaper.Query.dll
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Query\bin\Debug\net7.0\FinalPaper.Query.runtimeconfig.json
+C:\Git\final-paper-portal\src\web\backend\FinalPaper\FinalPaper.Query\obj\Debug\net7.0\FinalPaper.Query.genruntimeconfig.cache

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ao8z+pv6lycydb91OiAyjEvHKI+oa0GZFGQ6hcKB83yFr2Psq7Q7u3kWH9FldDlXjKxZTYYt08AUK0xEb7vIMw==",
+  "dgSpecHash": "dJATdBLcH9EYLOWblUEvey4pHeh5R9LMUW1GCydbgEoNSWa2iTDWfDV7BlKuDGXTwsPnsYMHajvPnYQ0rM8pWQ==",
   "success": true,
   "projectFilePath": "C:\\Git\\final-paper-portal\\src\\web\\backend\\FinalPaper\\FinalPaper.Infrastructure\\FinalPaper.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\mlicu\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.4\\microsoft.entityframeworkcore.design.7.0.4.nupkg.sha512",
     "C:\\Users\\mlicu\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.4\\microsoft.entityframeworkcore.relational.7.0.4.nupkg.sha512",
     "C:\\Users\\mlicu\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.4\\microsoft.entityframeworkcore.sqlserver.7.0.4.nupkg.sha512",
+    "C:\\Users\\mlicu\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.4\\microsoft.entityframeworkcore.tools.7.0.4.nupkg.sha512",
     "C:\\Users\\mlicu\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\mlicu\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\mlicu\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

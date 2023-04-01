@@ -9,6 +9,11 @@ public class ThesisDefenceEntityConfiguration : IEntityTypeConfiguration<ThesisD
     void IEntityTypeConfiguration<ThesisDefence>.Configure(EntityTypeBuilder<ThesisDefence> builder){
         builder.HasKey(k => k.Id);
         builder.Property(p => p.Id).ValueGeneratedOnAdd().IsRequired();
+        builder.Property(p => p.ThesesId).IsRequired();
+        builder.Property(p => p.Date).IsRequired();
+        builder.Property(p => p.DefenceScore).IsRequired();
+        builder.Property(p => p.FinalPaperScore).IsRequired();
+        builder.Property(p => p.Room).IsRequired();
 
         builder.HasOne(o => o.Thesis)
             .WithMany()

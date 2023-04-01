@@ -20,24 +20,25 @@ public class FinalPaperDBContext : BaseDbContext
     {
     }
 
-    public DbSet<User>? Users { get; set; }
-    public DbSet<Course>? Course { get; set; }
-    public DbSet<Thesis>? Thesis { get; set; }
-    public DbSet<ThesisDefence>? ThesisDefence { get; set; }
-    public DbSet<ThesisDefenceUser>? ThesisDefenceUser { get; set; }
-    public DbSet<Roles>? Role { get; set; }
-    public DbSet<CourseTypes>? CourseTypes { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Course> Course { get; set; }
+    public DbSet<Thesis> Thesis { get; set; }
+    public DbSet<ThesisDefence> ThesisDefence { get; set; }
+    public DbSet<ThesisDefenceUser> ThesisDefenceUser { get; set; }
+    public DbSet<Roles> Role { get; set; }
+    public DbSet<CourseTypes> CourseTypes { get; set; }
+    public DbSet<RefreshToken> RefreshToken { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityConfiguration<>).Assembly);
-        // modelBuilder.Entity<User>(builder =>
-        // {
+        modelBuilder.Entity<User>(builder =>
+        {
         //     // Date is a DateOnly property and date on database
         //     // builder.Property(x => x.Date)
         //     //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
-        // });
+        });
 
         SeedEnums(modelBuilder);
     }

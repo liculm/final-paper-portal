@@ -10,6 +10,9 @@ public class CourseEntityConfiguration : IEntityTypeConfiguration<Course>
     {
         builder.HasKey(k => k.Id);
         builder.Property(p => p.Id).ValueGeneratedOnAdd().IsRequired();
+        builder.Property(p => p.Name).HasMaxLength(255).IsRequired();
+        builder.Property(p => p.IsActive).IsRequired();
+        builder.Property(p => p.MentorId).IsRequired(false);
 
         builder.HasOne(o => o.User)
             .WithMany()
