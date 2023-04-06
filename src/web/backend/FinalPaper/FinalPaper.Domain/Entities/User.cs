@@ -9,6 +9,8 @@ public class User : Entity
     {
         FirstName = string.Empty;
         LastName = string.Empty;
+        Password = string.Empty;
+        Username = string.Empty;
     }
     
     public int Id { get; set; }
@@ -22,6 +24,7 @@ public class User : Entity
     public ICollection<Thesis>? Theses { get; set; }
     public ICollection<Course>? Courses { get; set; }
     public ICollection<ThesisDefenceUser>? ThesesDefenceUsers { get; set; }
+    public ICollection<RefreshToken>? RefreshTokens { get; set; }
     
     public void Update(string firstName, string lastName, bool isActive, int roleId) 
     {

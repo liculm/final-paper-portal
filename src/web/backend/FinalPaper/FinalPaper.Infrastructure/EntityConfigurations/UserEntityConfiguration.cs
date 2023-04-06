@@ -2,11 +2,12 @@ using FinalPaper.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FinalPaper.Infrastructure.EntityConfigurations; 
+namespace FinalPaper.Infrastructure.EntityConfigurations;
 
 public class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
-    void IEntityTypeConfiguration<User>.Configure(EntityTypeBuilder<User> builder){
+    void IEntityTypeConfiguration<User>.Configure(EntityTypeBuilder<User> builder)
+    {
         builder.HasKey(k => k.Id);
         builder.Property(p => p.Id).ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.Username).HasMaxLength(100).IsRequired();
@@ -35,6 +36,11 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.HasMany(m => m.Courses)
             .WithOne(o => o.User)
             .HasForeignKey(f => f.MentorId)
+            .IsRequired();
+
+        builder.HasMany(m => m.RefreshTokens)
+            .WithOne(o => o.User)
+            .HasForeignKey(f => f.UserId)
             .IsRequired();
     }
 }

@@ -1,30 +1,46 @@
 using System.Reflection;
 using System.Text;
 using Api.Extensions.Startup;
+using Api.Middlewares;
 using FinalPaper.Command.CommandHandlers.LoginCommand;
 using FinalPaper.Infrastructure;
 using FinalPaper.Query.QueryHandlers.GetAllUsers;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 
-builder.Services.AddControllers();
+builder.Services
+    .AddRouting(options => options.LowercaseUrls = true)
+    .AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    });
+
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(GetAllUsersQuery));
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(LoginCommand));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options => {
+builder.Services.AddCors(options =>
+{
     options.AddPolicy("final-paper-api",
-        builder => {
+        builder =>
+        {
             builder.AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowAnyMethod();
@@ -32,31 +48,24 @@ builder.Services.AddCors(options => {
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options => {
+    .AddJwtBearer(options =>
+    {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = false,
-            ValidateIssuerSigningKey = false,
-            ClockSkew = TimeSpan.FromDays(2),
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"] 
-                                                                               ?? throw new InvalidOperationException()))
+            ValidateIssuer = !string.IsNullOrEmpty(builder.Configuration["Jwt:Issuer"]),
+            ValidateAudience = !string.IsNullOrEmpty(builder.Configuration["Jwt:Audience"]),
+            ValidIssuer = string.IsNullOrEmpty(builder.Configuration["Jwt:Issuer"])
+                ? null
+                : builder.Configuration["Jwt:Issuer"],
+            ValidAudience = string.IsNullOrEmpty(builder.Configuration["Jwt:Audience"])
+                ? null
+                : builder.Configuration["Jwt:Audience"],
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey =
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"] ??
+                                                                throw new InvalidOperationException()))
         };
-    });
-
-builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
-
-builder.Services.AddControllers();
-
-builder.Services.AddFluentValidationAutoValidation()
-    .AddFluentValidationClientsideAdapters()
-    .AddValidatorsFromAssemblies(new[]
-    {
-        typeof(GetAllUsersQuery).Assembly,
-        typeof(LoginCommand).Assembly
     });
 
 var commandAssembly = Assembly.GetAssembly(typeof(LoginCommandHandler));
@@ -68,45 +77,43 @@ builder.Services.AddLogging()
     .AddMemoryCache()
     .RegisterDbContext<FinalPaperDBContext>(builder.Configuration)
     .RegisterScoped(builder.Configuration)
-    .AddSwaggerGen(c => {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-
-            // Add JWT authentication support
-            var securityScheme = new OpenApiSecurityScheme
-            {
-                Name = "Authorization",
-                Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer",
-                BearerFormat = "JWT"
-            };
-            c.AddSecurityDefinition("Bearer", securityScheme);
-            var securityRequirement = new OpenApiSecurityRequirement
-            {
-                { securityScheme, new[] { "Bearer" } }
-            };
-            c.AddSecurityRequirement(securityRequirement);
-        });
+    .AddVersioningAndSwagger(config =>
+    {
+        config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Api.xml"));
+        config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Command.xml"));
+        config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Query.xml"));
+        config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Infrastructure.xml"));
+        config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Domain.xml"));
+    });
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        foreach (var description in app.Services.GetRequiredService<IApiVersionDescriptionProvider>()
+                     .ApiVersionDescriptions)
+            c.SwaggerEndpoint(
+                builder.Configuration["SwaggerEndpoint"]
+                    ?.Replace("{version:apiVersion}", description.GroupName,
+                        StringComparison.Ordinal),
+                $"API {description.GroupName.ToUpperInvariant()}");
+    });
 }
-
-app.UseRouting();
 
 app.UseCors("final-paper-api");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseEndpoints(endpoints => endpoints.MapControllers());
+app.MapControllers();
 
 app.Run();

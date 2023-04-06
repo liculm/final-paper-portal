@@ -1,6 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
+using FinalPaper.Domain.Entities;
 using FinalPaper.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -9,95 +11,132 @@ using Microsoft.IdentityModel.Tokens;
 namespace FinalPaper.Infrastructure.Services; 
 
 public class JwtService : IJwtService {
-    private readonly IConfiguration configuration;
-    private readonly  ILogger<JwtService> logger;
-
+    readonly IConfiguration configuration;
+    readonly  ILogger<JwtService> logger;
+    readonly SymmetricSecurityKey secretKey;
+    readonly SigningCredentials signinCredentials;
+    
     public JwtService(IConfiguration configuration, ILogger<JwtService> logger) {
         this.configuration = configuration;
         this.logger = logger;
+        secretKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"] ?? throw new InvalidOperationException()));
+        signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
     }
 
-    public string GenerateRefreshToken()
+    public string GenerateJwtToken(in string name, in dynamic payload)
     {
-        var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:RefreshTokenSecretKey"] 
-                                                                           ?? throw new InvalidOperationException()));
-        var signingCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
+        var jwtToken = new JwtSecurityToken(claims: null,
+            issuer: string.IsNullOrEmpty(configuration["Jwt:Issuer"])
+                ? null
+                : configuration["Jwt:Issuer"],
+            audience: string.IsNullOrEmpty(configuration["Jwt:Audience"])
+                ? null
+                : configuration["Jwt:Audience"],
+            notBefore: DateTime.Now,
+            expires: DateTime.Now.AddHours(1),
+            signingCredentials: signinCredentials);
 
-        var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
-        };
-
-        var token = new JwtSecurityToken(
-            issuer: configuration["Jwt:Issuer"],
-            audience: configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["Jwt:RefreshTokenExpirationInMinutes"])),
-            signingCredentials: signingCredentials);
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        jwtToken.Payload.Add(name, payload);
+        return new JwtSecurityTokenHandler().WriteToken(jwtToken);
     }
-    public string GenerateAccessToken(string userId, string refreshToken)
-    {
-        var principal = GetPrincipalFromAccessToken(refreshToken);
-        var jti = principal.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Jti)?.Value;
 
-        var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"] 
-                                                                           ?? throw new InvalidOperationException()));
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Issuer = configuration["Jwt:Issuer"],
-            Audience = configuration["Jwt:Audience"],
-            Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(configuration["Jwt:AccessTokenExpirationInMinutes"])),
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, userId),
-                new Claim(JwtRegisteredClaimNames.Jti, jti),
-                new Claim("kid", Guid.NewGuid().ToString()),
-                new Claim("TEst", "jti"),
-            }),
-            SigningCredentials = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256)
-        };
-
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-
-        return tokenHandler.WriteToken(token);
-    }
-    
-    public ClaimsPrincipal GetPrincipalFromAccessToken(string token)
+    public JwtSecurityToken? ValidateJwtToken(in string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var symmetricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"] 
-                                                                           ?? throw new InvalidOperationException()));
-        
-        try {
+        try
+        {
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = false,
-                IssuerSigningKey = symmetricKey,
-                ValidateIssuer = true,
-                ValidIssuer = configuration["Jwt:Issuer"],
-                ValidateAudience = true,
-                ValidAudience = configuration["Jwt:Audience"],
-                ValidateLifetime = false,
-                ClockSkew = TimeSpan.Zero// Because the token may not have expiration date in the refresh token scenario
-            }, out var validatedToken);
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = secretKey,
+                ValidateIssuer = string.IsNullOrEmpty(configuration["Jwt:Issuer"]) ? false : true,
+                ValidateAudience = string.IsNullOrEmpty(configuration["Jwt:Audience"]) ? false : true,
+                ValidIssuer = string.IsNullOrEmpty(configuration["Jwt:Issuer"])
+                    ? null
+                    : configuration["Jwt:Issuer"],
+                ValidAudience = string.IsNullOrEmpty(configuration["Jwt:Audience"])
+                    ? null
+                    : configuration["Jwt:Audience"],
+                ClockSkew = TimeSpan.Zero
+            }, out SecurityToken? validatedToken);
 
-            if (validatedToken is not JwtSecurityToken jwtToken) return null;
-            
-            var claims = jwtToken.Claims;
-            return new ClaimsPrincipal(new ClaimsIdentity(claims, "jwt"));
-
+            return (JwtSecurityToken)validatedToken;
         }
-        catch (Exception exception)
+        catch
         {
-            logger.LogError(exception.ToString());
-            
-            return null;
+            logger.LogError($"Invalid JWT token {token}!");
         }
+
+        return null;
+    }
+
+    public RefreshToken CreateRefreshToken(int expirationDays = 10)
+    {
+        var randomNumber = new byte[32];
+        var generator = RandomNumberGenerator.Create();
+        generator.GetBytes(randomNumber);
+        return new RefreshToken
+        {
+            Token = Convert.ToBase64String(randomNumber),
+            ExpiresDateUtc = DateTime.UtcNow.AddDays(expirationDays),
+            CreatedDateUtc = DateTime.UtcNow
+        };
+    }
+
+    public T? ReadJwtToken<T>(in string token, in string payloadName, in bool validate = false) where T : class
+    {
+        if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(payloadName))
+            return null;
+
+        JwtSecurityToken? jwtSecurityToken;
+        object? payloadData;
+
+        if (validate)
+        {
+            jwtSecurityToken = ValidateJwtToken(token);
+            if (jwtSecurityToken is null)
+                return null;
+
+            jwtSecurityToken.Payload.TryGetValue(payloadName, out payloadData);
+        }
+        else
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            SecurityToken? securityToken = null;
+            try
+            {
+                securityToken = tokenHandler.ReadToken(token);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Invalid JWT token {token}! {ex.Message}");
+            }
+
+            if (securityToken is null)
+                return null;
+            var jwtToken = securityToken as JwtSecurityToken;
+            if (jwtToken is null)
+                return null;
+
+            jwtToken.Payload.TryGetValue(payloadName, out payloadData);
+        }
+
+        if (payloadData is null)
+            return null;
+
+        if (typeof(T) == typeof(string))
+            return (T)payloadData;
+
+        try
+        {
+            return JsonSerializer.Deserialize<T>($"{payloadData}");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError($"Invalid JWT token {token}! {ex.Message}");
+        }
+
+        return null;
     }
 }

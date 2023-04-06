@@ -1,31 +1,39 @@
 using Api.Controllers.Base;
+using FinalPaper.Command.CommandHandlers.Authentication.RegisterCommand;
 using FinalPaper.Command.CommandHandlers.LoginCommand;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.v1; 
+namespace Api.Controllers.v1;
 
-[Route("api/v1/[controller]")]
+[ApiVersion("1")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
-public class UserController : BaseController {
-    private readonly IMediator _mediator;
-    public UserController(IMediator mediator) {
-        _mediator = mediator;
+public class UserController : BaseController
+{
+    [HttpPost("Login")]
+    public async Task<ActionResult<string>> Login([FromBody] LoginCommand command)
+    {
+        return await Mediator.Send(command);
     }
 
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [HttpPost("Login")]
-    public async Task<ActionResult<string>> Login([FromBody] LoginCommand command) => await mediator.Send(command);
-    
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [HttpPost("Register")]
+    public async Task<ActionResult<string>> Register([FromBody] RegisterCommand command)
+    {
+        return await Mediator.Send(command);
+    }
+
     [HttpGet("Users")]
-    public async Task<ActionResult<string>> AllUsers([FromBody] LoginCommand command) => await _mediator.Send(command);
+    public async Task<ActionResult<string>> AllUsers([FromBody] LoginCommand command)
+    {
+        return await Mediator.Send(command);
+    }
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
     [HttpGet("test")]
-    public string Test() => "asd";
-
+    public string Test()
+    {
+        return "asd";
+    }
 }

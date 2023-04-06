@@ -1,9 +1,12 @@
-using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using FinalPaper.Domain.Entities;
 
-namespace FinalPaper.Domain.Interfaces; 
+namespace FinalPaper.Domain.Interfaces;
 
-public interface IJwtService {
-    string GenerateAccessToken(string userId, string refreshToken);
-    string GenerateRefreshToken();
-    ClaimsPrincipal GetPrincipalFromAccessToken(string token);
+public interface IJwtService
+{
+    string GenerateJwtToken(in string name, in dynamic payload);
+    JwtSecurityToken? ValidateJwtToken(in string token);
+    RefreshToken CreateRefreshToken(int expirationDays = 10);
+    T? ReadJwtToken<T>(in string token, in string payloadName, in bool validate = false) where T : class;
 }
