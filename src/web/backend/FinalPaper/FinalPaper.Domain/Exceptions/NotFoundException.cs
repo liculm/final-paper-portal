@@ -1,4 +1,4 @@
-namespace Api.Exceptions;
+namespace FinalPaper.Domain.Exceptions;
 
 /// <summary>
 ///     Exception for a resource is not found.

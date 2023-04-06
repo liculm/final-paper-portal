@@ -1,6 +1,6 @@
 using System.Net;
 using System.Text.Json;
-using Api.Exceptions;
+using FinalPaper.Domain.Exceptions;
 using FluentValidation;
 
 namespace Api.Middlewares;

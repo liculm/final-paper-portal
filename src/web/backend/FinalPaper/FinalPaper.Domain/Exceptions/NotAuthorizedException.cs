@@ -1,4 +1,4 @@
-namespace Api.Exceptions;
+namespace FinalPaper.Domain.Exceptions;
 
 /// <summary>
 ///     Exception for when trying to access a resource with invalid credentials

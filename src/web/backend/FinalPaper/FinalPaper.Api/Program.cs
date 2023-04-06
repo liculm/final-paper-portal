@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Text;
 using Api.Extensions.Startup;
 using Api.Middlewares;
-using FinalPaper.Command.CommandHandlers.LoginCommand;
+using FinalPaper.Command.CommandHandlers.Authentication.LoginCommand;
 using FinalPaper.Infrastructure;
 using FinalPaper.Query.QueryHandlers.GetAllUsers;
 using FluentValidation;

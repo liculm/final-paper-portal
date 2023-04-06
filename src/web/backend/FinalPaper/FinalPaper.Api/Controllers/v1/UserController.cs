@@ -1,6 +1,6 @@
 using Api.Controllers.Base;
+using FinalPaper.Command.CommandHandlers.Authentication.LoginCommand;
 using FinalPaper.Command.CommandHandlers.Authentication.RegisterCommand;
-using FinalPaper.Command.CommandHandlers.LoginCommand;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
