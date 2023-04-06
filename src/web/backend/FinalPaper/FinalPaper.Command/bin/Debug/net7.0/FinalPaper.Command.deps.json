@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "FinalPaper.Command/1.0.0": {
         "dependencies": {
+          "FinalPaper.Domain": "1.0.0",
           "FluentValidation": "11.5.1",
           "FluentValidation.AspNetCore": "11.3.0",
           "MediatR": "11.1.0",
@@ -80,7 +81,12 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {}
+      "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {},
+      "FinalPaper.Domain/1.0.0": {
+        "runtime": {
+          "FinalPaper.Domain.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -137,6 +143,11 @@
       "sha512": "sha512-h3j/QfmFN4S0w4C2A6X7arXij/M/OVw3uQHSOFxnND4DyAzO1F9eMX7Eti7lU/OkSthEE0WzRsfT/Dmx86jzCw==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/7.0.0",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
+    },
+    "FinalPaper.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

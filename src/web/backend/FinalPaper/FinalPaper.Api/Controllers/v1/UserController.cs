@@ -1,6 +1,8 @@
 using Api.Controllers.Base;
 using FinalPaper.Command.CommandHandlers.LoginCommand;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1; 
@@ -21,8 +23,9 @@ public class UserController : BaseController {
     [HttpGet("Users")]
     public async Task<ActionResult<string>> AllUsers([FromBody] LoginCommand command) => await _mediator.Send(command);
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [HttpGet("test")]
-    public async Task<ActionResult<string>> Test() => "asd";
+    public string Test() => "asd";
 
 }

@@ -10,6 +10,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,13 +35,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "your_issuer",
-            ValidAudience = "your_audience",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("final_paper_portal"))
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = false,
+            ValidateIssuerSigningKey = false,
+            ClockSkew = TimeSpan.FromDays(2),
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"] 
+                                                                               ?? throw new InvalidOperationException()))
         };
     });
 
@@ -65,7 +68,26 @@ builder.Services.AddLogging()
     .AddMemoryCache()
     .RegisterDbContext<FinalPaperDBContext>(builder.Configuration)
     .RegisterScoped(builder.Configuration)
-    .AddSwaggerGen();
+    .AddSwaggerGen(c => {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+
+            // Add JWT authentication support
+            var securityScheme = new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT"
+            };
+            c.AddSecurityDefinition("Bearer", securityScheme);
+            var securityRequirement = new OpenApiSecurityRequirement
+            {
+                { securityScheme, new[] { "Bearer" } }
+            };
+            c.AddSecurityRequirement(securityRequirement);
+        });
 
 var app = builder.Build();
 
