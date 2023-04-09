@@ -4,12 +4,12 @@ namespace FinalPaper.Domain.Entities;
 
 public class ThesisDefenceUser : Entity
 {
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     public int ThesisDefenceId { get; set; }
     public User? User { get; set; }
     public ThesisDefence? ThesisDefence { get; set; }
 
-    public void Update(int userId, int thesisDefenceId)
+    public void Update(Guid userId, int thesisDefenceId)
     {
         UserId = userId;
         ThesisDefenceId = thesisDefenceId;

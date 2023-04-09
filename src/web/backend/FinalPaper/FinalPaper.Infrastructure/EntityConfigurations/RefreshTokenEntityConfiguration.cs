@@ -8,17 +8,16 @@ public class RefreshTokenEntityConfiguration : IEntityTypeConfiguration<RefreshT
 {
     void IEntityTypeConfiguration<RefreshToken>.Configure(EntityTypeBuilder<RefreshToken> builder)
     {
-        builder.HasKey(k => k.Token);
-        builder.Property(p => p.Token).IsRequired();
+        builder.HasKey(k => k.UserId);
+        builder.Property(p => p.UserId).IsRequired();
+        builder.Property(p => p.Token).IsRequired(false);
         builder.Property(p => p.ExpiresDateUtc).IsRequired();
         builder.Property(p => p.CreatedDateUtc).IsRequired();
         builder.Property(p => p.RevokedDateUtc).IsRequired(false);
-        builder.Property(p => p.ReplacedByToken).IsRequired(false);
-        builder.Property(p => p.UserId).IsRequired();
 
         builder.HasOne(o => o.User)
-            .WithMany(m => m.RefreshTokens)
-            .HasForeignKey(f => f.UserId)
+            .WithOne(o => o.RefreshToken)
+            .HasForeignKey<RefreshToken>(f => f.UserId)
             .IsRequired();
     }
 }

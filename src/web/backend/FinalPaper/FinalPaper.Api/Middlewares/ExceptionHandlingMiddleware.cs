@@ -1,7 +1,7 @@
 using System.Net;
-using System.Text.Json;
 using FinalPaper.Domain.Exceptions;
 using FluentValidation;
+using Newtonsoft.Json;
 
 namespace Api.Middlewares;
 
@@ -68,7 +68,7 @@ public sealed class ExceptionHandlingMiddleware
             case NotFoundException or InvalidOperationException or UnauthorizedAccessException
                 or ValidationException:
             {
-                var serializedExceptionMessage = JsonSerializer.Serialize(new { message = ex.Message });
+                var serializedExceptionMessage =  JsonConvert.SerializeObject(new { message = ex.Message });
                 return context.Response.WriteAsync(serializedExceptionMessage);
             }
             default:

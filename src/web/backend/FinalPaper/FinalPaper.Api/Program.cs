@@ -1,8 +1,9 @@
 using System.Reflection;
 using System.Text;
+using System.Text.Json.Serialization;
 using Api.Extensions.Startup;
 using Api.Middlewares;
-using FinalPaper.Command.CommandHandlers.Authentication.LoginCommand;
+using FinalPaper.Command.CommandHandlers.Authentication.Login;
 using FinalPaper.Infrastructure;
 using FinalPaper.Query.QueryHandlers.GetAllUsers;
 using FluentValidation;
@@ -20,7 +21,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 
 builder.Services
-    .AddRouting(options => options.LowercaseUrls = true)
     .AddControllers()
     .AddNewtonsoftJson(options =>
     {
@@ -77,6 +77,7 @@ builder.Services.AddLogging()
     .AddMemoryCache()
     .RegisterDbContext<FinalPaperDBContext>(builder.Configuration)
     .RegisterScoped(builder.Configuration)
+    .AddCurrentUser()
     .AddVersioningAndSwagger(config =>
     {
         config.Add(Path.Combine(AppContext.BaseDirectory, "FinalPaper.Api.xml"));
@@ -87,8 +88,6 @@ builder.Services.AddLogging()
     });
 
 var app = builder.Build();
-
-app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
@@ -114,6 +113,8 @@ app.UseCors("final-paper-api");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseUserMiddleware();
 app.MapControllers();
 
 app.Run();

@@ -1,6 +1,12 @@
 using Api.Controllers.Base;
-using FinalPaper.Command.CommandHandlers.Authentication.LoginCommand;
-using FinalPaper.Command.CommandHandlers.Authentication.RegisterCommand;
+using FinalPaper.Command.CommandHandlers.Authentication.Login;
+using FinalPaper.Command.CommandHandlers.Authentication.RefreshJwtToken;
+using FinalPaper.Command.CommandHandlers.Authentication.Register;
+using FinalPaper.Command.CommandHandlers.Authentication.RevokeRefreshToken;
+using FinalPaper.Domain.Enums;
+using FinalPaper.Domain.ViewModels;
+using FinalPaper.Query.QueryHandlers.GetAllUsers;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,28 +18,56 @@ namespace Api.Controllers.v1;
 [ApiController]
 public class UserController : BaseController
 {
-    [HttpPost("Login")]
-    public async Task<ActionResult<string>> Login([FromBody] LoginCommand command)
+    [HttpPost("register")]
+    public async Task<ActionResult<UserViewModel>> Register([FromBody] RegisterCommand command)
     {
         return await Mediator.Send(command);
     }
 
-    [HttpPost("Register")]
-    public async Task<ActionResult<string>> Register([FromBody] RegisterCommand command)
+    [HttpPost("login")]
+    public async Task<ActionResult<UserViewModel>> Login([FromBody] LoginCommand command)
     {
-        return await Mediator.Send(command);
+        var response = await Mediator.Send(command);
+        if (!string.IsNullOrEmpty(response.User.RefreshToken?.Token))
+            SetRefreshTokenInCookie(response.User.RefreshToken?.Token);
+
+        return response;
     }
 
-    [HttpGet("Users")]
-    public async Task<ActionResult<string>> AllUsers([FromBody] LoginCommand command)
+    [HttpPost("refresh-jwt-token")]
+    public async Task<ActionResult<UserViewModel>> RefreshJwtToken([FromBody] RefreshJwtTokenCommand request)
     {
-        return await Mediator.Send(command);
+        var refreshToken = request.RefreshToken ?? Request.Cookies["refreshToken"];
+        if (string.IsNullOrEmpty(refreshToken))
+            return BadRequest(new { message = "Refresh Token is required!" });
+
+        var response = await Mediator.Send(new RefreshJwtTokenCommand(refreshToken));
+
+        if (!string.IsNullOrEmpty(response.User.RefreshToken?.Token))
+            SetRefreshTokenInCookie(response.User.RefreshToken?.Token);
+
+        return response;
     }
+
+    [HttpPost("revoke-refresh-token")]
+    public async Task<ActionResult> RevokeRefreshToken([FromBody] RevokeRefreshTokenCommand request)
+    {
+        var refreshToken = request.RefreshToken ?? Request.Cookies["refreshToken"];
+        if (string.IsNullOrEmpty(refreshToken))
+            return BadRequest(new { message = "Refresh Token is required!" });
+
+        var response = await Mediator.Send(new RevokeRefreshTokenCommand(refreshToken));
+        if (!response)
+            return NotFound(new { message = "Refresh Token not found!" });
+
+        return Ok(new { message = "Refresh Token revoked!" });
+    }
+
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("test")]
-    public string Test()
+    [HttpGet("all"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult<Unit>> GatAllUsers()
     {
-        return "asd";
+        return await Mediator.Send(new GetAllUsersQuery());
     }
 }

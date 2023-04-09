@@ -1,8 +1,8 @@
 using FluentValidation;
 
-namespace FinalPaper.Command.CommandHandlers.Authentication.RegisterCommand;
+namespace FinalPaper.Command.CommandHandlers.Authentication.Register;
 
-public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+public sealed class RegisterCommandValidator : AbstractValidator<Register.RegisterCommand>
 {
     public RegisterCommandValidator()
     {

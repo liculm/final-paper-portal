@@ -1,22 +1,26 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
 using FinalPaper.Domain.Entities;
+using FinalPaper.Domain.Enums;
 using FinalPaper.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
-namespace FinalPaper.Infrastructure.Services; 
+namespace FinalPaper.Infrastructure.Services;
 
-public class JwtService : IJwtService {
-    readonly IConfiguration configuration;
-    readonly  ILogger<JwtService> logger;
-    readonly SymmetricSecurityKey secretKey;
-    readonly SigningCredentials signinCredentials;
-    
-    public JwtService(IConfiguration configuration, ILogger<JwtService> logger) {
+public class JwtService : IJwtService
+{
+    private readonly IConfiguration configuration;
+    private readonly ILogger<JwtService> logger;
+    private readonly SymmetricSecurityKey secretKey;
+    private readonly SigningCredentials signinCredentials;
+
+    public JwtService(IConfiguration configuration, ILogger<JwtService> logger)
+    {
         this.configuration = configuration;
         this.logger = logger;
         secretKey = new SymmetricSecurityKey(
@@ -24,9 +28,16 @@ public class JwtService : IJwtService {
         signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
     }
 
-    public string GenerateJwtToken(in string name, in dynamic payload)
+    public string GenerateJwtToken(in User user)
     {
-        var jwtToken = new JwtSecurityToken(claims: null,
+        // TODO: [el] Currently all users will have Admin access. This should be updated!
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Name, user.Username),
+            new(ClaimTypes.Role, Roles.Admin.Name)
+        };
+
+        var jwtToken = new JwtSecurityToken(claims: claims,
             issuer: string.IsNullOrEmpty(configuration["Jwt:Issuer"])
                 ? null
                 : configuration["Jwt:Issuer"],
@@ -37,7 +48,12 @@ public class JwtService : IJwtService {
             expires: DateTime.Now.AddHours(1),
             signingCredentials: signinCredentials);
 
-        jwtToken.Payload.Add(name, payload);
+        var json = JsonConvert.SerializeObject(user, Formatting.Indented, new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        });
+
+        jwtToken.Payload.Add("user", json);
         return new JwtSecurityTokenHandler().WriteToken(jwtToken);
     }
 
@@ -59,7 +75,7 @@ public class JwtService : IJwtService {
                     ? null
                     : configuration["Jwt:Audience"],
                 ClockSkew = TimeSpan.Zero
-            }, out SecurityToken? validatedToken);
+            }, out var validatedToken);
 
             return (JwtSecurityToken)validatedToken;
         }
@@ -84,9 +100,9 @@ public class JwtService : IJwtService {
         };
     }
 
-    public T? ReadJwtToken<T>(in string token, in string payloadName, in bool validate = false) where T : class
+    public T? ReadJwtToken<T>(in string token, in bool validate = false) where T : class
     {
-        if (string.IsNullOrEmpty(token) || string.IsNullOrEmpty(payloadName))
+        if (string.IsNullOrEmpty(token))
             return null;
 
         JwtSecurityToken? jwtSecurityToken;
@@ -98,7 +114,7 @@ public class JwtService : IJwtService {
             if (jwtSecurityToken is null)
                 return null;
 
-            jwtSecurityToken.Payload.TryGetValue(payloadName, out payloadData);
+            jwtSecurityToken.Payload.TryGetValue("user", out payloadData);
         }
         else
         {
@@ -119,7 +135,7 @@ public class JwtService : IJwtService {
             if (jwtToken is null)
                 return null;
 
-            jwtToken.Payload.TryGetValue(payloadName, out payloadData);
+            jwtToken.Payload.TryGetValue("user", out payloadData);
         }
 
         if (payloadData is null)
@@ -130,7 +146,7 @@ public class JwtService : IJwtService {
 
         try
         {
-            return JsonSerializer.Deserialize<T>($"{payloadData}");
+            return JsonConvert.DeserializeObject<T>($"{payloadData}");
         }
         catch (Exception ex)
         {

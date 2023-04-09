@@ -1,16 +1,18 @@
 using FinalPaper.Domain.Entities;
 using FinalPaper.Domain.Enums;
 using FinalPaper.Domain.Interfaces;
+using FinalPaper.Domain.ViewModels;
 using FinalPaper.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Throw;
 
-namespace FinalPaper.Command.CommandHandlers.Authentication.RegisterCommand;
+namespace FinalPaper.Command.CommandHandlers.Authentication.Register;
 
-public sealed record RegisterCommand(string Username, string Password, string ConfirmPassword) : IRequest<string>;
+public sealed record RegisterCommand
+    (string Username, string Password, string ConfirmPassword) : IRequest<UserViewModel>;
 
-public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, string>
+public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, UserViewModel>
 {
     private readonly FinalPaperDBContext context;
     private readonly IJwtService jwtService;
@@ -23,7 +25,7 @@ public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, s
         this.jwtService = jwtService;
     }
 
-    public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<UserViewModel> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var userExists = await context.Users.AsNoTracking()
             .AnyAsync(x => x.Username.ToLower() == request.Username.ToLower(),
@@ -43,7 +45,7 @@ public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, s
 
         context.Users.Add(newUser);
         await context.SaveChangesAsync(cancellationToken);
-        
-        return jwtService.GenerateJwtToken("user", newUser);
+
+        return new UserViewModel(newUser, jwtService.GenerateJwtToken(newUser));
     }
 }

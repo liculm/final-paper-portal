@@ -1,7 +1,7 @@
 using FinalPaper.Domain.Entities.Base;
 using FinalPaper.Domain.Enums;
 
-namespace FinalPaper.Domain.Entities; 
+namespace FinalPaper.Domain.Entities;
 
 public class User : Entity
 {
@@ -12,8 +12,8 @@ public class User : Entity
         Password = string.Empty;
         Username = string.Empty;
     }
-    
-    public int Id { get; set; }
+
+    public Guid Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Password { get; set; }
@@ -24,13 +24,24 @@ public class User : Entity
     public ICollection<Thesis>? Theses { get; set; }
     public ICollection<Course>? Courses { get; set; }
     public ICollection<ThesisDefenceUser>? ThesesDefenceUsers { get; set; }
-    public ICollection<RefreshToken>? RefreshTokens { get; set; }
-    
-    public void Update(string firstName, string lastName, bool isActive, int roleId) 
+    public RefreshToken? RefreshToken { get; set; }
+
+    public void Update(string firstName, string lastName, bool isActive, int roleId)
     {
         FirstName = firstName;
         LastName = lastName;
         IsActive = isActive;
         RoleId = roleId;
+    }
+
+    public void UpdateUser(User user)
+    {
+        Id = user.Id;
+        FirstName = user.FirstName;
+        LastName = user.LastName;
+        Password = user.Password;
+        Username = user.Username;
+        IsActive = user.IsActive;
+        RoleId = user.RoleId;
     }
 }

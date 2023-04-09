@@ -1,17 +1,22 @@
+using FinalPaper.Domain.Entities;
 using MediatR;
 
-namespace FinalPaper.Query.QueryHandlers.GetAllUsers; 
+namespace FinalPaper.Query.QueryHandlers.GetAllUsers;
 
-public sealed record GetAllUsersQuery : IRequest<string> {
-    public string Username { get; set; }
-    public string Password { get; set; }
-}
+public sealed record GetAllUsersQuery : IRequest<Unit>;
 
-public sealed class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, string> {
-    public async Task<string> Handle(GetAllUsersQuery request, CancellationToken cancellationToken) {
+public sealed class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, Unit>
+{
+    private readonly User user;
 
-        var result = request.Username + request.Password;
+    public GetAllUsersQueryHandler(User user)
+    {
+        this.user = user;
+    }
 
-        return result;
+
+    public async Task<Unit> Handle(GetAllUsersQuery request, CancellationToken cancellationToken) {
+        
+        return Unit.Value;
     }
 };

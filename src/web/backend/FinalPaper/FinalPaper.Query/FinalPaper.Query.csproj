@@ -29,4 +29,8 @@
       <None Remove="obj\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FinalPaper.Domain\FinalPaper.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -13,13 +13,13 @@ public class Course : Entity
     public int Id { get; set; }
     public string Name { get; set; }
     public bool IsActive { get; set; }
-    public int? MentorId { get; set; }
+    public Guid? MentorId { get; set; }
     public int CourseTypeId { get; set; }
     public User? User { get; set; }
     public CourseTypes? CourseType { get; set; }
     public ICollection<Thesis>? Theses { get; set; }
 
-    public void Update(string name, bool isActive, int mentorId, int courseTypeId)
+    public void Update(string name, bool isActive, Guid mentorId, int courseTypeId)
     {
         Name = name;
         IsActive = isActive;

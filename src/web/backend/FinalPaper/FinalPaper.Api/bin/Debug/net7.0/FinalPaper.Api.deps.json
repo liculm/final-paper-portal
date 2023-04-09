@@ -1243,6 +1243,7 @@
       },
       "FinalPaper.Query/1.0.0": {
         "dependencies": {
+          "FinalPaper.Domain": "1.0.0",
           "FluentValidation": "11.5.1",
           "FluentValidation.AspNetCore": "11.3.0",
           "FluentValidation.DependencyInjectionExtensions": "11.5.1",

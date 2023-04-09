@@ -38,9 +38,9 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(f => f.MentorId)
             .IsRequired();
 
-        builder.HasMany(m => m.RefreshTokens)
+        builder.HasOne(o => o.RefreshToken)
             .WithOne(o => o.User)
-            .HasForeignKey(f => f.UserId)
+            .HasForeignKey<RefreshToken>(f => f.UserId)
             .IsRequired();
     }
 }
