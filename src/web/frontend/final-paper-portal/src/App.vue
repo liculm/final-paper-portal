@@ -1,31 +1,87 @@
 <template>
-  <nav>
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="layout-container">
+    <div class="sidebar p-shadow-4">
+      <h3 class="p-m-0">Sidebar</h3>
+      <ul>
+        <li>
+          <router-link to="/about">About</router-link>
+        </li>
+        <!--        <li>-->
+        <!--          <router-link to="/page2">Page 2</router-link>-->
+        <!--        </li>-->
+      </ul>
+    </div>
+    <div class="content">
+      <header class="p-shadow-2">
+        <h1 class="p-m-0">{{ pageTitle }}</h1>
+        <button class="p-button p-button-text p-button-danger p-ml-auto" @click="logout()">Logout</button>
+      </header>
+<!--      <main>-->
+<!--        <router-view></router-view>-->
+<!--      </main>-->
+    </div>
+  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: 'Layout',
+  data () {
+    return {
+      pageTitle: ''
+    };
+  },
+  methods: {
+    logout () {
+      // Your logout logic goes here
+    }
+  },
+  watch: {
+    // Update the page title based on the current route
+    $route (to) {
+      this.pageTitle = to.meta.title;
     }
   }
+};
+</script>
+
+<style scoped>
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #007be5;
+  color: #fff;
+}
+
+main {
+  margin-top: 1rem;
+}
+
+.p-button-danger {
+  color: #ff4d4f;
+}
+
+.p-button-text {
+  text-decoration: none !important;
 }
 </style>

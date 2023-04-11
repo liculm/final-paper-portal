@@ -18,17 +18,27 @@
 </template>
 
 <script>
+import api from '@/services/api'
+
 export default {
   name: 'Login',
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      resource: null
     };
   },
   methods: {
-    login () {
-      // Your login logic goes here
+    async login () {
+      const loginData = {
+        username: this.username,
+        password: this.password,
+        rememberMe: true
+      }
+
+      const resource = await api.login(loginData);
+      this.resource = resource;
     }
   }
 };

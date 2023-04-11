@@ -1,9 +1,8 @@
 using Api.Controllers.Base;
-using FinalPaper.Command.CommandHandlers.Authentication.Login;
-using FinalPaper.Command.CommandHandlers.Authentication.RefreshJwtToken;
-using FinalPaper.Command.CommandHandlers.Authentication.Register;
-using FinalPaper.Command.CommandHandlers.Authentication.RevokeRefreshToken;
-using FinalPaper.Domain.Enums;
+using FinalPaper.Command.CommandHandlers.User.Login;
+using FinalPaper.Command.CommandHandlers.User.RefreshJwtToken;
+using FinalPaper.Command.CommandHandlers.User.Register;
+using FinalPaper.Command.CommandHandlers.User.RevokeRefreshToken;
 using FinalPaper.Domain.ViewModels;
 using FinalPaper.Query.QueryHandlers.GetAllUsers;
 using MediatR;

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Throw;
 
-namespace FinalPaper.Command.CommandHandlers.Authentication.Login;
+namespace FinalPaper.Command.CommandHandlers.User.Login;
 
 public sealed record LoginCommand(string Username, string Password, bool RememberMe) : IRequest<UserViewModel>;
 

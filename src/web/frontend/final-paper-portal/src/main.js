@@ -8,6 +8,7 @@ import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import Button from 'primevue/button';
 import Ripple from 'primevue/ripple';
+import Sidebar from 'primevue/sidebar'
 
 const app = createApp(App);
 
@@ -17,5 +18,6 @@ app.use(router);
 app.directive('ripple', Ripple);
 
 app.component('Button', Button);
+app.component('Sidebar', Sidebar);
 
 app.mount('#app');

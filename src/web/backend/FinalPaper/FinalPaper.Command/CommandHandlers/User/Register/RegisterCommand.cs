@@ -1,4 +1,3 @@
-using FinalPaper.Domain.Entities;
 using FinalPaper.Domain.Enums;
 using FinalPaper.Domain.Interfaces;
 using FinalPaper.Domain.ViewModels;
@@ -7,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Throw;
 
-namespace FinalPaper.Command.CommandHandlers.Authentication.Register;
+namespace FinalPaper.Command.CommandHandlers.User.Register;
 
 public sealed record RegisterCommand
     (string Username, string Password, string ConfirmPassword) : IRequest<UserViewModel>;
@@ -33,7 +32,7 @@ public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, U
 
         userExists.Throw("Username already exists").IfTrue();
 
-        var newUser = new User
+        var newUser = new Domain.Entities.User
         {
             Username = request.Username,
             Password = passwordHasher.HashPassword(request.Password),

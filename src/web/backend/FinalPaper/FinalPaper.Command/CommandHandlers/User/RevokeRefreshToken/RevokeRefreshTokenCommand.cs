@@ -3,7 +3,7 @@ using FinalPaper.Infrastructure;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalPaper.Command.CommandHandlers.Authentication.RevokeRefreshToken;
+namespace FinalPaper.Command.CommandHandlers.User.RevokeRefreshToken;
 
 public sealed record RevokeRefreshTokenCommand(string? RefreshToken) : IRequest<bool>;
 
