@@ -10,6 +10,9 @@ import Button from 'primevue/button';
 import Ripple from 'primevue/ripple';
 import Sidebar from 'primevue/sidebar'
 import TabMenu from 'primevue/tabmenu'
+import Checkbox from 'primevue/checkbox'
+import InputText from 'primevue/inputtext'
+import './assets/styles.scss'
 
 const app = createApp(App);
 
@@ -21,5 +24,7 @@ app.directive('ripple', Ripple);
 app.component('Button', Button);
 app.component('Sidebar', Sidebar);
 app.component('TabMenu', TabMenu);
+app.component('Checkbox', Checkbox);
+app.component('InputText', InputText);
 
 app.mount('#app');

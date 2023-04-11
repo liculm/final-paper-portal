@@ -8,6 +8,8 @@ const apiClient = axios.create({
   }
 });
 
+axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('jwtToken')}`;
+
 export default {
   async getResource () {
     const response = await apiClient.get('/resource'); // replace with the endpoint of your .NET API
@@ -16,5 +18,5 @@ export default {
   async login (data) {
     const response = await apiClient.post('user/login', data); // replace with the endpoint of your .NET API
     return response.data;
-  }// add additional API methods as needed
+  }
 };

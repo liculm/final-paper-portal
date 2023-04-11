@@ -4,14 +4,18 @@
       <h1>Login</h1>
       <div class="p-fluid">
         <div class="p-field">
-          <label for="username">Username</label>
-          <input id="username" type="text" v-model="username" />
+          <label for="username">Username: </label>
+          <InputText id="username" type="text" v-model="username"/>
         </div>
         <div class="p-field">
-          <label for="password">Password</label>
-          <input id="password" type="password" v-model="password" />
+          <label for="password">Password: </label>
+          <InputText id="password" type="password" v-model="password"/>
         </div>
-        <button class="p-button p-mt-3" @click="login()">Login</button>
+        <div class="p-field">
+          <label for="rememberMe" class="ml-2">Remember me: </label>
+          <Checkbox v-model="rememberMe" :binary="true" id="rememberMe"/>
+        </div>
+        <Button class="p-button p-mt-3" @click="login()">Login</Button>
       </div>
     </div>
   </div>
@@ -26,22 +30,24 @@ export default {
     return {
       username: '',
       password: '',
-      resource: null
-    };
+      rememberMe: false
+      // resource: null
+    }
   },
   methods: {
     async login () {
       const loginData = {
         username: this.username,
         password: this.password,
-        rememberMe: true
+        rememberMe: this.rememberMe
       }
 
-      const resource = await api.login(loginData);
-      this.resource = resource;
+      const response = await api.login(loginData)
+
+      localStorage.setItem('jwtToken', response.jwtToken)
     }
   }
-};
+}
 </script>
 
 <style scoped>
