@@ -3,7 +3,6 @@ import { axiosPublic } from '@/common/axiosPublic'
 
 export default {
   async getTest () {
-    localStorage.setItem('hy', 'response.user.refreshToken.token')
     const response = await axiosPrivate.get('user/test');
 
     return response.data;

@@ -19,7 +19,8 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'eol-last': 'off',
     'quote-props': 'off',
-    'no-trailing-spaces': 'off'
+    'no-trailing-spaces': 'off',
+    'curly': 'off'
   }
 }
 
