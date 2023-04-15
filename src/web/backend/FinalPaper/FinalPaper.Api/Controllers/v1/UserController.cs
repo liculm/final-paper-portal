@@ -69,4 +69,10 @@ public class UserController : BaseController
     {
         return await Mediator.Send(new GetAllUsersQuery());
     }
+    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [HttpGet("test"), Authorize(Roles = "Admin")]
+    public Task<ActionResult<string>> Test() {
+        return Task.FromResult<ActionResult<string>>("Success");
+    }
 }

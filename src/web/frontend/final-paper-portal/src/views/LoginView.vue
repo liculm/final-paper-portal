@@ -31,7 +31,6 @@ export default {
       username: '',
       password: '',
       rememberMe: false
-      // resource: null
     }
   },
   methods: {
@@ -43,8 +42,9 @@ export default {
       }
 
       const response = await api.login(loginData)
-
-      localStorage.setItem('jwtToken', response.jwtToken)
+      if (response) {
+        this.$router.push('home')
+      }
     }
   }
 }

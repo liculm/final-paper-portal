@@ -1,22 +1,20 @@
-import axios from 'axios';
-
-const apiClient = axios.create({
-  baseURL: 'https://localhost:7169/api/v1/',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
-});
-
-axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('jwtToken')}`;
+import { axiosPrivate } from '@/common/axiosPrivate'
+import { axiosPublic } from '@/common/axiosPublic'
 
 export default {
-  async getResource () {
-    const response = await apiClient.get('/resource'); // replace with the endpoint of your .NET API
+  async getTest () {
+    localStorage.setItem('hy', 'response.user.refreshToken.token')
+    const response = await axiosPrivate.get('user/test');
+
     return response.data;
   },
   async login (data) {
-    const response = await apiClient.post('user/login', data); // replace with the endpoint of your .NET API
+    const response = await axiosPublic.post('user/login', data);
+
+    localStorage.getItem('refreshToken')
+    localStorage.setItem('refreshToken', response.data.user.refreshToken.token)
+    localStorage.getItem('jwtToken')
+    localStorage.setItem('jwtToken', response.data.jwtToken)
     return response.data;
   }
 };

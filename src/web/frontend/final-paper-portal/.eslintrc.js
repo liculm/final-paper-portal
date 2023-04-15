@@ -18,7 +18,8 @@ module.exports = {
     'semi': 'off',
     'vue/multi-word-component-names': 'off',
     'eol-last': 'off',
-    'quote-props': 'off'
+    'quote-props': 'off',
+    'no-trailing-spaces': 'off'
   }
 }
 

@@ -25,7 +25,6 @@ const items = ref([
     icon: 'pi pi-fw pi-power-off',
     class: 'logout-button',
     to: '/login'
-    // command: this.logout
   }
 ]);
 </script>
