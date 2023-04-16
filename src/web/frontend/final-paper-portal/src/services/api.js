@@ -10,8 +10,12 @@ export default {
   async login (data) {
     const response = await axiosPublic.post('user/login', data);
 
+    localStorage.getItem('user')
+    localStorage.setItem('user', JSON.stringify(response.data))
+
     localStorage.getItem('refreshToken')
     localStorage.setItem('refreshToken', response.data.user.refreshToken.token)
+
     localStorage.getItem('jwtToken')
     localStorage.setItem('jwtToken', response.data.jwtToken)
     return response.data;

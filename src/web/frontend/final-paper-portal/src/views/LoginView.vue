@@ -23,9 +23,15 @@
 
 <script>
 import api from '@/services/api'
+import { onMounted } from 'vue'
 
 export default {
   name: 'Login',
+  setup () {
+    onMounted(() => {
+      localStorage.clear()
+    })
+  },
   data () {
     return {
       username: '',
