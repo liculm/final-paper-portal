@@ -3,6 +3,7 @@ import AboutView from '@/views/AboutView.vue'
 import LoginView from '@/views/LoginView.vue'
 import MainLayout from '@/layout/MainLayout.vue'
 import HomeView from '@/views/HomeView.vue'
+import UserManagementView from '@/views/UserManagementView.vue'
 
 const routes = [
   {
@@ -24,6 +25,12 @@ const routes = [
         name: 'about',
         meta: { title: 'About' },
         component: AboutView
+      },
+      {
+        path: 'userManagement',
+        name: 'userManagement',
+        meta: { title: 'Users' },
+        component: UserManagementView
       }
     ]
   },

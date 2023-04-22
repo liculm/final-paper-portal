@@ -13,6 +13,7 @@ import TabMenu from 'primevue/tabmenu'
 import Checkbox from 'primevue/checkbox'
 import InputText from 'primevue/inputtext'
 import './assets/styles.scss'
+import { Dropdown, RadioButton } from 'primevue/dropdown'
 
 const app = createApp(App);
 
@@ -22,6 +23,8 @@ app.use(router);
 app.directive('ripple', Ripple);
 
 app.component('Button', Button);
+app.component('Dropdown', Dropdown);
+app.component('RadioButton', RadioButton);
 app.component('Sidebar', Sidebar);
 app.component('TabMenu', TabMenu);
 app.component('Checkbox', Checkbox);

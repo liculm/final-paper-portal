@@ -14,7 +14,7 @@ export default {
     localStorage.setItem('user', JSON.stringify(response.data))
 
     localStorage.getItem('refreshToken')
-    localStorage.setItem('refreshToken', response.data.user.refreshToken.token)
+    localStorage.setItem('refreshToken', response.data.refreshToken.token)
 
     localStorage.getItem('jwtToken')
     localStorage.setItem('jwtToken', response.data.jwtToken)

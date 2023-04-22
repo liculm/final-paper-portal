@@ -24,11 +24,11 @@ public class UserController : BaseController
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<UserViewModel>> Login([FromBody] LoginCommand command)
+    public async Task<ActionResult<UserData>> Login([FromBody] LoginCommand command)
     {
         var response = await Mediator.Send(command);
-        if (!string.IsNullOrEmpty(response.User.RefreshToken?.Token))
-            SetRefreshTokenInCookie(response.User.RefreshToken?.Token);
+        if (!string.IsNullOrEmpty(response.RefreshToken?.Token))
+            SetRefreshTokenInCookie(response.RefreshToken?.Token);
 
         return response;
     }

@@ -1,5 +1,7 @@
+using FinalPaper.Domain.Enums;
 using FinalPaper.Domain.Exceptions;
 using FinalPaper.Domain.Interfaces;
+using FinalPaper.Domain.Utility;
 using FinalPaper.Domain.ViewModels;
 using FinalPaper.Infrastructure;
 using MediatR;
@@ -9,9 +11,9 @@ using Throw;
 
 namespace FinalPaper.Command.CommandHandlers.User.Login;
 
-public sealed record LoginCommand(string Username, string Password, bool RememberMe) : IRequest<UserViewModel>;
+public sealed record LoginCommand(string Username, string Password, bool RememberMe) : IRequest<UserData>;
 
-public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, UserViewModel>
+public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, UserData>
 {
     private readonly FinalPaperDBContext context;
     private readonly IJwtService jwtService;
@@ -24,7 +26,7 @@ public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, UserView
         this.passwordHasher = passwordHasher;
     }
 
-    public async Task<UserViewModel> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<UserData> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var user = await context.Users.Include(x => x.RefreshToken)
             .FirstOrDefaultAsync(x => x.Username == request.Username, cancellationToken);
@@ -38,19 +40,43 @@ public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, UserView
         {
             user.RefreshToken?.Revoke();
             user.Password = string.Empty;
-            return new UserViewModel(user, jwtService.GenerateJwtToken(user));
+            return new UserData( 
+                jwtService.GenerateJwtToken(user),
+                user.FirstName,
+                user.LastName,
+                user.Username,
+                user.RoleId,
+                user.RefreshToken,
+                Enumeration.FromValue<Roles>(user.RoleId).Name
+            );
         }
 
         if (user.RefreshToken is not null && user.RefreshToken.IsActive)
         {
             user.Password = string.Empty;
-            return new UserViewModel(user, jwtService.GenerateJwtToken(user));
+            return new UserData( 
+                jwtService.GenerateJwtToken(user),
+                user.FirstName,
+                user.LastName,
+                user.Username,
+                user.RoleId,
+                user.RefreshToken,
+                Enumeration.FromValue<Roles>(user.RoleId).Name
+            );
         }
 
         user.RefreshToken = jwtService.CreateRefreshToken();
         await context.SaveChangesAsync(cancellationToken);
 
         user.Password = string.Empty;
-        return new UserViewModel(user, jwtService.GenerateJwtToken(user));
+        return new UserData( 
+            jwtService.GenerateJwtToken(user),
+            user.FirstName,
+            user.LastName,
+            user.Username,
+            user.RoleId,
+            user.RefreshToken,
+            Enumeration.FromValue<Roles>(user.RoleId).Name
+                );
     }
 }

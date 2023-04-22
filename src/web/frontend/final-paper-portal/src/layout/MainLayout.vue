@@ -25,6 +25,11 @@ const items = ref([
     icon: 'pi pi-fw pi-power-off',
     class: 'logout-button',
     to: '/login'
+  },
+  {
+    label: 'User',
+    icon: 'pi pi-fw pi-power-off',
+    to: '/userManagement'
   }
 ]);
 </script>
