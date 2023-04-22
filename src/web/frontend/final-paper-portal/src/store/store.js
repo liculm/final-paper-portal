@@ -8,5 +8,9 @@ export const useUserStore = defineStore('user', () => {
     this.user = user;
   }
 
-  return { user, setUser }
+  function isAuthenticated() {
+    return !!this.user;
+  }
+
+  return { user, setUser, isAuthenticated }
 })

@@ -4,6 +4,7 @@ import LoginView from '@/views/LoginView.vue'
 import MainLayout from '@/layout/MainLayout.vue'
 import HomeView from '@/views/HomeView.vue'
 import UserManagementView from '@/views/UserManagementView.vue'
+import { useUserStore } from '@/store/store'
 
 const routes = [
   {
@@ -17,19 +18,28 @@ const routes = [
       {
         path: 'home',
         name: 'home',
-        meta: { title: 'Home' },
+        meta: {
+          title: 'Home',
+          requiresAuth: true
+        },
         component: HomeView
       },
       {
         path: 'about',
         name: 'about',
-        meta: { title: 'About' },
+        meta: {
+          title: 'About',
+          requiresAuth: true
+        },
         component: AboutView
       },
       {
         path: 'userManagement',
         name: 'userManagement',
-        meta: { title: 'Users' },
+        meta: {
+          title: 'Users',
+          requiresAuth: true
+        },
         component: UserManagementView
       }
     ]
@@ -44,6 +54,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const user = useUserStore();
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!user.isAuthenticated()) {
+      next({ name: 'login' })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

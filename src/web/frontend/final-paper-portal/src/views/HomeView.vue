@@ -2,7 +2,7 @@
   <div class="home">
     <img @click="log()" alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    as
+    as {{store.user.firstName}}
   </div>
 </template>
 
@@ -16,16 +16,16 @@ export default {
   name: 'HomeView',
   setup () {
 
-    const store = useUserStore();
-
     onMounted(() => {
-      const user = store.user;
-
-      console.log(user);
       // if (!this.user) {
       //   this.$router.push('login')
       // }
     })
+  },
+  data () {
+    return {
+      store: useUserStore()
+    }
   },
   components: {
     HelloWorld
