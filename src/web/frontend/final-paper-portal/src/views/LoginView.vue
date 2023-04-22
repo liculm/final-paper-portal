@@ -24,6 +24,7 @@
 <script>
 import api from '@/services/api'
 import { onMounted } from 'vue'
+import { useUserStore } from '@/store/store'
 
 export default {
   name: 'Login',
@@ -36,7 +37,8 @@ export default {
     return {
       username: '',
       password: '',
-      rememberMe: false
+      rememberMe: false,
+      store: useUserStore()
     }
   },
   methods: {
@@ -48,6 +50,10 @@ export default {
       }
 
       const response = await api.login(loginData)
+
+      this.store.setUser(response);
+      // await this.$store.dispatch('setUser', response)
+
       if (response) {
         this.$router.push('home')
       }

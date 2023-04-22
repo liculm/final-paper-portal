@@ -122,13 +122,8 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { Dropdown, RadioButton } from 'primevue/dropdown';
 
 export default defineComponent({
-  components: {
-    Dropdown,
-    RadioButton
-  },
   data () {
     return {
       users: [
