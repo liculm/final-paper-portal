@@ -4,34 +4,62 @@
       <h1>Login</h1>
       <div class="p-fluid">
         <div class="p-field">
-          <label for="username">Username</label>
-          <input id="username" type="text" v-model="username" />
+          <label for="username">Username: </label>
+          <InputText id="username" type="text" v-model="username"/>
         </div>
         <div class="p-field">
-          <label for="password">Password</label>
-          <input id="password" type="password" v-model="password" />
+          <label for="password">Password: </label>
+          <InputText id="password" type="password" v-model="password"/>
         </div>
-        <button class="p-button p-mt-3" @click="login()">Login</button>
+        <div class="p-field">
+          <label for="rememberMe" class="ml-2">Remember me: </label>
+          <Checkbox v-model="rememberMe" :binary="true" id="rememberMe"/>
+        </div>
+        <Button class="p-button p-mt-3" @click="login()">Login</Button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import api from '@/services/api'
+import { onMounted } from 'vue'
+import { useUserStore } from '@/store/store'
+
 export default {
   name: 'Login',
+  setup () {
+    onMounted(() => {
+      localStorage.clear()
+    })
+  },
   data () {
     return {
       username: '',
-      password: ''
-    };
+      password: '',
+      rememberMe: false,
+      store: useUserStore()
+    }
   },
   methods: {
-    login () {
-      // Your login logic goes here
+    async login () {
+      const loginData = {
+        username: this.username,
+        password: this.password,
+        rememberMe: this.rememberMe
+      }
+
+      const response = await api.login(loginData)
+
+      this.store.setUser(response);
+      // await this.$store.dispatch('setUser', response)
+
+      if (response) {
+        this.$router.push('home')
+      }
     }
   }
-};
+}
 </script>
 
 <style scoped>

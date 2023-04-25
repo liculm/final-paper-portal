@@ -1,9 +1,8 @@
 using System.Reflection;
 using System.Text;
-using System.Text.Json.Serialization;
 using Api.Extensions.Startup;
 using Api.Middlewares;
-using FinalPaper.Command.CommandHandlers.Authentication.Login;
+using FinalPaper.Command.CommandHandlers.User.Login;
 using FinalPaper.Infrastructure;
 using FinalPaper.Query.QueryHandlers.GetAllUsers;
 using FluentValidation;
@@ -45,6 +44,12 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
+    options.AddPolicy("AllowVueApp", builder =>
+    {
+        builder.WithOrigins("http://localhost:8080") // replace with the origin of your Vue 3 app
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -109,6 +114,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("final-paper-api");
+app.UseCors("AllowVueApp");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace FinalPaper.Command.CommandHandlers.Authentication.Login;
+namespace FinalPaper.Command.CommandHandlers.User.Login;
 
 public sealed class LoginCommandValidator : AbstractValidator<Login.LoginCommand>
 {

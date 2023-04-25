@@ -3,11 +3,10 @@ using FinalPaper.Domain.Interfaces;
 using FinalPaper.Domain.ViewModels;
 using FinalPaper.Infrastructure;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Throw;
 
-namespace FinalPaper.Command.CommandHandlers.Authentication.RefreshJwtToken;
+namespace FinalPaper.Command.CommandHandlers.User.RefreshJwtToken;
 
 public sealed record RefreshJwtTokenCommand(string? RefreshToken) : IRequest<UserViewModel>;
 
