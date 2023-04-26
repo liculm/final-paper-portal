@@ -1,5 +1,5 @@
 <template>
-  <H1>Rulebooks Page</H1>
+  <h1>Rulebooks Page</h1>
 </template>
 
 <script>

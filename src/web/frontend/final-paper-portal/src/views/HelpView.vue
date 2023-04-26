@@ -1,6 +1,6 @@
 <template>
 
-  <H1>Help Page</H1>
+  <h1>Help Page</H1>
 </template>
 
 <script>

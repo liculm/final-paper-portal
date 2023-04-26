@@ -1,5 +1,5 @@
 <template>
-<H1>Messages Page</H1>
+<h1>Messages Page</h1>
 </template>
 
 <script>

@@ -16,6 +16,9 @@
           <Checkbox v-model="rememberMe" :binary="true" id="rememberMe"/>
         </div>
         <Button class="p-button p-mt-3" @click="login()">Login</Button>
+        <div v-if="serverResponse" class="error-text">
+          {{ serverResponse }}
+        </div>
       </div>
     </div>
   </div>
@@ -38,7 +41,22 @@ export default {
       username: '',
       password: '',
       rememberMe: false,
-      store: useUserStore()
+      store: useUserStore(),
+      serverResponse: null,
+      validationMessages: {
+        username: [
+          {
+            type: 'required',
+            message: 'Username is required'
+          }
+        ],
+        password: [
+          {
+            type: 'required',
+            message: 'Password is required'
+          }
+        ]
+      }
     }
   },
   methods: {
@@ -48,14 +66,14 @@ export default {
         password: this.password,
         rememberMe: this.rememberMe
       }
-
       const response = await api.login(loginData)
-
-      this.store.setUser(response);
-      // await this.$store.dispatch('setUser', response)
+      console.log(response)
 
       if (response) {
+        this.store.setUser(response.data)
         this.$router.push('home')
+      } else {
+        this.serverResponse = 'Invalid username or password!'
       }
     }
   }
@@ -101,6 +119,12 @@ h1 {
   background-color: #007be5;
   color: #fff;
   border: none;
+  margin-top: 1rem;
+}
+
+.error-text {
+  color: red;
+  font-size: 1rem;
   margin-top: 1rem;
 }
 </style>
