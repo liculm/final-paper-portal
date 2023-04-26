@@ -5,6 +5,9 @@ import MainLayout from '@/layout/MainLayout.vue'
 import HomeView from '@/views/HomeView.vue'
 import UserManagementView from '@/views/UserManagementView.vue'
 import { useUserStore } from '@/store/store'
+import MessagesView from "@/views/MessagesView.vue";
+import RulebooksView from "@/views/RulebooksView.vue";
+import HelpView from "@/views/HelpView.vue";
 
 const routes = [
   {
@@ -25,23 +28,41 @@ const routes = [
         component: HomeView
       },
       {
-        path: 'about',
-        name: 'about',
+        path: 'messages',
+        name: 'messages',
         meta: {
-          title: 'About',
+          title: 'messages',
           requiresAuth: true
         },
-        component: AboutView
+        component: MessagesView
       },
       {
-        path: 'userManagement',
-        name: 'userManagement',
+        path: 'rulebooks',
+        name: 'rulebooks',
         meta: {
-          title: 'Users',
+          title: 'rulebooks',
+          requiresAuth: true
+        },
+        component: RulebooksView
+      },
+      {
+        path: 'help',
+        name: 'help',
+        meta: {
+          title: 'help',
+          requiresAuth: true
+        },
+        component: HelpView
+      },
+      {
+        path: 'myProfile',
+        name: 'myProfile',
+        meta: {
+          title: 'myProfile',
           requiresAuth: true
         },
         component: UserManagementView
-      }
+      },
     ]
   },
   {
