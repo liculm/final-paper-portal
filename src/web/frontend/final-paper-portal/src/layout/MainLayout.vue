@@ -11,26 +11,37 @@ import { ref } from 'vue'
 
 const items = ref([
   {
-    label: 'Home',
+    label: 'Početna',
     icon: 'pi pi-fw pi-home',
     to: '/home'
   },
   {
-    label: 'About',
-    icon: 'pi pi-fw pi-info-circle',
-    to: '/about'
+    label: 'Poruke',
+    icon: 'pi pi-fw pi-comments',
+    to: '/messages'
   },
   {
-    label: 'Logout',
+    label: 'Pravilnici',
+    icon: 'pi pi-fw pi-file-pdf',
+    to: '/rulebooks'
+  },
+  {
+    label: 'Pomoć',
+    icon: 'pi pi-fw pi-question',
+    to: '/help'
+  },
+  {
+    label: 'Moj Profil',
+    icon: 'pi pi-fw pi-user',
+    class: 'my-profile',
+    to: '/myProfile'
+  },
+  {
+    label: 'Odjava',
     icon: 'pi pi-fw pi-power-off',
     class: 'logout-button',
     to: '/login'
   },
-  {
-    label: 'User',
-    icon: 'pi pi-fw pi-power-off',
-    to: '/userManagement'
-  }
 ]);
 </script>
 
@@ -38,5 +49,9 @@ const items = ref([
 .logout-button {
   position: fixed;
   right: 1em;
+}
+.my-profile {
+  position: fixed;
+  right: 9em;
 }
 </style>
