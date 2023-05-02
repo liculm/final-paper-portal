@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { createPinia } from 'pinia'
+import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/lara-light-indigo/theme.css';
 import 'primevue/resources/primevue.min.css';
@@ -17,8 +18,11 @@ import RadioButton from 'primevue/radiobutton'
 import './assets/styles.scss'
 
 const app = createApp(App);
+const pinia = createPinia();
 
-app.use(createPinia())
+pinia.use(piniaPluginPersistedState);
+
+app.use(pinia);
 app.use(PrimeVue, { ripple: true });
 app.use(router);
 

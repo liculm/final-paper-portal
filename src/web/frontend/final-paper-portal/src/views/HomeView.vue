@@ -2,26 +2,17 @@
   <div class="home">
     <img @click="log()" alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-    as {{store.user.firstName}}
+    <div v-if="store.user"> as {{store.user.firstName}} </div>
   </div>
 </template>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
-import api from '@/services/api'
-import { onMounted } from 'vue'
 import { useUserStore } from '@/store/store'
+import { clearUserData } from '@/services/userService'
 
 export default {
   name: 'HomeView',
-  setup () {
-
-    onMounted(() => {
-      // if (!this.user) {
-      //   this.$router.push('login')
-      // }
-    })
-  },
   data () {
     return {
       store: useUserStore()
@@ -32,9 +23,8 @@ export default {
   },
   methods: {
     async log () {
-      const response = await api.getTest()
-
-      console.log(response)
+      // This is just a test to see if the user is logged out
+      clearUserData()
     }
   }
 }

@@ -8,6 +8,7 @@
 <script setup>
 
 import { ref } from 'vue'
+import { clearUserData } from '@/services/userService'
 
 const items = ref([
   {
@@ -40,6 +41,9 @@ const items = ref([
     label: 'Odjava',
     icon: 'pi pi-fw pi-power-off',
     class: 'logout-button',
+    command: () => {
+      clearUserData()
+    },
     to: '/login'
   },
 ]);

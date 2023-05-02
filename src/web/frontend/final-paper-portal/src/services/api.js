@@ -8,16 +8,26 @@ export default {
     return response.data;
   },
   async login (data) {
-    const response = await axiosPublic.post('user/login', data);
 
-    localStorage.getItem('user')
-    localStorage.setItem('user', JSON.stringify(response.data))
+    try {
+      const response = await axiosPublic.post('user/login', data)
 
-    localStorage.getItem('refreshToken')
-    localStorage.setItem('refreshToken', response.data.refreshToken.token)
+      const refreshToken = response.data.refreshToken.token
+      const jwtToken = response.data.jwtToken
 
-    localStorage.getItem('jwtToken')
-    localStorage.setItem('jwtToken', response.data.jwtToken)
-    return response.data;
+      if (refreshToken) {
+        localStorage.getItem('refreshToken')
+        localStorage.setItem('refreshToken', refreshToken)
+      }
+
+      localStorage.getItem('jwtToken')
+      localStorage.setItem('jwtToken', jwtToken)
+
+      return response
+    }
+    catch (error) {
+      console.log('Error' + error)
+      return null
+    }
   }
-};
+}
