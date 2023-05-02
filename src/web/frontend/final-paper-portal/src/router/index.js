@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AboutView from '@/views/AboutView.vue'
 import LoginView from '@/views/LoginView.vue'
 import MainLayout from '@/layout/MainLayout.vue'
 import HomeView from '@/views/HomeView.vue'
@@ -8,6 +7,7 @@ import { useUserStore } from '@/store/store'
 import MessagesView from "@/views/MessagesView.vue";
 import RulebooksView from "@/views/RulebooksView.vue";
 import HelpView from "@/views/HelpView.vue";
+import { clearUserData } from '@/services/userService'
 
 const routes = [
   {
@@ -78,10 +78,14 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const user = useUserStore();
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!user.isAuthenticated()) {
+
+    if (to.name === 'login' && useUserStore().isAuthenticated) {
+      this.clearUserData()
+    }
+
+    if (!useUserStore().isAuthenticated) {
       next({ name: 'login' })
     } else {
       next()

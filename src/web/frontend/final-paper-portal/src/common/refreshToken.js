@@ -14,7 +14,6 @@ const refreshTokenFunction = async () => {
 
     if (!accessToken) {
       localStorage.removeItem('jwtToken');
-      localStorage.removeItem('user');
     }
 
     localStorage.setItem('jwtToken', JSON.stringify(session.jwtToken));
@@ -22,7 +21,6 @@ const refreshTokenFunction = async () => {
     return session;
   } catch (error) {
     localStorage.removeItem('jwtToken');
-    localStorage.removeItem('user');
   }
 };
 

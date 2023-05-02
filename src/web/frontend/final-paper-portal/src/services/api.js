@@ -15,12 +15,6 @@ export default {
       const refreshToken = response.data.refreshToken.token
       const jwtToken = response.data.jwtToken
 
-      console.log('refreshToken', refreshToken)
-      console.log('jwtToken', jwtToken)
-
-      localStorage.getItem('user')
-      localStorage.setItem('user', JSON.stringify(response.data))
-
       if (refreshToken) {
         localStorage.getItem('refreshToken')
         localStorage.setItem('refreshToken', refreshToken)

@@ -26,16 +26,10 @@
 
 <script>
 import api from '@/services/api'
-import { onMounted } from 'vue'
 import { useUserStore } from '@/store/store'
 
 export default {
   name: 'Login',
-  setup () {
-    onMounted(() => {
-      localStorage.clear()
-    })
-  },
   data () {
     return {
       username: '',
@@ -67,7 +61,6 @@ export default {
         rememberMe: this.rememberMe
       }
       const response = await api.login(loginData)
-      console.log(response)
 
       if (response) {
         this.store.setUser(response.data)
