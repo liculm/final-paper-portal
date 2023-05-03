@@ -10,7 +10,6 @@
       </div>
     </div>
     <div class="content">
-      {{store.user.firstName}}
       <div class="sidebar middle-sidebar">
         <div class="heading">
           <h1>Naslovna stranica</h1>
@@ -72,7 +71,6 @@
 </template>
 
 <script>
-import { onMounted } from 'vue'
 import { useUserStore } from '@/store/store'
 import { ref } from "vue";
 import Timeline from 'primevue/timeline';
@@ -93,18 +91,11 @@ const events = ref([
 
 export default {
   name: 'HomeView',
-  setup () {
-
-    onMounted(() => {
-      // if (!this.user) {
-      //   this.$router.push('login')
-      // }
-    })
-  },
   data () {
     return {
       store: useUserStore(),
       events,
+      selectedDate: moment().add(1, 'days').format('YYYY-MM-DD'),
       currentDate: moment().format('YYYY-MM-DD'),
     }
   },
