@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import api from '@/services/api'
 import { onMounted } from 'vue'
 import { useUserStore } from '@/store/store'
 import { ref } from "vue";
@@ -80,6 +79,7 @@ import Timeline from 'primevue/timeline';
 import Avatar from 'primevue/avatar';
 import Calendar from 'primevue/calendar';
 import moment from 'moment';
+import userController from '@/controllerEndpoints/userController'
 
 
 const events = ref([
@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     async log () {
-      const response = await api.getTest()
+      const response = await userController.getTest()
 
       console.log(response)
     }

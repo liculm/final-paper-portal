@@ -1,5 +1,3 @@
-/* eslint-disable vue/no-reserved-component-names */
-/* eslint-disable vue/multi-word-component-names */
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';

@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import api from '@/services/api'
 import { useUserStore } from '@/store/store'
+import userController from '@/controllerEndpoints/userController'
 
 export default {
   name: 'Login',
@@ -60,7 +60,7 @@ export default {
         password: this.password,
         rememberMe: this.rememberMe
       }
-      const response = await api.login(loginData)
+      const response = await userController.login(loginData)
 
       if (response) {
         this.store.setUser(response.data)
