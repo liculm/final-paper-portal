@@ -5,15 +5,15 @@
       <div class="p-fluid">
         <div class="p-field">
           <label for="username">Username: </label>
-          <InputText id="username" type="text" v-model="username"/>
+          <InputText id="username" type="text" v-model="username" />
         </div>
         <div class="p-field">
           <label for="password">Password: </label>
-          <InputText id="password" type="password" v-model="password"/>
+          <InputText id="password" type="password" v-model="password" />
         </div>
         <div class="p-field">
           <label for="rememberMe" class="ml-2">Remember me: </label>
-          <Checkbox v-model="rememberMe" :binary="true" id="rememberMe"/>
+          <Checkbox v-model="rememberMe" :binary="true" id="rememberMe" />
         </div>
         <Button class="p-button p-mt-3" @click="login()">Login</Button>
         <div v-if="serverResponse" class="error-text">
@@ -30,7 +30,7 @@ import userController from '@/controllerEndpoints/userController'
 
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       username: '',
       password: '',
@@ -54,7 +54,7 @@ export default {
     }
   },
   methods: {
-    async login () {
+    async login() {
       const loginData = {
         username: this.username,
         password: this.password,

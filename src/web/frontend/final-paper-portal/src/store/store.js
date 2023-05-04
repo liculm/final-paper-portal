@@ -7,19 +7,19 @@ export const useUserStore = defineStore('user', {
     }
   },
   actions: {
-    setUser (user) {
+    setUser(user) {
       this.user = user
     },
-    resetUser () {
+    resetUser() {
       this.user = null
     }
   },
   getters: {
-    isAuthenticated () {
+    isAuthenticated() {
       return this.user !== null
     }
   },
   persist: {
-    enabled: sessionStorage,
+    enabled: sessionStorage
   }
 })

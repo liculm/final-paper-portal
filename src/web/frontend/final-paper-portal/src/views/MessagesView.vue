@@ -1,13 +1,11 @@
 <template>
-<h1>Messages Page</h1>
+  <h1>Messages Page</h1>
 </template>
 
 <script>
 export default {
-  name: "Messages"
+  name: 'Messages'
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

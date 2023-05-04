@@ -6,7 +6,6 @@
 </template>
 
 <script setup>
-
 import { ref } from 'vue'
 import { clearUserData } from '@/services/userService'
 
@@ -45,8 +44,8 @@ const items = ref([
       clearUserData()
     },
     to: '/login'
-  },
-]);
+  }
+])
 </script>
 
 <style>
