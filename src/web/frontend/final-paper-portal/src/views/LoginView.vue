@@ -1,21 +1,29 @@
 <template>
   <div class="login-container">
     <div class="card">
-      <h1>Login</h1>
+      <h1 style="text-align: center">Login</h1>
       <div class="p-fluid">
-        <div class="p-field">
-          <label for="username">Username: </label>
-          <InputText id="username" type="text" v-model="username" />
-        </div>
-        <div class="p-field">
-          <label for="password">Password: </label>
-          <InputText id="password" type="password" v-model="password" />
-        </div>
-        <div class="p-field">
-          <label for="rememberMe" class="ml-2">Remember me: </label>
-          <Checkbox v-model="rememberMe" :binary="true" id="rememberMe" />
-        </div>
-        <Button class="p-button p-mt-3" @click="login()">Login</Button>
+        <form @submit.prevent="loginForm">
+          <div class="p-field validation-fields">
+            <label for="username">Username: </label>
+            <InputText id="username" type="text" v-model="loginForm.username"/>
+            <span class="p-error" v-for="error in v$.username.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </span>
+          </div>
+          <div class="p-field validation-fields">
+            <label for="password">Password: </label>
+            <InputText id="password" type="password" v-model="loginForm.password"/>
+            <span class="p-error" v-for="error in v$.password.$errors" :key="error.$uid">
+              {{ error.$message }}
+            </span>
+          </div>
+          <div class="p-field">
+            <label for="rememberMe" class="ml-2">Remember me: </label>
+            <Checkbox v-model="loginForm.rememberMe" :binary="true" id="rememberMe"/>
+          </div>
+          <Button class="p-button p-mt-3" @click="login()">Login</Button>
+        </form>
         <div v-if="serverResponse" class="error-text">
           {{ serverResponse }}
         </div>
@@ -27,34 +35,20 @@
 <script>
 import { useUserStore } from '@/store/store'
 import userController from '@/controllerEndpoints/userController'
+import useVulidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { reactive } from 'vue'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
-      username: '',
-      password: '',
-      rememberMe: false,
       store: useUserStore(),
       serverResponse: null,
-      validationMessages: {
-        username: [
-          {
-            type: 'required',
-            message: 'Username is required'
-          }
-        ],
-        password: [
-          {
-            type: 'required',
-            message: 'Password is required'
-          }
-        ]
-      }
     }
   },
   methods: {
-    async login() {
+    async login () {
       const loginData = {
         username: this.username,
         password: this.password,
@@ -62,11 +56,15 @@ export default {
       }
       const response = await userController.login(loginData)
 
+      if (!validationResult) return
+
+      const response = await userController.login(this.loginForm)
+
       if (response) {
         this.store.setUser(response.data)
         this.$router.push('home')
       } else {
-        this.serverResponse = 'Invalid username or password!'
+        this.serverResponse = 'An error occured!'
       }
     }
   }
@@ -74,6 +72,11 @@ export default {
 </script>
 
 <style scoped>
+
+.validation-fields {
+  margin-bottom: 2em;
+}
+
 .login-container {
   display: flex;
   justify-content: center;
