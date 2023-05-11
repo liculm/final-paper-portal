@@ -1,12 +1,11 @@
 <template>
   <div class="card">
-    <TabMenu :model="items"/>
-    <router-view/>
+    <TabMenu :model="items" />
+    <router-view />
   </div>
 </template>
 
 <script setup>
-
 import { ref } from 'vue'
 import { clearUserData } from '@/services/userService'
 
@@ -45,12 +44,11 @@ const items = ref([
       clearUserData()
     },
     to: '/login'
-  },
+  }
 ])
 </script>
 
 <style>
-
 .card {
   position: fixed;
   top: 0;

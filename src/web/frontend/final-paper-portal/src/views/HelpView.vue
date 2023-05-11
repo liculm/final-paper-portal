@@ -1,14 +1,11 @@
 <template>
-
-  <h1>Help Page</H1>
+  <h1>Help Page</h1>
 </template>
 
 <script>
 export default {
-  name: "HelpView"
+  name: 'HelpView'
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

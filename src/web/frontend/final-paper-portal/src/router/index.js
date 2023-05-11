@@ -4,9 +4,9 @@ import MainLayout from '@/layout/MainLayout.vue'
 import HomeView from '@/views/HomeView.vue'
 import UserManagementView from '@/views/UserManagementView.vue'
 import { useUserStore } from '@/store/store'
-import MessagesView from "@/views/MessagesView.vue";
-import RulebooksView from "@/views/RulebooksView.vue";
-import HelpView from "@/views/HelpView.vue";
+import MessagesView from '@/views/MessagesView.vue'
+import RulebooksView from '@/views/RulebooksView.vue'
+import HelpView from '@/views/HelpView.vue'
 import { clearUserData } from '@/services/userService'
 
 const routes = [
@@ -62,7 +62,7 @@ const routes = [
           requiresAuth: true
         },
         component: UserManagementView
-      },
+      }
     ]
   },
   {
@@ -78,9 +78,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (to.name === 'login' && useUserStore().isAuthenticated) {
       this.clearUserData()
     }

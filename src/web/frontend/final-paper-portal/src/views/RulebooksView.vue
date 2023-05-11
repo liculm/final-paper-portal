@@ -1,23 +1,38 @@
 <template>
   <div class="page-content">
     <h1>Dokumenti za Završne / Diplomske radove</h1>
-    <p class="paragraph">Kako biste lakše i uspješnije izradili vaš rad, molimo vas da pažljivo pročitate sljedeće
-      informacije i pravila te da se pridržavate svih postavljenih smjernica.</p>
+    <p class="paragraph">
+      Kako biste lakše i uspješnije izradili vaš rad, molimo vas da pažljivo pročitate sljedeće
+      informacije i pravila te da se pridržavate svih postavljenih smjernica.
+    </p>
     <div class="items">
       <div>
-        <span>
-        Obrazac za prijavu mentora
-        </span>
+        <span> Obrazac za prijavu mentora </span>
         <div class="buttons">
-          <Button class="open-pdf-button" label="Otvori" raised size="small"
-                  @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"/>
-          <Button icon="pi pi-info" outlined rounded iconClass="info-button"
-                  @click="dialogs[0].visible = true"/>
-          <Dialog v-model:visible="dialogs[0].visible" modal header="Obrazac za prijavu mentora"
-                  :style="{ width: '50vw' }">
+          <Button
+            class="open-pdf-button"
+            label="Otvori"
+            raised
+            size="small"
+            @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+          />
+          <Button
+            icon="pi pi-info"
+            outlined
+            rounded
+            iconClass="info-button"
+            @click="dialogs[0].visible = true"
+          />
+          <Dialog
+            v-model:visible="dialogs[0].visible"
+            modal
+            header="Obrazac za prijavu mentora"
+            :style="{ width: '50vw' }"
+          >
             <p>
-              Prije nego krenete sa izradom svog rada, potrebno je da odaberete mentora koji će vam pružati stručnu
-              pomoć i savjete. Molimo vas da ispunite obrazac za prijavu mentora i priložite ga uz vašu prijavu rada.
+              Prije nego krenete sa izradom svog rada, potrebno je da odaberete mentora koji će vam
+              pružati stručnu pomoć i savjete. Molimo vas da ispunite obrazac za prijavu mentora i
+              priložite ga uz vašu prijavu rada.
             </p>
           </Dialog>
         </div>
@@ -25,15 +40,30 @@
       <div>
         <span>Obrazac za prijavu obrane završnog rada</span>
         <div class="buttons">
-          <Button class="open-pdf-button" label="Otvori" raised size="small"
-                  @click="openPdf('obrazac-2.-prijava-obrane-zavrsnog-rada-1_0_0')"/>
-          <Button icon="pi pi-info" outlined rounded iconClass="info-button"
-                  @click="dialogs[1].visible = true"/>
-          <Dialog v-model:visible="dialogs[1].visible" modal header="Obrazac za prijavu obrane završnog rada"
-                  :style="{ width: '50vw' }">
+          <Button
+            class="open-pdf-button"
+            label="Otvori"
+            raised
+            size="small"
+            @click="openPdf('obrazac-2.-prijava-obrane-zavrsnog-rada-1_0_0')"
+          />
+          <Button
+            icon="pi pi-info"
+            outlined
+            rounded
+            iconClass="info-button"
+            @click="dialogs[1].visible = true"
+          />
+          <Dialog
+            v-model:visible="dialogs[1].visible"
+            modal
+            header="Obrazac za prijavu obrane završnog rada"
+            :style="{ width: '50vw' }"
+          >
             <p>
-              Nakon što završite sa izradom vašeg rada, potrebno je da se prijavite za obranu. Molimo vas da ispunite
-              obrazac za prijavu obrane završnog rada i priložite ga uz vaš završni rad.
+              Nakon što završite sa izradom vašeg rada, potrebno je da se prijavite za obranu.
+              Molimo vas da ispunite obrazac za prijavu obrane završnog rada i priložite ga uz vaš
+              završni rad.
             </p>
           </Dialog>
         </div>
@@ -41,15 +71,29 @@
       <div>
         <span>Pravilnik o završnom / specijalističkom radu</span>
         <div class="buttons">
-          <Button class="open-pdf-button" label="Otvori" size="small"
-                  @click="openPdf('pravilnik-o-zavrsnom-specijalistickom-zavrsnom-radu')"/>
-          <Button icon="pi pi-info" outlined rounded size="small"
-                  @click="dialogs[2].visible = true"/>
-          <Dialog v-model:visible="dialogs[2].visible" modal header="Pravilnik o završnom / specijalističkom radu"
-                  :style="{ width: '50vw' }">
+          <Button
+            class="open-pdf-button"
+            label="Otvori"
+            size="small"
+            @click="openPdf('pravilnik-o-zavrsnom-specijalistickom-zavrsnom-radu')"
+          />
+          <Button
+            icon="pi pi-info"
+            outlined
+            rounded
+            size="small"
+            @click="dialogs[2].visible = true"
+          />
+          <Dialog
+            v-model:visible="dialogs[2].visible"
+            modal
+            header="Pravilnik o završnom / specijalističkom radu"
+            :style="{ width: '50vw' }"
+          >
             <p>
-              Pravilnik o završnom / specijalističkom radu sadrži detaljne smjernice i pravila vezana za izradu vašeg
-              rada. Molimo vas da pažljivopročitate pravilnik prije nego što krenete sa izradom vašeg rada.
+              Pravilnik o završnom / specijalističkom radu sadrži detaljne smjernice i pravila
+              vezana za izradu vašeg rada. Molimo vas da pažljivopročitate pravilnik prije nego što
+              krenete sa izradom vašeg rada.
             </p>
           </Dialog>
         </div>
@@ -57,16 +101,33 @@
       <div>
         <span>Odluka o obavezi korištenja software-a</span>
         <div class="buttons">
-          <Button class="open-pdf-button" label="Otvori" size="small"
-                  @click="openPdf('27-odluka-o-obvezi-koristenja-softvera-za-provjeru-izvornosti-zavrsnih-i-specijalistickih-zavrsnih-radova')"/>
-          <Button icon="pi pi-info" outlined rounded size="small"
-                  @click="dialogs[3].visible = true"/>
-          <Dialog v-model:visible="dialogs[3].visible" modal header="Odluka o obavezi korištenja software-a"
-                  :style="{ width: '50vw' }">
+          <Button
+            class="open-pdf-button"
+            label="Otvori"
+            size="small"
+            @click="
+              openPdf(
+                '27-odluka-o-obvezi-koristenja-softvera-za-provjeru-izvornosti-zavrsnih-i-specijalistickih-zavrsnih-radova'
+              )
+            "
+          />
+          <Button
+            icon="pi pi-info"
+            outlined
+            rounded
+            size="small"
+            @click="dialogs[3].visible = true"
+          />
+          <Dialog
+            v-model:visible="dialogs[3].visible"
+            modal
+            header="Odluka o obavezi korištenja software-a"
+            :style="{ width: '50vw' }"
+          >
             <p>
-              Korištenje određenog software-a može biti obavezno prilikom izrade vašeg rada. Molimo vas da pažljivo
-              pročitate odluku o obavezi korištenja software-a i instalirate potrebni software kako biste bili spremni
-              za izradu vašeg rada.
+              Korištenje određenog software-a može biti obavezno prilikom izrade vašeg rada. Molimo
+              vas da pažljivo pročitate odluku o obavezi korištenja software-a i instalirate
+              potrebni software kako biste bili spremni za izradu vašeg rada.
             </p>
           </Dialog>
         </div>
@@ -74,21 +135,33 @@
       <div>
         <span>Terminski plan završnih / specijalističkih radova</span>
         <div class="buttons">
-          <Button class="open-pdf-button" label="Otvori" size="small"
-                  @click="openPdf('terminski-plan-zavrsnih-specijalistickih-radova_0_0')"/>
-          <Button icon="pi pi-info" outlined rounded size="small"
-                  @click="dialogs[4].visible = true"/>
-          <Dialog v-model:visible="dialogs[4].visible" modal header="Terminski plan završnih / specijalističkih radova"
-                  :style="{ width: '50vw' }">
+          <Button
+            class="open-pdf-button"
+            label="Otvori"
+            size="small"
+            @click="openPdf('terminski-plan-zavrsnih-specijalistickih-radova_0_0')"
+          />
+          <Button
+            icon="pi pi-info"
+            outlined
+            rounded
+            size="small"
+            @click="dialogs[4].visible = true"
+          />
+          <Dialog
+            v-model:visible="dialogs[4].visible"
+            modal
+            header="Terminski plan završnih / specijalističkih radova"
+            :style="{ width: '50vw' }"
+          >
             <p>
-              Terminski plan završnih / specijalističkih radova sadrži detaljan raspored vaših aktivnosti tijekom izrade
-              rada. Molimo vas da pažljivo proučite terminski plan i pridržavate se svih postavljenih rokova kako biste
-              uspješno završili vaš rad.
+              Terminski plan završnih / specijalističkih radova sadrži detaljan raspored vaših
+              aktivnosti tijekom izrade rada. Molimo vas da pažljivo proučite terminski plan i
+              pridržavate se svih postavljenih rokova kako biste uspješno završili vaš rad.
             </p>
           </Dialog>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -100,7 +173,7 @@ const downloadPdfEndpoint = `document/getPDFFile?fileName={fileName}`
 
 export default defineComponent({
   name: 'RulebooksView',
-  setup () {
+  setup() {
     const dialogs = ref([
       { visible: false },
       { visible: false },
@@ -109,7 +182,7 @@ export default defineComponent({
       { visible: false }
     ])
 
-    async function openPdf (fileName) {
+    async function openPdf(fileName) {
       const response = await fetch(baseUrl + downloadPdfEndpoint.replace('{fileName}', fileName))
       const blob = await response.blob()
       const pdfUrl = URL.createObjectURL(blob)
@@ -122,13 +195,13 @@ export default defineComponent({
       dialogs,
       openPdf
     }
-  },
+  }
 })
 </script>
 
 <style scoped>
 span:after {
-  content: " ";
+  content: ' ';
   display: inline-block;
   width: 30px;
 }

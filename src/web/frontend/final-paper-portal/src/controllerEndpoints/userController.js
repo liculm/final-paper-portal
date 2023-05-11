@@ -4,13 +4,12 @@ import { axiosPublic } from '@/common/axiosPublic'
 const controllerName = 'user'
 
 export default {
-  async getTest () {
-    const response = await axiosPrivate.get(`${controllerName}/test`);
+  async getTest() {
+    const response = await axiosPrivate.get(`${controllerName}/test`)
 
-    return response.data;
+    return response.data
   },
-  async login (data) {
-
+  async login(data) {
     try {
       const response = await axiosPublic.post(`${controllerName}/login`, data)
 
@@ -26,8 +25,7 @@ export default {
       localStorage.setItem('jwtToken', jwtToken)
 
       return response
-    }
-    catch (error) {
+    } catch (error) {
       console.log('Error' + error)
       return null
     }

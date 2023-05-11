@@ -1,6 +1,6 @@
 import { useUserStore } from '@/store/store'
 
-export function clearUserData () {
+export function clearUserData() {
   useUserStore().resetUser()
   localStorage.clear()
   sessionStorage.clear()

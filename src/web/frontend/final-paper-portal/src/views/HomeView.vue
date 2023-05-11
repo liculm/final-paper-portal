@@ -22,7 +22,7 @@
       <p>Student</p>
       <div class="display-flex">
         <Avatar icon="pi pi-user" class="mr-2" size="large" shape="circle" />
-        <p class="paragraph">{{store.user.firstName}} {{store.user.lastName}}</p>
+        <p class="paragraph">{{ store.user.firstName }} {{ store.user.lastName }}</p>
       </div>
 
       <div class="display-flex-w">
@@ -31,19 +31,18 @@
       </div>
       <div class="display-flex">
         <p><b>Mentor: </b></p>
-        <p> Marko Marić</p>
+        <p>Marko Marić</p>
       </div>
       <div class="display-flex">
         <p><b> Status završnog rada: </b></p>
-        <p> U izradi</p>
+        <p>U izradi</p>
       </div>
       <div class="display-flex">
         <p><b> Dužnosti: </b></p>
-        <p> Knjižnica</p>
+        <p>Knjižnica</p>
       </div>
       <div class="display-flex-w">
         <h2>Obrana završnog rada</h2>
-
       </div>
       <div class="display-flex-w">
         <i class="pi pi-calendar" style="font-size: 2.5rem"></i>
@@ -60,51 +59,60 @@
       <div class="display-flex-c">
         <Calendar v-model="selectedDate" inline :showWeek="false" />
       </div>
-
-
     </div>
-
-
-
   </div>
-
 </template>
 
 <script>
 import { useUserStore } from '@/store/store'
-import { ref } from "vue";
-import Timeline from 'primevue/timeline';
-import Avatar from 'primevue/avatar';
-import Calendar from 'primevue/calendar';
-import moment from 'moment';
+import { ref } from 'vue'
+import Timeline from 'primevue/timeline'
+import Avatar from 'primevue/avatar'
+import Calendar from 'primevue/calendar'
+import moment from 'moment'
 import userController from '@/controllerEndpoints/userController'
 
 const events = ref([
-  { status: 'Odabir teme', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0'},
+  {
+    status: 'Odabir teme',
+    date: '15/10/2020 10:30',
+    icon: 'pi pi-shopping-cart',
+    color: '#9C27B0'
+  },
   { status: 'Odabir mentora', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
-  { status: 'Mentor i tema prihvaćeni', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-  { status: 'U obradi: Izrada završnog rada u tijeku.', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' },
+  {
+    status: 'Mentor i tema prihvaćeni',
+    date: '15/10/2020 16:15',
+    icon: 'pi pi-shopping-cart',
+    color: '#FF9800'
+  },
+  {
+    status: 'U obradi: Izrada završnog rada u tijeku.',
+    date: '16/10/2020 10:00',
+    icon: 'pi pi-check',
+    color: '#607D8B'
+  },
   { status: 'Dužnosti', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-  { status: 'Obrana rada', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' },
-]);
+  { status: 'Obrana rada', date: '15/10/2020 16:15', icon: 'pi pi-shopping-cart', color: '#FF9800' }
+])
 
 export default {
   name: 'HomeView',
-  data () {
+  data() {
     return {
       store: useUserStore(),
       events,
       selectedDate: moment().add(1, 'days').format('YYYY-MM-DD'),
-      currentDate: moment().format('YYYY-MM-DD'),
+      currentDate: moment().format('YYYY-MM-DD')
     }
   },
   components: {
     Timeline,
     Avatar,
-    Calendar,
+    Calendar
   },
   methods: {
-    async log () {
+    async log() {
       const response = await userController.getTest()
 
       console.log(response)
@@ -112,7 +120,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 .home {
@@ -136,7 +143,7 @@ export default {
   border-right: 1px solid #ccc;
 }
 
-.middle-sidebar{
+.middle-sidebar {
   max-height: 620px;
 }
 
@@ -159,7 +166,7 @@ export default {
   padding: 30px;
 }
 
-.paragraph{
+.paragraph {
   padding-left: 10px;
 }
 
@@ -179,7 +186,7 @@ export default {
   display: flex;
   padding-bottom: 5px;
 }
-.display-flex-c{
+.display-flex-c {
   padding-top: 10px;
   display: flex;
   padding-bottom: 15px;
@@ -187,7 +194,7 @@ export default {
   border-bottom: 1px solid #ccc;
 }
 
-.timeline-container{
+.timeline-container {
   padding-left: 0;
   padding-right: 0;
 }
@@ -201,4 +208,3 @@ export default {
   padding: 20px;
 }
 </style>
-

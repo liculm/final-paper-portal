@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export const axiosPublic = axios.create({
   baseURL: 'https://localhost:7169/api/v1/',
@@ -6,4 +6,4 @@ export const axiosPublic = axios.create({
     Accept: 'application/json',
     'Content-Type': 'application/json'
   }
-});
+})
