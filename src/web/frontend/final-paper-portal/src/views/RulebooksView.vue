@@ -29,6 +29,39 @@
             header="Obrazac za prijavu mentora"
             :style="{ width: '50vw' }"
           >
+            <Button
+              class="open-pdf-button"
+              label="Otvori"
+              raised
+              @click="openPDF('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+            />
+          </Dialog>
+          <Dialog
+            v-model:visible="dialogs[0].visible"
+            modal
+            header="Obrazac za prijavu mentora"
+            :style="{ width: '50vw' }"
+          >
+          <Button
+            class="open-pdf-button"
+            label="Otvori"
+            raised
+            size="small"
+            @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+          />
+          <Button
+            icon="pi pi-info"
+            outlined
+            rounded
+            iconClass="info-button"
+            @click="dialogs[0].visible = true"
+          />
+          <Dialog
+            v-model:visible="dialogs[0].visible"
+            modal
+            header="Obrazac za prijavu mentora"
+            :style="{ width: '50vw' }"
+          >
             <p>
               Prije nego krenete sa izradom svog rada, potrebno je da odaberete mentora koji će vam
               pružati stručnu pomoć i savjete. Molimo vas da ispunite obrazac za prijavu mentora i
@@ -167,6 +200,7 @@
 </template>
 <script>
 import { defineComponent, ref } from 'vue'
+import documentController from '@/controllerEndpoints/documentController'
 
 const baseUrl = 'https://localhost:7169/api/v1/'
 const downloadPdfEndpoint = `document/getPDFFile?fileName={fileName}`
@@ -195,7 +229,7 @@ export default defineComponent({
       dialogs,
       openPdf
     }
-  }
+  },
 })
 </script>
 

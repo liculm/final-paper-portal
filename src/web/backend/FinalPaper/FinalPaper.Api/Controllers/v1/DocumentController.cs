@@ -1,4 +1,5 @@
 using Api.Controllers.Base;
+using FinalPaper.Command.CommandHandlers.Document.GetPDFFile;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1;
@@ -8,8 +9,8 @@ namespace Api.Controllers.v1;
 [ApiController]
 public class DocumentController: BaseController
 {
-    [HttpGet("getPDFFile")]
-    public IActionResult GetPdfFile([FromQuery] string fileName)
+    [HttpPost("getPDFFile")]
+    public async Task<IActionResult> GetPdfFile([FromQuery] GetPDFFileCommand fileName)
     {
         var filePath = $"C:\\FinalPaperPDFs\\{fileName}.pdf";
 
@@ -19,7 +20,7 @@ public class DocumentController: BaseController
         }
         byte[] pdfBytes = System.IO.File.ReadAllBytes(filePath);
 
-        return File(pdfBytes, "application/pdf", $"{filePath}.pdf");
-        
+        // return File(pdfBytes, "application/pdf", $"{filePath}.pdf");
+        return Ok(await Mediator.Send(filePath));
     }
 }
