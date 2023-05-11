@@ -14,7 +14,7 @@
             label="Otvori"
             raised
             size="small"
-            @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+            @click="openPdf('PrijavaMentora')"
           />
           <Button
             class="info-button"
@@ -23,6 +23,40 @@
             rounded
             @click="dialogs[0].visible = true"
           />
+          <Dialog
+            v-model:visible="dialogs[0].visible"
+            modal
+            header="Obrazac za prijavu mentora"
+            :style="{ width: '50vw' }"
+          >
+            <Button
+              class="open-pdf-button"
+              label="Otvori"
+              raised
+              @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+            />
+          </Dialog>
+          <Dialog
+            v-model:visible="dialogs[0].visible"
+            modal
+            header="Obrazac za prijavu mentora"
+            :style="{ width: '50vw' }"
+          >
+            <Button
+              class="open-pdf-button"
+              label="Otvori"
+              raised
+              size="small"
+              @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+            />
+            <Button
+              icon="pi pi-info"
+              outlined
+              rounded
+              iconClass="info-button"
+              @click="dialogs[0].visible = true"
+            />
+          </Dialog>
           <Dialog
             v-model:visible="dialogs[0].visible"
             modal
@@ -168,12 +202,9 @@
 <script>
 import { defineComponent, ref } from 'vue'
 
-const baseUrl = 'https://localhost:7169/api/v1/'
-const downloadPdfEndpoint = `document/getPDFFile?fileName={fileName}`
-
 export default defineComponent({
   name: 'RulebooksView',
-  setup() {
+  setup () {
     const dialogs = ref([
       { visible: false },
       { visible: false },
@@ -182,10 +213,10 @@ export default defineComponent({
       { visible: false }
     ])
 
-    async function openPdf(fileName) {
-      const response = await fetch(baseUrl + downloadPdfEndpoint.replace('{fileName}', fileName))
-      const blob = await response.blob()
-      const pdfUrl = URL.createObjectURL(blob)
+    async function openPdf (fileName) {
+      const response = await documentController.openPdf(fileName)
+      const blob = new Blob([response.data], { type: response.headers['content-type'] })
+      const pdfUrl = window.URL.createObjectURL(blob);
 
       const pdfWindow = window.open(pdfUrl, '_blank')
       pdfWindow.focus()
@@ -228,10 +259,9 @@ span:after {
 }
 
 .info-button {
-  font-size: 0.5em;
-  height: 3em !important;
-  width: 3em !important;
-  margin-top: 1px;
+  font-size: 0.8em;
+  height: 1.5em !important;
+  width: 1.5em !important;
 }
 
 .page-content {

@@ -10,17 +10,9 @@ namespace Api.Controllers.v1;
 public class DocumentController: BaseController
 {
     [HttpPost("getPDFFile")]
-    public async Task<IActionResult> GetPdfFile([FromQuery] GetPDFFileCommand fileName)
-    {
-        var filePath = $"C:\\FinalPaperPDFs\\{fileName}.pdf";
+    public async Task<IActionResult> GetPdfFile([FromBody] GetPDFFileCommand command) {
+        var result = await Mediator.Send(command);
 
-        if (!System.IO.File.Exists(filePath))
-        {
-            throw new FileNotFoundException($"File not found: {filePath}");
-        }
-        byte[] pdfBytes = System.IO.File.ReadAllBytes(filePath);
-
-        // return File(pdfBytes, "application/pdf", $"{filePath}.pdf");
-        return Ok(await Mediator.Send(filePath));
+        return File(result.FileContents, result.ContentType, result.FileDownloadName);
     }
 }
