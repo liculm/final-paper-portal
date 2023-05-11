@@ -19,10 +19,10 @@
 
     <div class="sidebar right-sidebar">
       <h1>Trenutni status</h1>
-      <p>Student</p>
       <div class="display-flex">
         <Avatar icon="pi pi-user" class="mr-2" size="large" shape="circle" />
         <p class="paragraph">{{ store.user.firstName }} {{ store.user.lastName }}</p>
+        <p class="paragraph">{{ store.user.roleName }}</p>
       </div>
 
       <div class="display-flex-w">
@@ -66,9 +66,6 @@
 <script>
 import { useUserStore } from '@/store/store'
 import { ref } from 'vue'
-import Timeline from 'primevue/timeline'
-import Avatar from 'primevue/avatar'
-import Calendar from 'primevue/calendar'
 import moment from 'moment'
 import userController from '@/controllerEndpoints/userController'
 
@@ -106,11 +103,6 @@ export default {
       currentDate: moment().format('YYYY-MM-DD')
     }
   },
-  components: {
-    Timeline,
-    Avatar,
-    Calendar
-  },
   methods: {
     async log() {
       const response = await userController.getTest()
@@ -132,7 +124,6 @@ export default {
 .sidebar {
   padding: 10px;
   overflow-y: auto;
-  height: max-content;
   height: 100vh;
 }
 
@@ -141,10 +132,6 @@ export default {
   width: 220px;
   background-color: #f5f5f5;
   border-right: 1px solid #ccc;
-}
-
-.middle-sidebar {
-  max-height: 620px;
 }
 
 .right-sidebar {
@@ -167,7 +154,7 @@ export default {
 }
 
 .paragraph {
-  padding-left: 10px;
+  padding-left: 2em;
 }
 
 .timeline-container {
@@ -199,7 +186,6 @@ export default {
   padding-right: 0;
 }
 
-/* New styles */
 .home h1 {
   text-align: left;
   font-size: 1.5rem;

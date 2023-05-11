@@ -16,6 +16,9 @@ import InputText from 'primevue/inputtext'
 import Dropdown from 'primevue/dropdown'
 import RadioButton from 'primevue/radiobutton'
 import Dialog from 'primevue/dialog'
+import Timeline from 'primevue/timeline'
+import Avatar from 'primevue/avatar'
+import Calendar from 'primevue/calendar'
 import './assets/styles.scss'
 
 const app = createApp(App)
@@ -37,5 +40,8 @@ app.component('TabMenu', TabMenu)
 app.component('Checkbox', Checkbox)
 app.component('InputText', InputText)
 app.component('Dialog', Dialog)
+app.component('Timeline', Timeline)
+app.component('Avatar', Avatar)
+app.component('Calendar', Calendar)
 
 app.mount('#app')
