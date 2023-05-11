@@ -19,6 +19,8 @@ import Dialog from 'primevue/dialog'
 import Timeline from 'primevue/timeline'
 import Avatar from 'primevue/avatar'
 import Calendar from 'primevue/calendar'
+import DataTable from 'primevue/dataTable'
+import Column from 'primevue/column'
 import './assets/styles.scss'
 
 const app = createApp(App)
@@ -43,5 +45,7 @@ app.component('Dialog', Dialog)
 app.component('Timeline', Timeline)
 app.component('Avatar', Avatar)
 app.component('Calendar', Calendar)
+app.component('DataTable', DataTable)
+app.component('Column', Column)
 
 app.mount('#app')

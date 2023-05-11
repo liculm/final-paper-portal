@@ -31,6 +31,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FinalPaper.Domain\FinalPaper.Domain.csproj" />
+      <ProjectReference Include="..\FinalPaper.Infrastructure\FinalPaper.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

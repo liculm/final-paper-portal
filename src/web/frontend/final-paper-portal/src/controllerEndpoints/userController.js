@@ -29,5 +29,13 @@ export default {
       console.log('Error' + error)
       return null
     }
+  },
+  async getAllUsers() {
+    try {
+      return await axiosPrivate.get(`${controllerName}/getAllUsers`)
+    } catch (error) {
+      console.log('Error' + error)
+      return null
+    }
   }
 }

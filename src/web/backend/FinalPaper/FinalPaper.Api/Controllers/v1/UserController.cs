@@ -5,7 +5,6 @@ using FinalPaper.Command.CommandHandlers.User.Register;
 using FinalPaper.Command.CommandHandlers.User.RevokeRefreshToken;
 using FinalPaper.Domain.ViewModels;
 using FinalPaper.Query.QueryHandlers.GetAllUsers;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -64,8 +63,8 @@ public class UserController : BaseController
 
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [HttpGet("all"), Authorize(Roles = "Admin")]
-    public async Task<ActionResult<Unit>> GatAllUsers()
+    [HttpGet("getAllUsers"), Authorize(Roles = "Admin")]
+    public async Task<ActionResult<List<UserBaseData>>> GatAllUsers()
     {
         return await Mediator.Send(new GetAllUsersQuery());
     }

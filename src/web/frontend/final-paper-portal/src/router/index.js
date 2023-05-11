@@ -7,7 +7,6 @@ import { useUserStore } from '@/store/store'
 import MessagesView from '@/views/MessagesView.vue'
 import RulebooksView from '@/views/RulebooksView.vue'
 import HelpView from '@/views/HelpView.vue'
-import { clearUserData } from '@/services/userService'
 
 const routes = [
   {
@@ -55,10 +54,10 @@ const routes = [
         component: HelpView
       },
       {
-        path: 'myProfile',
-        name: 'myProfile',
+        path: 'users',
+        name: 'users',
         meta: {
-          title: 'myProfile',
+          title: 'users',
           requiresAuth: true
         },
         component: UserManagementView
