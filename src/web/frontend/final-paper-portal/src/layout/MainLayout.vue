@@ -1,7 +1,7 @@
 <template>
   <div class="card">
-    <TabMenu :model="items" />
-    <router-view />
+    <TabMenu :model="items"/>
+    <router-view/>
   </div>
 </template>
 
@@ -46,14 +46,23 @@ const items = ref([
     },
     to: '/login'
   },
-]);
+])
 </script>
 
 <style>
+
+.card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
 .logout-button {
   position: fixed;
   right: 1em;
 }
+
 .my-profile {
   position: fixed;
   right: 9em;
