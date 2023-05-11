@@ -22,7 +22,7 @@
       <p>Student</p>
       <div class="display-flex">
         <Avatar icon="pi pi-user" class="mr-2" size="large" shape="circle" />
-        <p class="paragraph">User name</p>
+        <p class="paragraph">{{store.user.firstName}} {{store.user.lastName}}</p>
       </div>
 
       <div class="display-flex-w">
@@ -79,7 +79,6 @@ import Calendar from 'primevue/calendar';
 import moment from 'moment';
 import userController from '@/controllerEndpoints/userController'
 
-
 const events = ref([
   { status: 'Odabir teme', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0'},
   { status: 'Odabir mentora', date: '15/10/2020 14:00', icon: 'pi pi-cog', color: '#673AB7' },
@@ -135,9 +134,7 @@ export default {
   width: 220px;
   background-color: #f5f5f5;
   border-right: 1px solid #ccc;
-  max-height: 650px;
 }
-
 
 .middle-sidebar{
   max-height: 620px;
@@ -149,7 +146,6 @@ export default {
   width: 400px;
   background-color: #f5f5f5;
   border-left: 1px solid #ccc;
-  max-height: 650px;
 }
 
 .timeline-container {
@@ -163,22 +159,11 @@ export default {
   padding: 30px;
 }
 
-.p-timeline {
-  margin-left: 0;
-}
 .paragraph{
   padding-left: 10px;
 }
 
-.p-timeline-event-content {
-  white-space: nowrap;
-}
-
-.timeline-item::before {
-  left: 7px;
-}
-
-.timeline-container .p-timeline {
+.timeline-container {
   margin-left: 0;
 }
 
@@ -204,10 +189,6 @@ export default {
 
 .timeline-container{
   padding-left: 0;
-  padding-right: 0;
-}
-.p-timeline-event-content{
-  width: 150px;
   padding-right: 0;
 }
 
