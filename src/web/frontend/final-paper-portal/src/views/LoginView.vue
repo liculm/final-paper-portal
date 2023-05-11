@@ -105,6 +105,7 @@ export default {
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3);
   max-width: 20rem;
   width: 100%;
+  position: static;
 }
 
 h1 {
