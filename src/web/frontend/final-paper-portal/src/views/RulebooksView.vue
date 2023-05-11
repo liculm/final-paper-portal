@@ -16,10 +16,10 @@
           @click="openPdf('PrijavaMentora')"
         />
         <Button
+          class="info-button"
           icon="pi pi-info"
           outlined
           rounded
-          iconClass="info-button"
           @click="dialogs[0].visible = true"
         />
         <Dialog
@@ -224,7 +224,6 @@ span:after {
 }
 
 .info-button {
-  font-size: 0.8em;
   height: 1.5em !important;
   width: 1.5em !important;
 }
