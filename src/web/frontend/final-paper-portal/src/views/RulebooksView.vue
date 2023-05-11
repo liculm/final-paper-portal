@@ -6,13 +6,13 @@
     <div class="items">
       <div>
         <span>
-        <Button class="info-button" icon="pi pi-info" outlined rounded
-                @click="dialogs[0].visible = true"/>
         Obrazac za prijavu mentora
         </span>
         <div class="buttons">
-          <Button class="open-pdf-button" label="Otvori" raised
+          <Button class="open-pdf-button" label="Otvori" raised size="small"
                   @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"/>
+          <Button icon="pi pi-info" outlined rounded iconClass="info-button"
+                  @click="dialogs[0].visible = true"/>
           <Dialog v-model:visible="dialogs[0].visible" modal header="Obrazac za prijavu mentora"
                   :style="{ width: '50vw' }">
             <p>
