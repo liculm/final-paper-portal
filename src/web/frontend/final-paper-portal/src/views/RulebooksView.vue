@@ -17,46 +17,12 @@
             @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
           />
           <Button
+            class="info-button"
             icon="pi pi-info"
             outlined
             rounded
-            iconClass="info-button"
             @click="dialogs[0].visible = true"
           />
-          <Dialog
-            v-model:visible="dialogs[0].visible"
-            modal
-            header="Obrazac za prijavu mentora"
-            :style="{ width: '50vw' }"
-          >
-            <Button
-              class="open-pdf-button"
-              label="Otvori"
-              raised
-              @click="openPDF('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
-            />
-          </Dialog>
-          <Dialog
-            v-model:visible="dialogs[0].visible"
-            modal
-            header="Obrazac za prijavu mentora"
-            :style="{ width: '50vw' }"
-          >
-            <Button
-              class="open-pdf-button"
-              label="Otvori"
-              raised
-              size="small"
-              @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
-            />
-            <Button
-              icon="pi pi-info"
-              outlined
-              rounded
-              iconClass="info-button"
-              @click="dialogs[0].visible = true"
-            />
-          </Dialog>
           <Dialog
             v-model:visible="dialogs[0].visible"
             modal
@@ -82,10 +48,10 @@
             @click="openPdf('obrazac-2.-prijava-obrane-zavrsnog-rada-1_0_0')"
           />
           <Button
+            class="info-button"
             icon="pi pi-info"
             outlined
             rounded
-            iconClass="info-button"
             @click="dialogs[1].visible = true"
           />
           <Dialog
@@ -112,10 +78,10 @@
             @click="openPdf('pravilnik-o-zavrsnom-specijalistickom-zavrsnom-radu')"
           />
           <Button
+            class="info-button"
             icon="pi pi-info"
             outlined
             rounded
-            size="small"
             @click="dialogs[2].visible = true"
           />
           <Dialog
@@ -146,10 +112,10 @@
             "
           />
           <Button
+            class="info-button"
             icon="pi pi-info"
             outlined
             rounded
-            size="small"
             @click="dialogs[3].visible = true"
           />
           <Dialog
@@ -176,10 +142,10 @@
             @click="openPdf('terminski-plan-zavrsnih-specijalistickih-radova_0_0')"
           />
           <Button
+            class="info-button"
             icon="pi pi-info"
             outlined
             rounded
-            size="small"
             @click="dialogs[4].visible = true"
           />
           <Dialog
@@ -257,13 +223,15 @@ span:after {
 .buttons {
   display: flex;
   padding: 1em;
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
+  height: 60px;
 }
 
 .info-button {
-  font-size: 0.8em;
-  height: 1.5em !important;
-  width: 1.5em !important;
+  font-size: 0.5em;
+  height: 3em !important;
+  width: 3em !important;
+  margin-top: 1px;
 }
 
 .page-content {
