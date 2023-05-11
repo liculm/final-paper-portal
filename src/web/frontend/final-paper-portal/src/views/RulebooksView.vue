@@ -42,20 +42,21 @@
             header="Obrazac za prijavu mentora"
             :style="{ width: '50vw' }"
           >
-          <Button
-            class="open-pdf-button"
-            label="Otvori"
-            raised
-            size="small"
-            @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
-          />
-          <Button
-            icon="pi pi-info"
-            outlined
-            rounded
-            iconClass="info-button"
-            @click="dialogs[0].visible = true"
-          />
+            <Button
+              class="open-pdf-button"
+              label="Otvori"
+              raised
+              size="small"
+              @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+            />
+            <Button
+              icon="pi pi-info"
+              outlined
+              rounded
+              iconClass="info-button"
+              @click="dialogs[0].visible = true"
+            />
+          </Dialog>
           <Dialog
             v-model:visible="dialogs[0].visible"
             modal
@@ -200,7 +201,6 @@
 </template>
 <script>
 import { defineComponent, ref } from 'vue'
-import documentController from '@/controllerEndpoints/documentController'
 
 const baseUrl = 'https://localhost:7169/api/v1/'
 const downloadPdfEndpoint = `document/getPDFFile?fileName={fileName}`
@@ -229,7 +229,7 @@ export default defineComponent({
       dialogs,
       openPdf
     }
-  },
+  }
 })
 </script>
 
