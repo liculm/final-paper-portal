@@ -9,12 +9,14 @@ public sealed record GetPDFFileCommandHandler : IRequestHandler<GetPDFFileComman
 {
     public async Task<PdfFileViewModel> Handle(GetPDFFileCommand request, CancellationToken cancellationToken)
     {
-        if (!File.Exists(request.fileName))
+        var filePath = $"C:\\FinalPaperPDFs\\{request.fileName}.pdf";
+
+        if (!File.Exists(filePath))
         {
             throw new FileNotFoundException($"File not found: {request.fileName}");
         }
-        var pdfBytes = await File.ReadAllBytesAsync(request.fileName, cancellationToken);
-        
+        var pdfBytes = await File.ReadAllBytesAsync(filePath, cancellationToken);
+      
         return new PdfFileViewModel(pdfBytes, "application/pdf", $"{request.fileName}.pdf");
     }
 }

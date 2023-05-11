@@ -14,7 +14,7 @@
             label="Otvori"
             raised
             size="small"
-            @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+            @click="openPdf('PrijavaMentora')"
           />
           <Button
             icon="pi pi-info"
@@ -33,7 +33,7 @@
               class="open-pdf-button"
               label="Otvori"
               raised
-              @click="openPDF('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
+              @click="openPdf('obrazac-1.-prijava-mentora-i-teme-1_0_0')"
             />
           </Dialog>
           <Dialog
@@ -56,6 +56,7 @@
             iconClass="info-button"
             @click="dialogs[0].visible = true"
           />
+          </Dialog>
           <Dialog
             v-model:visible="dialogs[0].visible"
             modal
@@ -202,12 +203,9 @@
 import { defineComponent, ref } from 'vue'
 import documentController from '@/controllerEndpoints/documentController'
 
-const baseUrl = 'https://localhost:7169/api/v1/'
-const downloadPdfEndpoint = `document/getPDFFile?fileName={fileName}`
-
 export default defineComponent({
   name: 'RulebooksView',
-  setup() {
+  setup () {
     const dialogs = ref([
       { visible: false },
       { visible: false },
@@ -216,10 +214,10 @@ export default defineComponent({
       { visible: false }
     ])
 
-    async function openPdf(fileName) {
-      const response = await fetch(baseUrl + downloadPdfEndpoint.replace('{fileName}', fileName))
-      const blob = await response.blob()
-      const pdfUrl = URL.createObjectURL(blob)
+    async function openPdf (fileName) {
+      const response = await documentController.openPdf(fileName)
+      const blob = new Blob([response.data], { type: response.headers['content-type'] })
+      const pdfUrl = window.URL.createObjectURL(blob);
 
       const pdfWindow = window.open(pdfUrl, '_blank')
       pdfWindow.focus()
@@ -260,11 +258,6 @@ span:after {
   margin-bottom: 1.5em;
 }
 
-.info-button {
-  font-size: 0.8em;
-  height: 1.5em !important;
-  width: 1.5em !important;
-}
 
 .page-content {
   display: flex;

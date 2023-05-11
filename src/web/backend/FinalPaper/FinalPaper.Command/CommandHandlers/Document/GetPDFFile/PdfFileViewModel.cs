@@ -8,7 +8,7 @@ public sealed class PdfFileViewModel
 
     public PdfFileViewModel()
     {
-        FileContents = new byte[0];
+        FileContents = Array.Empty<byte>();
         ContentType = string.Empty;
         FileDownloadName = string.Empty;
     }

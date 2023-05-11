@@ -1,13 +1,15 @@
 import { axiosPrivate } from '@/common/axiosPrivate'
 
-const downloadPdfEndpoint = `document/getPDFFile?fileName={fileName}`
+const downloadPdfEndpoint = `document/getPDFFile`
 
 export default {
-  async openPDF(fileName) {
+  async openPdf(fileName) {
     try {
-      const response = await axiosPrivate.post(downloadPdfEndpoint.replace("{fileName}", fileName))
+      const data = {
+        fileName: fileName
+      }
 
-      return response
+      return (await axiosPrivate.post(downloadPdfEndpoint, data, {responseType: 'blob'}))
     } catch (error) {
       console.log('Error' + error)
       return null
