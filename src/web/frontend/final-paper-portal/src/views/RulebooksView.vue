@@ -6,163 +6,37 @@
       informacije i pravila te da se pridržavate svih postavljenih smjernica.
     </p>
     <div class="items">
-      <span> Obrazac za prijavu mentora </span>
-      <div class="buttons">
-        <Button
-          class="open-pdf-button"
-          label="Otvori"
-          raised
-          size="small"
-          @click="openPdf('PrijavaMentora')"
-        />
-        <Button
-          class="info-button"
-          icon="pi pi-info"
-          outlined
-          rounded
-          @click="dialogs[0].visible = true"
-        />
-        <Dialog
-          v-model:visible="dialogs[0].visible"
-          modal
-          header="Obrazac za prijavu mentora"
-          :style="{ width: '50vw' }"
-        >
-          <p>
-            Prije nego krenete sa izradom svog rada, potrebno je da odaberete mentora koji će vam
-            pružati stručnu pomoć i savjete. Molimo vas da ispunite obrazac za prijavu mentora i
-            priložite ga uz vašu prijavu rada.
-          </p>
-        </Dialog>
-      </div>
-      <div>
-        <span>Obrazac za prijavu obrane završnog rada</span>
+      <div v-for="(document, index) in documents" :key="index">
+        <span>{{ document.title }}</span>
         <div class="buttons">
           <Button
             class="open-pdf-button"
             label="Otvori"
             raised
             size="small"
-            @click="openPdf('obrazac-2.-prijava-obrane-zavrsnog-rada-1_0_0')"
+            @click="openPdf(document.fileName)"
           />
           <Button
             class="info-button"
             icon="pi pi-info"
             outlined
             rounded
-            @click="dialogs[1].visible = true"
+            @click="dialogs[index].visible = true"
           />
           <Dialog
-            v-model:visible="dialogs[1].visible"
+            v-model:visible="dialogs[index].visible"
             modal
-            header="Obrazac za prijavu obrane završnog rada"
+            :header="document.title"
             :style="{ width: '50vw' }"
           >
-            <p>
-              Nakon što završite sa izradom vašeg rada, potrebno je da se prijavite za obranu.
-              Molimo vas da ispunite obrazac za prijavu obrane završnog rada i priložite ga uz vaš
-              završni rad.
-            </p>
-          </Dialog>
-        </div>
-      </div>
-      <div>
-        <span>Pravilnik o završnom / specijalističkom radu</span>
-        <div class="buttons">
-          <Button
-            class="open-pdf-button"
-            label="Otvori"
-            size="small"
-            @click="openPdf('pravilnik-o-zavrsnom-specijalistickom-zavrsnom-radu')"
-          />
-          <Button
-            class="info-button"
-            icon="pi pi-info"
-            outlined
-            rounded
-            @click="dialogs[2].visible = true"
-          />
-          <Dialog
-            v-model:visible="dialogs[2].visible"
-            modal
-            header="Pravilnik o završnom / specijalističkom radu"
-            :style="{ width: '50vw' }"
-          >
-            <p>
-              Pravilnik o završnom / specijalističkom radu sadrži detaljne smjernice i pravila
-              vezana za izradu vašeg rada. Molimo vas da pažljivopročitate pravilnik prije nego što
-              krenete sa izradom vašeg rada.
-            </p>
-          </Dialog>
-        </div>
-      </div>
-      <div>
-        <span>Odluka o obavezi korištenja software-a</span>
-        <div class="buttons">
-          <Button
-            class="open-pdf-button"
-            label="Otvori"
-            size="small"
-            @click="
-              openPdf(
-                '27-odluka-o-obvezi-koristenja-softvera-za-provjeru-izvornosti-zavrsnih-i-specijalistickih-zavrsnih-radova'
-              )
-            "
-          />
-          <Button
-            class="info-button"
-            icon="pi pi-info"
-            outlined
-            rounded
-            @click="dialogs[3].visible = true"
-          />
-          <Dialog
-            v-model:visible="dialogs[3].visible"
-            modal
-            header="Odluka o obavezi korištenja software-a"
-            :style="{ width: '50vw' }"
-          >
-            <p>
-              Korištenje određenog software-a može biti obavezno prilikom izrade vašeg rada. Molimo
-              vas da pažljivo pročitate odluku o obavezi korištenja software-a i instalirate
-              potrebni software kako biste bili spremni za izradu vašeg rada.
-            </p>
-          </Dialog>
-        </div>
-      </div>
-      <div>
-        <span>Terminski plan završnih / specijalističkih radova</span>
-        <div class="buttons">
-          <Button
-            class="open-pdf-button"
-            label="Otvori"
-            size="small"
-            @click="openPdf('terminski-plan-zavrsnih-specijalistickih-radova_0_0')"
-          />
-          <Button
-            class="info-button"
-            icon="pi pi-info"
-            outlined
-            rounded
-            @click="dialogs[4].visible = true"
-          />
-          <Dialog
-            v-model:visible="dialogs[4].visible"
-            modal
-            header="Terminski plan završnih / specijalističkih radova"
-            :style="{ width: '50vw' }"
-          >
-            <p>
-              Terminski plan završnih / specijalističkih radova sadrži detaljan raspored vaših
-              aktivnosti tijekom izrade rada. Molimo vas da pažljivo proučite terminski plan i
-              pridržavate se svih postavljenih rokova kako biste uspješno završili vaš rad.
-            </p>
+            <p>{{ document.description }}</p>
           </Dialog>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 import { defineComponent, ref } from 'vue'
 import documentController from '@/controllerEndpoints/documentController'
@@ -178,6 +52,39 @@ export default defineComponent({
       { visible: false }
     ])
 
+    const documents = [
+      {
+        title: 'Obrazac za prijavu mentora',
+        fileName: 'PrijavaMentora',
+        description:
+          'Prije nego krenete sa izradom svog rada, potrebno je da odaberete mentora koji će vam pružati stručnu pomoć i savjete. Molimo vas da ispunite obrazac za prijavu mentora i priložite ga uz vašu prijavu rada.'
+      },
+      {
+        title: 'Obrazac za prijavu obrane završnog rada',
+        fileName: 'PrijavaObrane',
+        description:
+          'Nakon što završite sa izradom vašeg rada, potrebno je da se prijavite za obranu. Molimo vas da ispunite obrazac za prijavu obrane završnog rada i priložite ga uz vaš završni rad.'
+      },
+      {
+        title: 'Pravilnik o završnom / specijalističkom radu',
+        fileName: 'Pravilnik',
+        description:
+          'Pravilnik o završnom / specijalističkom radu sadrži detaljne smjernice i pravila vezana za izradu vašeg rada. Molimo vas da pažljivo pročitate pravilnik prije nego što krenete sa izradom vašeg rada.'
+      },
+      {
+        title: 'Odluka o obavezi korištenja software-a',
+        fileName: 'SoftwareZaProvjeruIzvornosti',
+        description:
+          'Korištenje određenog software-a može biti obavezno prilikom izrade vašeg rada. Molimo vas da pažljivo pročitate odluku o obavezi korištenja software-a i instalirate potrebni software kako biste bili spremni za izradu vašeg rada.'
+      },
+      {
+        title: 'Terminski plan završnih / specijalističkih radova',
+        fileName: 'TerminskiPlan',
+        description:
+          'Terminski plan završnih / specijalističkih radova sadrži detaljan raspored vaših aktivnosti tijekom izrade rada. Molimo vas da pažljivo proučite terminski plan i pridržavate se svih postavljenih rokova kako biste uspješno završili vaš rad.'
+      }
+    ];
+
     async function openPdf (fileName) {
       const response = await documentController.openPdf(fileName)
       const blob = new Blob([response.data], { type: response.headers['content-type'] })
@@ -189,6 +96,7 @@ export default defineComponent({
 
     return {
       dialogs,
+      documents,
       openPdf
     }
   }
