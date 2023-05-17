@@ -1,18 +1,24 @@
 <template>
   <div class="home">
     <div class="sidebar left-sidebar">
-      <div class="timeline-container">
-        <Timeline :value="events" class="w-full md:w-20rem">
-          <template #content="slotProps">
-            {{ slotProps.item.status }}
-          </template>
-        </Timeline>
+      <div v-for="(button, index) in buttons" :key="index" class="button-container">
+        <Button @click="openComponent(index)" class="button-item" size="small">
+          {{ button.label }}
+        </Button>
+        <br />
+        <i
+          v-if="index !== buttons.length - 1"
+          class="pi pi-arrow-down"
+          style="color: slateblue;"
+        ></i>
       </div>
     </div>
     <div class="content">
       <div class="sidebar middle-sidebar">
         <div class="heading">
-          <h1>Naslovna stranica</h1>
+          <div v-if="selectedComponentIndex !== null">
+            <component :is="selectedComponent"></component>
+          </div>
         </div>
       </div>
     </div>
@@ -68,6 +74,12 @@ import { useUserStore } from '@/store/store'
 import { ref } from 'vue'
 import moment from 'moment'
 import userController from '@/controllerEndpoints/userController'
+import OdabirMentora from '@/views/HomePageViews/OdabirMentora.vue'
+import OdabirTeme from '@/views/HomePageViews/OdabirTeme.vue'
+import MentorITemaPrihvaceni from '@/views/HomePageViews/MentorITemaPrihvaceni.vue'
+import Obrada from '@/views/HomePageViews/Obrada.vue'
+import Duznosti from '@/views/HomePageViews/Duznosti.vue'
+import ObranaRada from '@/views/HomePageViews/ObranaRada.vue'
 
 const events = ref([
   {
@@ -100,7 +112,16 @@ export default {
       store: useUserStore(),
       events,
       selectedDate: moment().add(1, 'days').format('YYYY-MM-DD'),
-      currentDate: moment().format('YYYY-MM-DD')
+      currentDate: moment().format('YYYY-MM-DD'),
+      buttons: [
+        { label: 'Odabir Mentora', component: OdabirMentora },
+        { label: 'Odabir Teme', component: OdabirTeme },
+        { label: 'Mentor I Tema Prihvaceni', component: MentorITemaPrihvaceni },
+        { label: 'U obradi', component: Obrada },
+        { label: 'Dužnosti', component: Duznosti },
+        { label: 'Obrana Rada', component: ObranaRada }
+      ],
+      selectedComponentIndex: null
     }
   },
   methods: {
@@ -108,6 +129,19 @@ export default {
       const response = await userController.getTest()
 
       console.log(response)
+    },
+
+    openComponent(index) {
+      this.selectedComponentIndex = index
+    }
+  },
+
+  computed: {
+    selectedComponent() {
+      if (this.selectedComponentIndex !== null) {
+        return this.buttons[this.selectedComponentIndex].component
+      }
+      return null
     }
   }
 }
@@ -132,6 +166,11 @@ export default {
   width: 220px;
   background-color: #f5f5f5;
   border-right: 1px solid #ccc;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .right-sidebar {
@@ -142,12 +181,6 @@ export default {
   border-left: 1px solid #ccc;
 }
 
-.timeline-container {
-  flex: 1;
-  padding: 20px;
-  max-width: 0;
-}
-
 .content {
   flex: 1;
   padding: 30px;
@@ -155,10 +188,6 @@ export default {
 
 .paragraph {
   padding-left: 2em;
-}
-
-.timeline-container {
-  margin-left: 0;
 }
 
 .display-flex {
@@ -181,16 +210,28 @@ export default {
   border-bottom: 1px solid #ccc;
 }
 
-.timeline-container {
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .home h1 {
   text-align: left;
   font-size: 1.5rem;
   font-weight: bold;
   margin: 0;
   padding: 20px;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+
+.button-item {
+  background-color: gray;
+  border-color: black;
+  height: 30px;
+}
+
+.button-item i {
+  color: gray;
 }
 </style>
