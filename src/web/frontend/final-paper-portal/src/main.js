@@ -22,6 +22,8 @@ import Calendar from 'primevue/calendar'
 import DataTable from 'primevue/dataTable'
 import Column from 'primevue/column'
 import './assets/styles.scss'
+import '/node_modules/primeflex/primeflex.css'
+
 
 const app = createApp(App)
 const pinia = createPinia()

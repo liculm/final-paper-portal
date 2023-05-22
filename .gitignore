@@ -39,3 +39,5 @@ src/web/backend/FinalPaper/obj/
 *.info
 
 *.pdb
+
+src/web/backend/FinalPaper/FinalPaper.Api/Properties/launchSettings.json

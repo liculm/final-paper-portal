@@ -1,4 +1,3 @@
-using FinalPaper.Domain.Enums;
 using FinalPaper.Domain.Interfaces;
 using FinalPaper.Domain.ViewModels;
 using FinalPaper.Infrastructure;
@@ -9,7 +8,7 @@ using Throw;
 namespace FinalPaper.Command.CommandHandlers.User.Register;
 
 public sealed record RegisterCommand
-    (string Username, string Password, string ConfirmPassword) : IRequest<UserViewModel>;
+    (string Username, string Password, string ConfirmPassword, int RoleId, string Firstname, string Lastname) : IRequest<UserViewModel>;
 
 public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, UserViewModel>
 {
@@ -37,9 +36,9 @@ public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, U
             Username = request.Username,
             Password = passwordHasher.HashPassword(request.Password),
             IsActive = true,
-            RoleId = Roles.Admin.Id,
-            FirstName = string.Empty,
-            LastName = string.Empty
+            RoleId = request.RoleId,
+            FirstName = request.Firstname,
+            LastName = request.Lastname
         };
 
         context.Users.Add(newUser);

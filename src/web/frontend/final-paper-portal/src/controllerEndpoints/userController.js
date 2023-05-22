@@ -37,5 +37,13 @@ export default {
       console.log('Error' + error)
       return null
     }
+  },
+  async addUser (userData) {
+    try {
+      return await axiosPrivate.post(`${controllerName}/register`, userData)
+    } catch (error) {
+      console.log('Error' + error)
+      return null
+    }
   }
 }
