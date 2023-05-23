@@ -31,8 +31,7 @@
       </div>
       <div class="field col-6">
         <label for="role">Uloga: </label>
-        <Dropdown v-model="addUserForm.roleId" :options="roles()" option-value="id" optionLabel="name" placeholder="Uloga"
-                  class="w-full"/>
+        <Dropdown v-model="addUserForm.roleId" :options="roles()" option-value="id" optionLabel="name" placeholder="Uloga" class="w-full"/>
         <span class="p-error" v-for="error in v$.roleId.$errors" :key="error.$uid">
           {{ error.$message }}
         </span>

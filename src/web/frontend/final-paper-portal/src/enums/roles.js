@@ -5,10 +5,10 @@ export const roles = [
   },
   {
     id: 2,
-    name: 'Student',
+    name: 'Mentor',
   },
   {
     id: 3,
-    name: 'Mentor'
+    name: 'Student'
   }
 ]

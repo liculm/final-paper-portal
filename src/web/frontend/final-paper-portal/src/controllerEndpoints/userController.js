@@ -13,7 +13,7 @@ export default {
     try {
       const response = await axiosPublic.post(`${controllerName}/login`, data)
 
-      const refreshToken = response.data.refreshToken.token
+      const refreshToken = response.data.refreshToken?.token
       const jwtToken = response.data.jwtToken
 
       if (refreshToken) {
@@ -41,6 +41,22 @@ export default {
   async addUser (userData) {
     try {
       return await axiosPrivate.post(`${controllerName}/register`, userData)
+    } catch (error) {
+      console.log('Error' + error)
+      return null
+    }
+  },
+  async deleteUser (userId) {
+    try {
+      return await axiosPrivate.delete(`${controllerName}/deleteUser/${userId}`)
+    } catch (error) {
+      console.log('Error' + error)
+      return null
+    }
+  },
+  async updateUser (userData) {
+    try {
+      return await axiosPrivate.put(`${controllerName}/updateUser`, userData)
     } catch (error) {
       console.log('Error' + error)
       return null

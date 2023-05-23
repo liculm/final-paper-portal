@@ -4,6 +4,7 @@ import router from './router'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import PrimeVue from 'primevue/config'
+import ToastService from 'primevue/toastservice';
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
@@ -21,6 +22,7 @@ import Avatar from 'primevue/avatar'
 import Calendar from 'primevue/calendar'
 import DataTable from 'primevue/dataTable'
 import Column from 'primevue/column'
+import Toast from 'primevue/toast';
 import './assets/styles.scss'
 import '/node_modules/primeflex/primeflex.css'
 
@@ -32,6 +34,7 @@ pinia.use(piniaPluginPersistedState)
 
 app.use(pinia)
 app.use(PrimeVue, { ripple: true })
+app.use(ToastService);
 app.use(router)
 
 app.directive('ripple', Ripple)
@@ -49,5 +52,6 @@ app.component('Avatar', Avatar)
 app.component('Calendar', Calendar)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
+app.component('Toast', Toast)
 
 app.mount('#app')

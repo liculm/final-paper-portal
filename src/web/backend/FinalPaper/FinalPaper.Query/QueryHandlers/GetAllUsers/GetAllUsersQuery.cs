@@ -17,6 +17,7 @@ public sealed class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, 
     public async Task<List<UserBaseData>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken) {
         return await context.Users
             .AsNoTracking()
+            .Where(x => x.IsActive)
             .Select(x => new UserBaseData(x.Id.ToString(), x.FirstName, x.LastName, x.Username, x.Role.Id, x.Role.Name))
             .ToListAsync(cancellationToken);
     }
