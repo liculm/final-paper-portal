@@ -25,11 +25,9 @@
       header="Dodaj korisnika"
       modal
     >
-      <AddUserComponent></AddUserComponent>
-      <template #footer>
-        <Button label="No" icon="pi pi-times" @click="addDialogOpen = false" text/>
-        <Button label="Yes" icon="pi pi-check" @click="addDialogOpen = false" autofocus/>
-      </template>
+      <AddUserComponent
+        @toggleDialog="toggleDialog"
+      ></AddUserComponent>
     </Dialog>
 
     <DataTable
@@ -111,6 +109,9 @@ export default {
     }
   },
   methods: {
+    toggleDialog () {
+      this.addDialogOpen = !this.addDialogOpen
+    },
     getRole (roleId) {
       const allRoles = this.roles()
       return allRoles.find(role => role.id === roleId)

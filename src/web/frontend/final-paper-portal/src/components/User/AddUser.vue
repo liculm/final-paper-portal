@@ -37,7 +37,7 @@
         </span>
       </div>
       <div class="field col-12">
-        <Button class="p-button p-mt-3 w-full" @click="saveUser()">Login</Button>
+        <Button class="p-button p-mt-3 w-full" @click="saveUser()">Dodaj</Button>
       </div>
     </div>
   </form>
@@ -92,9 +92,20 @@ export default defineComponent({
       const response = await userController.addUser(this.addUserForm)
 
       if (response) {
-        console.log('asd')
+        this.$emit('toggleDialog');
+        this.$toast.add({
+          severity: 'success',
+          summary: 'Uspješno',
+          detail: 'Korisnik je uspješno dodan',
+          life: 3000
+        })
       } else {
-        console.log('nahhh')
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Korisnik nije dodan, pokušajte ponovno kasnije',
+          life: 3000
+        })
       }
     }
   }
