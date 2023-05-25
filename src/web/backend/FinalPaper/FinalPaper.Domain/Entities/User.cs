@@ -26,11 +26,11 @@ public class User : Entity
     public ICollection<ThesisDefenceUser>? ThesesDefenceUsers { get; set; }
     public RefreshToken? RefreshToken { get; set; }
 
-    public void Update(string firstName, string lastName, bool isActive, int roleId)
+    public void UpdateUserInfo(string firstName, string lastName, string username, int roleId)
     {
         FirstName = firstName;
         LastName = lastName;
-        IsActive = isActive;
+        Username = username;
         RoleId = roleId;
     }
 
@@ -44,4 +44,6 @@ public class User : Entity
         IsActive = user.IsActive;
         RoleId = user.RoleId;
     }
+    
+    public void MarkUserInactive() => IsActive = false;
 }

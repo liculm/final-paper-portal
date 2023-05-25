@@ -31,10 +31,9 @@ const items = ref([
     to: '/help'
   },
   {
-    label: 'Moj Profil',
+    label: 'Korisnici',
     icon: 'pi pi-fw pi-user',
-    class: 'my-profile',
-    to: '/myProfile'
+    to: '/users'
   },
   {
     label: 'Odjava',
@@ -59,10 +58,5 @@ const items = ref([
 .logout-button {
   position: fixed;
   right: 1em;
-}
-
-.my-profile {
-  position: fixed;
-  right: 9em;
 }
 </style>
