@@ -1,220 +1,175 @@
 <template>
-  <div>
-    <!-- User List -->
-    <div class="p-card">
-      <h2>User List</h2>
-      <div class="p-grid">
-        <div class="p-col-12">
-          <div class="p-inputgroup">
-            <input type="text" v-model="filter" placeholder="Search Users" class="p-inputtext" />
-            <button class="p-button p-button-icon-only" @click="filter = ''">
-              <i class="pi pi-times"></i>
-            </button>
-          </div>
-        </div>
-        <div class="p-col-12">
-          <div class="p-datatable">
-            <div class="p-datatable-header">
-              <div class="p-datatable-row">
-                <div class="p-datatable-col">
-                  <span>Name</span>
-                </div>
-                <div class="p-datatable-col">
-                  <span>Email</span>
-                </div>
-                <div class="p-datatable-col">
-                  <span>Role</span>
-                </div>
-                <div class="p-datatable-col">
-                  <span>Status</span>
-                </div>
-                <div class="p-datatable-col">
-                  <span>Actions</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-datatable-body">
-              <div v-for="(user, index) in filteredUsers" :key="index" class="p-datatable-row">
-                <div class="p-datatable-col">
-                  <span>{{ user.name }}</span>
-                </div>
-                <div class="p-datatable-col">
-                  <span>{{ user.email }}</span>
-                </div>
-                <div class="p-datatable-col">
-                  <span>{{ user.role }}</span>
-                </div>
-                <div class="p-datatable-col">
-                  <span
-                    :class="{
-                      'text-success': user.status === 'Active',
-                      'text-danger': user.status === 'Inactive'
-                    }"
-                    >{{ user.status }}</span
-                  >
-                </div>
-                <div class="p-datatable-col">
-                  <button class="p-button p-button-icon-only" @click="editUser(user)">
-                    <i class="pi pi-pencil"></i>
-                  </button>
-                  <button
-                    class="p-button p-button-icon-only p-button-danger"
-                    @click="deleteUser(user)"
-                  >
-                    <i class="pi pi-trash"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="content">
+    <p style="margin-bottom: 5em">
+      Ova stranica namjenjena je uređivanju te pregledu svih korisnika u sustavu
+    </p>
 
-    <!-- User Form -->
-    <div v-if="showUserForm" class="p-card">
-      <h2>{{ isNewUser ? 'Add User' : 'Edit User' }}</h2>
-      <div class="p-grid">
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label for="name">Name</label>
-            <input type="text" v-model="editedUser.name" id="name" class="p-inputtext" />
+    <Button
+      label="Dodaj korisnika"
+      icon="pi pi-plus"
+      class="p-button-success"
+      style="margin-right: 1em"
+      @click="addUser"
+    />
+    <Button
+      label="Osvježi"
+      icon="pi pi-refresh"
+      class="p-button-info"
+      @click="getAllUsers"
+    />
+
+    <Dialog
+      v-model:visible="addDialogOpen"
+      :style="{ width: '50vw' }"
+      :draggable="false"
+      header="Dodaj korisnika"
+      modal
+    >
+      <AddUserComponent
+        @toggleDialog="toggleDialog"
+      ></AddUserComponent>
+    </Dialog>
+
+    <DataTable
+      v-model:editingRows="editingRows"
+      :value="userList"
+      editMode="row"
+      dataKey="id"
+      @row-edit-save="onRowEditSave($event)"
+      tableClass="editable-cells-table"
+      tableStyle="min-width: 50rem"
+      selectionMode="single"
+    >
+      <Column
+        v-for="col of columns"
+        :key="col.field"
+        :field="col.field"
+        :header="col.header"
+        style="width: 25%"
+      >
+        <template #body="{ data, field }">
+          <div v-if="field === 'roleId'">
+            {{ getRole(data.roleId).name }}
           </div>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label for="email">Email</label>
-            <input type="email" v-model="editedUser.email" id="email" class="p-inputtext" />
+          <div v-else>
+            {{ data[field] }}
           </div>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label for="password">Password</label>
+        </template>
+        <template #editor="{ data, field }">
+          <div v-if="field === 'roleId'">
+            <Dropdown v-model="data[field]" :options="roles()" optionLabel="name" optionValue="id" class="w-full"/>
           </div>
-        </div>
-        <div class="p-col-12 p-md-6">
-          <div class="p-field">
-            <label for="role">Role</label>
-            <Dropdown v-model="editedUser.role" :options="roles" id="role" class="p-inputtext" />
+          <div v-else>
+            <InputText v-model="data[field]"/>
           </div>
-        </div>
-        <div class="p-col-12">
-          <div class="p-field">
-            <label for="status">Status</label>
-            <RadioButton
-              v-model="editedUser.status"
-              name="status"
-              value="Active"
-              id="active"
-              class="p-inputtext"
-            />
-            <label for="active">Active</label>
-            <RadioButton
-              v-model="editedUser.status"
-              name="status"
-              value="Inactive"
-              id="inactive"
-              class="p-inputtext"
-            />
-            <label for="inactive">Inactive</label>
-          </div>
-        </div>
-        <div class="p-col-12">
-          <button class="p-button p-button-primary" @click="saveUser">
-            {{ isNewUser ? 'Add User' : 'Save Changes' }}
-          </button>
-          <button class="p-button p-button-secondary" @click="cancelEdit">
-            {{ isNewUser ? 'Cancel' : 'Discard Changes' }}
-          </button>
-        </div>
-      </div>
-    </div>
+        </template>
+      </Column>
+      <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
+    </DataTable>
   </div>
-
-  <!-- Add User Button -->
-  <button v-if="!showUserForm" class="p-button p-button-primary p-mt-2" @click="addUser">
-    Add User
-  </button>
+  <Toast/>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { useUserStore } from '@/store/store'
+import userController from '@/controllerEndpoints/userController'
+import AddUserComponent from '@/components/User/AddUser.vue'
+import { roles } from '@/enums/roles'
 
-export default defineComponent({
-  data() {
+export default {
+  name: 'UserManagement',
+  components: { AddUserComponent },
+  async mounted () {
+    await this.getAllUsers()
+  },
+  data () {
     return {
-      users: [
+      addDialogOpen: false,
+      editingRows: [],
+      userList: [],
+      store: useUserStore(),
+      columns: [
         {
-          name: 'John Doe',
-          email: 'johndoe@example.com',
-          password: 'password',
-          role: 'Admin',
-          status: 'Active'
+          field: 'username',
+          header: 'Korisničko ime'
         },
         {
-          name: 'Jane Smith',
-          email: 'janesmith@example.com',
-          password: 'password',
-          role: 'User',
-          status: 'Inactive'
+          field: 'firstName',
+          header: 'Ime'
+        },
+        {
+          field: 'lastName',
+          header: 'Prezime'
+        },
+        {
+          field: 'roleId',
+          header: 'Uloga'
         }
-      ],
-      editedUser: {
-        name: '',
-        email: '',
-        password: '',
-        role: '',
-        status: 'Active'
-      },
-      filter: '',
-      showUserForm: false,
-      isNewUser: false,
-      roles: ['Admin', 'User']
-    }
-  },
-  computed: {
-    filteredUsers() {
-      return this.users.filter((user) => {
-        const filter = this.filter.toLowerCase()
-        return (
-          user.name.toLowerCase().indexOf(filter) !== -1 ||
-          user.email.toLowerCase().indexOf(filter) !== -1 ||
-          user.role.toLowerCase().indexOf(filter) !== -1 ||
-          user.status.toLowerCase().indexOf(filter) !== -1
-        )
-      })
+      ]
     }
   },
   methods: {
-    editUser(user) {
-      this.editedUser = { ...user }
-      this.isNewUser = false
-      this.showUserForm = true
+    toggleDialog () {
+      this.addDialogOpen = !this.addDialogOpen
     },
-    deleteUser(user) {
-      const index = this.users.indexOf(user)
-      this.users.splice(index, 1)
+    getRole (roleId) {
+      const allRoles = this.roles()
+      return allRoles.find(role => role.id === roleId)
     },
-    addUser() {
-      this.editedUser = { name: '', email: '', password: '', role: '', status: 'Active' }
-      this.isNewUser = true
-      this.showUserForm = true
+    roles () {
+      return roles
     },
-    saveUser() {
-      if (this.isNewUser) {
-        this.users.push(this.editedUser)
-      } else {
-        const index = this.users.findIndex
-        // eslint-disable-next-line no-unused-expressions
-        ;(user) => user.email === this.editedUser.email
+    async onRowEditSave (event) {
+      if (event.data === event.newData) return
 
-        this.$set(this.users, index, this.editedUser)
+      try {
+        const response = await userController.updateUser(event.newData)
+        if (response) {
+          this.userList = this.userList.map(user => {
+            if (user.id === event.data.id) {
+              return event.newData
+            }
+            return user
+          })
+
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Uspješno',
+            detail: 'Korisnik je uspješno ažuriran',
+            life: 3000
+          })
+        }
+      } catch (error) {
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Korisnik nije ažuriran',
+          life: 3000
+        })
+        console.log(error)
       }
-      this.showUserForm = false
     },
-    cancelEdit() {
-      this.showUserForm = false
+    async getAllUsers () {
+      try {
+        const response = await userController.getAllUsers()
+        if (response) {
+          this.userList = response.data
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    addUser () {
+      this.addDialogOpen = true
     }
   }
-})
+}
 </script>
+
+<style>
+.content {
+  margin: 0 auto;
+  width: 80%;
+  padding: 2rem;
+}
+</style>
