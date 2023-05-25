@@ -25,6 +25,8 @@ import Column from 'primevue/column'
 import Toast from 'primevue/toast';
 import './assets/styles.scss'
 import '/node_modules/primeflex/primeflex.css'
+import DataTable from "primevue/datatable";
+import Column from "primevue/column";
 
 
 const app = createApp(App)
