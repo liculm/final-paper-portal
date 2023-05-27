@@ -9,7 +9,11 @@
       <Column field="totalNumberOfStudents" header="Ukupno mjesta"></Column>
       <Column header="Akcija">
         <template #body="rowData">
-          <button v-if="rowData.availableNumberOfStudents > 0" class="p-button p-button-secondary" @click="selectProfessor(rowData)">
+          <button
+            v-if="rowData.availableNumberOfStudents > 0"
+            class="p-button p-button-secondary"
+            @click="selectProfessor(rowData)"
+          >
             Odaberi profesora
           </button>
         </template>
@@ -45,7 +49,7 @@ export default {
         {
           fName: 'Jessica',
           lName: 'Williams',
-          availableNumberOfStudents: 0,
+          availableNumberOfStudents: 1,
           totalNumberOfStudents: 3
         }
       ]
@@ -54,7 +58,7 @@ export default {
   methods: {
     selectProfessor(professor) {
       // Handle the selection logic here
-      console.log('Selected professor:', professor);
+      console.log('Selected professor:', professor)
     }
   }
 }
@@ -62,6 +66,6 @@ export default {
 
 <style scoped>
 .p-button-secondary {
-  background-color: #D3D3D3;
+  background-color: #d3d3d3;
 }
 </style>
