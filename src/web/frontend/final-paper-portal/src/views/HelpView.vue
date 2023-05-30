@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <Accordion>
+  <div class="page-content">
+    <Accordion class="">
       <AccordionTab header="Kako se odabire mentor za završni rad putem ove aplikacije?">
         <p>
           Odabir mentora za završni rad putem ove aplikacije obično se odvija na sljedeći način: student se prijavljuje
@@ -84,22 +84,18 @@
 </template>
 
 <script>
-import Accordion from 'primevue/accordion'
-import AccordionTab from 'primevue/accordiontab'
-
 export default {
   name: 'HelpView',
-  components: {
-    Accordion,
-    AccordionTab
-  }
 }
 </script>
 
 <style scoped>
-.card {
-  padding-top: 10rem;
-  margin: 0 auto;
-  width: 80%;
+
+.page-content {
+  height: 100%;
+  margin-left: 15vw;
+  margin-right: 15vw;
+  margin-top: 5em;
 }
+
 </style>

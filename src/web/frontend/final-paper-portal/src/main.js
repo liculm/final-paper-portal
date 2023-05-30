@@ -23,6 +23,8 @@ import Calendar from 'primevue/calendar'
 import DataTable from 'primevue/dataTable'
 import Column from 'primevue/column'
 import Toast from 'primevue/toast';
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab'
 import './assets/styles.scss'
 import '/node_modules/primeflex/primeflex.css'
 
@@ -53,5 +55,7 @@ app.component('Calendar', Calendar)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('Toast', Toast)
+app.component('Accordion', Accordion)
+app.component('AccordionTab', AccordionTab)
 
 app.mount('#app')
