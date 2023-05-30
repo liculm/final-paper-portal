@@ -30,42 +30,53 @@
       ></AddUserComponent>
     </Dialog>
 
-    <DataTable
-      v-model:editingRows="editingRows"
-      :value="userList"
-      editMode="row"
-      dataKey="id"
-      @row-edit-save="onRowEditSave($event)"
-      tableClass="editable-cells-table"
-      tableStyle="min-width: 50rem"
-      selectionMode="single"
-    >
-      <Column
-        v-for="col of columns"
-        :key="col.field"
-        :field="col.field"
-        :header="col.header"
-        style="width: 25%"
+    <div class="table-space">
+      <DataTable
+        v-model:editing-rows="editingRows"
+        :value="userList"
+        scrollable
+        scrollHeight="60vh"
+        editMode="row"
+        dataKey="id"
+        @row-edit-save="onRowEditSave($event)"
+        tableClass="editable-cells-table"
+        tableStyle="min-width: 50rem"
+        selectionMode="single"
       >
-        <template #body="{ data, field }">
-          <div v-if="field === 'roleId'">
-            {{ getRole(data.roleId).name }}
-          </div>
-          <div v-else>
-            {{ data[field] }}
-          </div>
-        </template>
-        <template #editor="{ data, field }">
-          <div v-if="field === 'roleId'">
-            <Dropdown v-model="data[field]" :options="roles()" optionLabel="name" optionValue="id" class="w-full"/>
-          </div>
-          <div v-else>
-            <InputText v-model="data[field]"/>
-          </div>
-        </template>
-      </Column>
-      <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
-    </DataTable>
+        <Column
+          v-for="col of columns"
+          :key="col.field"
+          :field="col.field"
+          :header="col.header"
+          style="width: 25%"
+        >
+          <template #body="{ data, field }">
+            <div v-if="field === 'roleId'">
+              {{ getRole(data.roleId).name }}
+            </div>
+            <div v-else>
+              {{ data[field] }}
+            </div>
+          </template>
+          <template #editor="{ data, field }">
+            <div v-if="field === 'roleId'">
+              <Dropdown v-model="data[field]" :options="roles()" optionLabel="name" optionValue="id" class="w-full"/>
+            </div>
+            <div v-else>
+              <InputText v-model="data[field]"/>
+            </div>
+          </template>
+        </Column>
+        <Column :rowEditor="true" style="width: 10%; min-width: 8rem" bodyStyle="text-align:center"></Column>
+        <Column bodyStyle="text-align:center">
+          <template #editor="{ data }">
+            <div v-if="editingRows.length === 1">
+              <Button icon="pi pi-trash" severity="danger" @click="deleteUser(data)"></Button>
+            </div>
+          </template>
+        </Column>
+      </DataTable>
+    </div>
   </div>
   <Toast/>
 </template>
@@ -120,6 +131,8 @@ export default {
       return roles
     },
     async onRowEditSave (event) {
+      if (JSON.stringify(event.data) === JSON.stringify(event.newData)) return
+
       if (event.data === event.newData) return
 
       try {
@@ -159,6 +172,29 @@ export default {
         console.log(error)
       }
     },
+    async deleteUser (event) {
+      try {
+        console.log(event)
+        const response = await userController.deleteUser(event.id)
+        if (response) {
+          this.userList = this.userList.filter(user => user.id !== event.id)
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Uspješno',
+            detail: 'Korisnik je uspješno izbrisan',
+            life: 3000
+          })
+        }
+      } catch (error) {
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Korisnik nije izbrisan',
+          life: 3000
+        })
+        console.log(error)
+      }
+    },
     addUser () {
       this.addDialogOpen = true
     }
@@ -171,5 +207,9 @@ export default {
   margin: 0 auto;
   width: 80%;
   padding: 2rem;
+}
+
+.table-space {
+  margin-top: 2rem;
 }
 </style>

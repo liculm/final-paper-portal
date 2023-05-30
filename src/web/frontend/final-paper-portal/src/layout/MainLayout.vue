@@ -8,6 +8,11 @@
 <script setup>
 import { ref } from 'vue'
 import { clearUserData } from '@/services/userService'
+import { useUserStore } from '@/store/store'
+
+const store = useUserStore();
+
+const role = store.user?.roleName
 
 const items = ref([
   {
@@ -18,7 +23,8 @@ const items = ref([
   {
     label: 'Poruke',
     icon: 'pi pi-fw pi-comments',
-    to: '/messages'
+    to: '/messages',
+    class: role !== 'Admin' ? '' : 'hide'
   },
   {
     label: 'Pravilnici',
@@ -33,7 +39,8 @@ const items = ref([
   {
     label: 'Korisnici',
     icon: 'pi pi-fw pi-user',
-    to: '/users'
+    to: '/users',
+    class: role === 'Admin' ? '' : 'hide'
   },
   {
     label: 'Odjava',
@@ -45,6 +52,7 @@ const items = ref([
     to: '/login'
   }
 ])
+
 </script>
 
 <style>
@@ -58,5 +66,9 @@ const items = ref([
 .logout-button {
   position: fixed;
   right: 1em;
+}
+
+.hide{
+  display: none;
 }
 </style>
