@@ -1,5 +1,6 @@
 import { axiosPublic } from './axiosPublic'
 import mem from 'mem'
+import { clearUserData } from '@/services/userService'
 
 const refreshTokenFunction = async () => {
   const refreshToken = localStorage.getItem('refreshToken')
@@ -20,6 +21,9 @@ const refreshTokenFunction = async () => {
 
     return session
   } catch (error) {
+    clearUserData()
+    this.$router.push({ name: 'login' })
+
     localStorage.removeItem('jwtToken')
   }
 }
