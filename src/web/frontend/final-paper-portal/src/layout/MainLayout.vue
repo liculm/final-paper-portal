@@ -18,7 +18,8 @@ const items = ref([
   {
     label: 'Početna',
     icon: 'pi pi-fw pi-home',
-    to: '/home'
+    to: '/home',
+    class: role === 'Student' ? '' : 'hide'
   },
   {
     label: 'Poruke',
