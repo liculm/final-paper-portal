@@ -1,16 +1,16 @@
 <template>
   <div class="home">
     <div class="sidebar left-sidebar">
+      <h1>Koraci</h1>
       <div v-for="(button, index) in buttons" :key="index" class="button-container">
-        <Button @click="openComponent(index)" class="button-item" size="small">
-          {{ button.label }}
+        <Button label="Primary" @click="openComponent(index)" class="button-item" size="small">
+          <span class="label">{{ button.label }}</span>
+          <span class="circle">
+            <i class="pi pi-check" style="color: green;"></i>
+          </span>
         </Button>
+        <hr v-if="index !== buttons.length - 1" class="button-separator" />
         <br />
-        <i
-          v-if="index !== buttons.length - 1"
-          class="pi pi-arrow-down"
-          style="color: slateblue;"
-        ></i>
       </div>
     </div>
     <div class="content">
@@ -162,7 +162,6 @@ export default {
 }
 
 .left-sidebar {
-  padding-top: 40px;
   width: 220px;
   background-color: #f5f5f5;
   border-right: 1px solid #ccc;
@@ -218,20 +217,65 @@ export default {
   padding: 20px;
 }
 
-.button-container {
+.button-item {
+  background-color: #2196f3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  position: relative;
+  width: 150px; /* Promijenite vrijednost prema potrebi */
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
-  flex-direction: column;
+
 }
 
-.button-item {
-  background-color: gray;
-  border-color: black;
-  height: 30px;
+.button-item:hover {
+  background-color: #1976d2;
 }
 
 .button-item i {
-  color: gray;
+  margin-right: 5px;
 }
+
+.circle {
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.label {
+  padding-left: 2px;
+  margin-left: 5px;
+}
+.button-item {
+
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+
+}
+
+.button-separator {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-top: 15px;
+
+}
+
+
 </style>
