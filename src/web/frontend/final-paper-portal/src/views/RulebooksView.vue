@@ -43,7 +43,7 @@ import documentController from '@/controllerEndpoints/documentController'
 
 export default defineComponent({
   name: 'RulebooksView',
-  setup () {
+  setup() {
     const dialogs = ref([
       { visible: false },
       { visible: false },
@@ -83,9 +83,9 @@ export default defineComponent({
         description:
           'Terminski plan završnih / specijalističkih radova sadrži detaljan raspored vaših aktivnosti tijekom izrade rada. Molimo vas da pažljivo proučite terminski plan i pridržavate se svih postavljenih rokova kako biste uspješno završili vaš rad.'
       }
-    ];
+    ]
 
-    async function openPdf (fileName) {
+    async function openPdf(fileName) {
       const response = await documentController.openPdf(fileName)
       const blob = new Blob([response.data], { type: response.headers['content-type'] })
       const pdfUrl = window.URL.createObjectURL(blob)
@@ -117,6 +117,7 @@ span:after {
 }
 
 .items {
+  margin-top: 50px;
   align-self: flex-start;
 }
 
