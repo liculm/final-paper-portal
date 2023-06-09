@@ -9,7 +9,7 @@
         <i
           v-if="index !== buttons.length - 1"
           class="pi pi-arrow-down"
-          style="color: slateblue;"
+          style="color: slateblue"
         ></i>
       </div>
     </div>
