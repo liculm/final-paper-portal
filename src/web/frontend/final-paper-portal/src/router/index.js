@@ -72,7 +72,7 @@ const routes = [
           title: 'myStudents',
           requiresAuth: true
         },
-        component: MyStudentsView,
+        component: MyStudentsView
       },
       {
         path: '/requests',
@@ -81,8 +81,9 @@ const routes = [
           title: 'requests',
           requiresAuth: true
         },
-        component: RequestsView,
+        component: RequestsView
       },
+      {
         path: '/studentsForDefense',
         name: 'studentsForDefense',
         meta: {
@@ -90,7 +91,7 @@ const routes = [
           requiresAuth: true
         },
         component: DefenceList
-      },
+      }
     ]
   },
   {
