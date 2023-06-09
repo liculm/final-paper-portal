@@ -4,9 +4,11 @@ namespace FinalPaper.Domain.Entities;
 
 public class Thesis : Entity
 {
-    public Thesis()
-    {
-        Name = string.Empty;
+    public Thesis(int courseId, Guid studentId) {
+        Name = "";
+        ThesisStatusTypeId = 1;
+        CourseId = courseId;
+        StudentId = studentId;
     }
 
     public int Id { get; set; }
