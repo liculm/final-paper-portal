@@ -9,16 +9,17 @@
 import { ref } from 'vue'
 import { clearUserData } from '@/services/userService'
 
+
 const items = ref([
   {
     label: 'Početna',
     icon: 'pi pi-fw pi-home',
-    to: '/home'
+    to: '/home',
   },
   {
     label: 'Poruke',
     icon: 'pi pi-fw pi-comments',
-    to: '/messages'
+    to: '/messages',
   },
   {
     label: 'Pravilnici',
@@ -33,8 +34,15 @@ const items = ref([
   {
     label: 'Korisnici',
     icon: 'pi pi-fw pi-user',
-    to: '/users'
+    to: '/users',
   },
+  {
+    label: 'Studenti za obranu',
+    icon: 'pi pi-fw pi-user',
+    to: '/studentsForDefense',
+  },
+
+
   {
     label: 'Odjava',
     icon: 'pi pi-fw pi-power-off',
