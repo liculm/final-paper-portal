@@ -263,6 +263,7 @@ export default {
   padding-left: 2px;
   margin-left: 5px;
 }
+
 .button-item {
 
   margin-bottom: 5px;
@@ -275,8 +276,5 @@ export default {
   border: none;
   border-top: 1px solid #ccc;
   margin-top: 15px;
-
 }
-
-
 </style>

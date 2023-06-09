@@ -38,6 +38,14 @@ export default {
       return null
     }
   },
+  async getAllMentors() {
+    try {
+      return await axiosPrivate.get(`${controllerName}/getAllMentors`)
+    } catch (error) {
+      console.log('Error' + error)
+      return null
+    }
+  },
   async addUser (userData) {
     try {
       return await axiosPrivate.post(`${controllerName}/register`, userData)
