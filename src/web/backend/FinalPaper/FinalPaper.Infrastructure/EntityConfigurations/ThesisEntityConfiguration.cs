@@ -12,7 +12,7 @@ public class ThesisEntityConfiguration : IEntityTypeConfiguration<Thesis>
         builder.Property(p => p.Id).ValueGeneratedOnAdd().IsRequired();
         builder.Property(p => p.Name).HasMaxLength(255).IsRequired();
         builder.Property(p => p.StudentId).IsRequired();
-        builder.Property(p => p.IsCurrent).IsRequired();
+        builder.Property(p => p.ThesisStatusTypeId).IsRequired();
         builder.Property(p => p.CourseId).IsRequired();
 
         builder.HasOne(o => o.User)
