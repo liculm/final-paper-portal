@@ -77,7 +77,12 @@ export default {
 
       if (response) {
         this.store.setUser(response.data)
-        this.$router.push('home')
+        if(response.data.roleName==='Student'){
+          this.$router.push('home')
+
+        }else{
+          this.$router.push('rulebooks')
+        }
       } else {
         this.serverResponse = 'An error occured!'
       }

@@ -3,7 +3,7 @@
     <div class="sidebar left-sidebar">
       <h1>Koraci</h1>
       <div v-for="(button, index) in buttons" :key="index" class="button-container">
-        <Button label="Primary" @click="openComponent(index)" class="button-item" size="small">
+        <Button label="Primary" raised @click="openComponent(index)" class="button-item" size="small">
           <span class="label">{{ button.label }}</span>
           <span class="circle">
             <i class="pi pi-check" style="color: green;"></i>
@@ -11,11 +11,7 @@
         </Button>
         <hr v-if="index !== buttons.length - 1" class="button-separator" />
         <br />
-        <i
-          v-if="index !== buttons.length - 1"
-          class="pi pi-arrow-down"
-          style="color: slateblue"
-        ></i>
+
       </div>
     </div>
     <div class="content">
@@ -227,7 +223,7 @@ export default {
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   font-size: 14px;
@@ -235,7 +231,7 @@ export default {
   text-transform: uppercase;
   transition: background-color 0.3s ease;
   position: relative;
-  width: 150px; /* Promijenite vrijednost prema potrebi */
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;

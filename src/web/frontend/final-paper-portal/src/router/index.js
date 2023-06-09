@@ -18,7 +18,7 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: 'home'
+        redirect: 'rulebooks'
       },
       {
         path: 'home',

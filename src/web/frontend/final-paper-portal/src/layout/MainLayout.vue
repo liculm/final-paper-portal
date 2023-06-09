@@ -63,6 +63,7 @@ const items = ref([
     label: 'Studenti za obranu',
     icon: 'pi pi-fw pi-user',
     to: '/studentsForDefense',
+    class: role === 'Admin' ? '' : 'hide'
   },
 
 
