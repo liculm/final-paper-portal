@@ -14,6 +14,7 @@ const store = useUserStore();
 
 const role = store.user?.roleName
 
+
 const items = ref([
   {
     label: 'Početna',
@@ -25,7 +26,6 @@ const items = ref([
     label: 'Poruke',
     icon: 'pi pi-fw pi-comments',
     to: '/messages',
-    class: role !== 'Admin' ? '' : 'hide'
   },
   {
     label: 'Pravilnici',
@@ -42,6 +42,7 @@ const items = ref([
     label: 'Korisnici',
     icon: 'pi pi-fw pi-user',
     to: '/users',
+
     class: role === 'Admin' ? '' : 'hide'
   },
   {
@@ -58,6 +59,13 @@ const items = ref([
     to: '/myStudents',
     class: role === 'Mentor' ? '' : 'hide'
   },
+  {
+    label: 'Studenti za obranu',
+    icon: 'pi pi-fw pi-user',
+    to: '/studentsForDefense',
+  },
+
+
   {
     label: 'Odjava',
     icon: 'pi pi-fw pi-power-off',
