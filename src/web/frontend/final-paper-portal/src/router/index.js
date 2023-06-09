@@ -7,8 +7,9 @@ import { useUserStore } from '@/store/store'
 import MessagesView from '@/views/MessagesView.vue'
 import RulebooksView from '@/views/RulebooksView.vue'
 import HelpView from '@/views/HelpView.vue'
+import MyStudentsView from '@/views/MentorPageViews/MyStudentsView.vue'
+import RequestsView from '@/views/MentorPageViews/RequestsView.vue'
 import DefenceList from '@/views/CouncilPageViews/DefenceList.vue'
-
 
 const routes = [
   {
@@ -65,6 +66,23 @@ const routes = [
         component: UserManagementView
       },
       {
+        path: '/myStudents',
+        name: 'myStudents',
+        meta: {
+          title: 'myStudents',
+          requiresAuth: true
+        },
+        component: MyStudentsView,
+      },
+      {
+        path: '/requests',
+        name: 'requests',
+        meta: {
+          title: 'requests',
+          requiresAuth: true
+        },
+        component: RequestsView,
+      },
         path: '/studentsForDefense',
         name: 'studentsForDefense',
         meta: {
@@ -73,7 +91,6 @@ const routes = [
         },
         component: DefenceList
       },
-
     ]
   },
   {
