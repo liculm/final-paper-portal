@@ -9,10 +9,7 @@
       <Column field="totalNumberOfStudents" header="Ukupno mjesta"></Column>
       <Column header="Akcija">
         <template #body="rowData">
-          <button
-            class="p-button p-button-secondary"
-            @click="selectedMentor(rowData)"
-          >
+          <button class="p-button p-button-secondary" @click="selectedMentor(rowData.data.id)">
             Odaberi mentora
           </button>
         </template>
@@ -23,6 +20,7 @@
 
 <script>
 import userController from '@/controllerEndpoints/userController'
+import thesisController from '@/controllerEndpoints/thesisController'
 
 export default {
   name: 'OdabirMentora',
@@ -36,8 +34,8 @@ export default {
     }
   },
   methods: {
-    selectedMentor(mentor) {
-      console.log('Selected mentor:', mentor)
+    selectedMentor(rowData) {
+      console.log('Selected mentor id:', rowData)
     },
     async getAllMentors() {
       try {
@@ -48,6 +46,27 @@ export default {
         }
       } catch (error) {
         console.log(error)
+      }
+    },
+    async onMentorSelect() {
+      console.log(this.addThesisForm)
+      const response = await thesisController.addThesis(this.addThesisForm)
+
+      if (response) {
+        this.$emit('toggleDialog')
+        this.$toast.add({
+          severity: 'success',
+          summary: 'Uspješno',
+          detail: 'Mentoru je poslan zahtjev za mentorstvo!',
+          life: 3000
+        })
+      } else {
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Došlo je do greške, pokušajte kasnije!',
+          life: 3000
+        })
       }
     }
   }

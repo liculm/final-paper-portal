@@ -18,7 +18,7 @@ public sealed class GetAllMentorsQueryHandler : IRequestHandler<GetAllMentorsQue
         return await context.Users
             .AsNoTracking()
             .Where(x => x.IsActive && x.Role.Id == 2)
-            .Select(x => new MentorViewModel(x.FirstName, x.LastName, 5))
+            .Select(x => new MentorViewModel(x.Id.ToString(), x.FirstName, x.LastName, 5))
             .ToListAsync(cancellationToken);
     }
 };
