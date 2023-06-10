@@ -7,7 +7,7 @@ namespace Api.Controllers.v1;
 [ApiVersion("1")]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
-public class DocumentController: BaseController
+public class DocumentController : BaseController
 {
     [HttpPost("getPDFFile")]
     public async Task<IActionResult> GetPdfFile([FromBody] GetPDFFileCommand command) {

@@ -27,6 +27,7 @@ public class FinalPaperDBContext : BaseDbContext
     public DbSet<ThesisDefenceUser> ThesisDefenceUser { get; set; }
     public DbSet<Roles> Role { get; set; }
     public DbSet<CourseTypes> CourseTypes { get; set; }
+    public DbSet<ThesisStatusTypes> ThesisStatusTypes { get; set; }
     public DbSet<RefreshToken> RefreshToken { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,6 +48,12 @@ public class FinalPaperDBContext : BaseDbContext
     {
         builder.Entity<Roles>().HasData(Enumeration.GetAll<Roles>()
             .Select(x => new Roles(x.Id, x.Name)).ToArray());
+        
+        builder.Entity<ThesisStatusTypes>().HasData(Enumeration.GetAll<ThesisStatusTypes>()
+            .Select(x => new ThesisStatusTypes(x.Id, x.Name)).ToArray());
+        
+        builder.Entity<CourseTypes>().HasData(Enumeration.GetAll<CourseTypes>()
+            .Select(x => new CourseTypes(x.Id, x.Name)).ToArray());
     }
 }
 

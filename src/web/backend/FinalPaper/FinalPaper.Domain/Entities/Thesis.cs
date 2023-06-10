@@ -4,24 +4,26 @@ namespace FinalPaper.Domain.Entities;
 
 public class Thesis : Entity
 {
-    public Thesis()
-    {
-        Name = string.Empty;
+    public Thesis(int courseId, Guid studentId) {
+        Name = "";
+        ThesisStatusTypeId = 1;
+        CourseId = courseId;
+        StudentId = studentId;
     }
 
     public int Id { get; set; }
     public string Name { get; set; }
-    public bool IsCurrent { get; set; }
+    public int ThesisStatusTypeId { get; set; }
     public int CourseId { get; set; }
     public Guid StudentId { get; set; }
     public User? User { get; set; }
     public Course? Course { get; set; }
     public ICollection<ThesisDefence>? ThesisDefences { get; set; }
 
-    public void Update(string name, bool isCurrent, int courseId, Guid studentId)
+    public void Update(string name, int thesisStatusTypeId, int courseId, Guid studentId)
     {
         Name = name;
-        IsCurrent = isCurrent;
+        ThesisStatusTypeId = thesisStatusTypeId;
         CourseId = courseId;
         StudentId = studentId;
     }
