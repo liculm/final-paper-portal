@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FinalPaper.Domain.Enums;
 
 namespace FinalPaper.Query.QueryHandlers.GetAllMentors
 {
@@ -20,29 +21,23 @@ namespace FinalPaper.Query.QueryHandlers.GetAllMentors
             this.context = context;
         }
 
-        public async Task<List<MentorViewModel>> Handle(GetAllMentorsQuery request, CancellationToken cancellationToken)
-        {
-            var mentors = await context.Users
+        public async Task<List<MentorViewModel>> Handle(GetAllMentorsQuery request, CancellationToken cancellationToken) {
+            var mentorCourses = await context.Course
                 .AsNoTracking()
-                .Where(x => x.IsActive && x.Role.Id == 2)
-                .Select(x => new MentorViewModel(x.Id.ToString(), x.FirstName, x.LastName, 5, null, null))
+                .Where(x => x.IsActive)
+                .Select(x => new MentorViewModel(x.MentorId.ToString(), x.User.FirstName, x.User.LastName, 5, x.Id, x.Name))
                 .ToListAsync(cancellationToken);
 
-            foreach (var mentor in mentors)
-            {
-                var courses = await context.Course
-                    .AsNoTracking()
-                    .Where(course => course.MentorId.ToString() == mentor.Id)
-                    .ToListAsync(cancellationToken);
+            var approvedThesis = await context.Thesis
+                .AsNoTracking()
+                .Where(x => x.ThesisStatusTypeId == ThesisStatusTypes.Approved.Id)
+                .ToListAsync(cancellationToken);
 
-                if (courses.Any())
-                {
-                    mentor.CourseId = courses.First().Id.ToString();
-                    mentor.CourseName = courses.First().Name;
-                }
+            foreach (var course in mentorCourses) {
+                course.AvailableNumberOfStudents = 10 - approvedThesis.Count(x => x.CourseId == course.CourseId); 
             }
-
-            return mentors;
+            
+            return mentorCourses;
         }
     }
 }
