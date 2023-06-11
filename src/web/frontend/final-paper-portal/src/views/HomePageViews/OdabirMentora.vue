@@ -10,7 +10,10 @@
       <Column field="totalNumberOfStudents" header="Ukupno mjesta"></Column>
       <Column header="Akcija">
         <template #body="rowData">
-          <button class="p-button p-button-secondary" @click="selectedMentor(rowData.data.id)">
+          <button
+            class="p-button p-button-secondary"
+            @click="onMentorSelect(rowData.data.courseId)"
+          >
             Odaberi mentora
           </button>
         </template>
@@ -22,11 +25,7 @@
 <script>
 import userController from '@/controllerEndpoints/userController'
 import thesisController from '@/controllerEndpoints/thesisController'
-// import { useUserStore } from '@/store/store'
-
-// const store = useUserStore()
-
-// const studentId = store.user?.id ?? 0
+import { useUserStore } from '@/store/store'
 
 export default {
   name: 'OdabirMentora',
@@ -36,13 +35,11 @@ export default {
   data() {
     return {
       mentorList: [],
-      totalNumberOfStudents: 10
+      totalNumberOfStudents: 10,
+      store: useUserStore()
     }
   },
   methods: {
-    selectedMentor(rowData) {
-      console.log('Selected mentor id:', rowData)
-    },
     async getAllMentors() {
       try {
         const response = await userController.getAllMentors()
@@ -54,12 +51,10 @@ export default {
         console.log(error)
       }
     },
-    async onMentorSelect() {
-      console.log(this.addThesisForm)
-      const response = await thesisController.addThesis(/*studentId /*, CourseId*/)
+    async onMentorSelect(courseId) {
+      const response = await thesisController.addThesis(courseId, this.store.user?.id)
 
       if (response) {
-        this.$emit('toggleDialog')
         this.$toast.add({
           severity: 'success',
           summary: 'Uspješno',
