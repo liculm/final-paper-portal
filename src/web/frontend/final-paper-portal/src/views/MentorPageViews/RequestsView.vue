@@ -1,22 +1,22 @@
 <template>
   <div class="page-content">
-    <DataTable :value="Students" tableStyle="min-width: 40rem">
-      <Column field="fName" header="Ime"></Column>
-      <Column field="lName" header="Prezime"></Column>
-      <Column field="topic" header="Tema"></Column>
-      <Column field="year" header="Godina studija"></Column>
-      <Column field="faculty" header="Fakultet"></Column>
+    <Button label="Osvježi" icon="pi pi-refresh" class="p-button-info" style="margin-bottom: 30px" @click="getMentoringRequests()" />
+    <DataTable :value="students" tableStyle="min-width: 40rem">
+      <Column field="studentFirstName" header="Ime"></Column>
+      <Column field="studentLastName" header="Prezime"></Column>
+      <Column field="thesisName" header="Tema"></Column>
+      <Column field="courseName" header="Kolegij"></Column>
       <Column header="Prihvaćanje mentorstva">
         <template #body="rowData">
           <button
             class="p-button p-button-success"
-            @click="acceptStudent(rowData)"
+            @click="setIsApproved(rowData, true)"
           >
             <b>Prihvati</b>
           </button>
           <button
             class="p-button p-button-danger"
-            @click="rejectStudent(rowData)"
+            @click="setIsApproved(rowData, false)"
           >
             <b>Odbij</b>
           </button>
@@ -24,28 +24,52 @@
       </Column>
     </DataTable>
   </div>
+  <Toast />
 </template>
 
 <script>
+import { useUserStore } from '@/store/store'
+import thesisController from '@/controllerEndpoints/thesisController'
+
 export default {
+  async mounted() {
+    await this.getMentoringRequests()
+  },
   data() {
     return {
-      Students: [
-        { fName: 'Marko', lName: 'Marković', topic: 'Tematika 1', year: '3. godina', faculty: 'Fakultet A', availableNumberOfStudents: 3 },
-        { fName: 'Ana', lName: 'Anić', topic: 'Tematika 2', year: '2. godina', faculty: 'Fakultet B', availableNumberOfStudents: 0 },
-        { fName: 'Ivan', lName: 'Ivančić', topic: 'Tematika 3', year: '4. godina', faculty: 'Fakultet C', availableNumberOfStudents: 2 },
-
-      ],
+      students: [],
+      store: useUserStore(),
     };
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    acceptStudent(rowData) {
-
+    async setIsApproved(rowData, isApproved) {
+      try {
+        const response = await thesisController.setIsApproved(
+          rowData.data.thesisId,
+          isApproved
+        );
+        if (response) {
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Uspješno',
+            detail: 'Uspješno ste odgovorili na zahtjev za mentorstvo',
+            life: 3000,
+          });
+          await this.getMentoringRequests();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
-    // eslint-disable-next-line no-unused-vars
-    rejectStudent(rowData) {
-
+    async getMentoringRequests() {
+      try {
+        const response = await thesisController.getMentoringRequests(this.store.user.id)
+        if (response) {
+          this.students = response.data
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 };

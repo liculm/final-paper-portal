@@ -12,16 +12,20 @@
         placeholder="Unesi temu"
       />
     </div>
-    <button :disabled="!topicValidation" @click="sendTopic">Pošalji temu</button>
+    <button :disabled="!topicValidation" @click="selectThesisName">Pošalji temu</button>
   </div>
 </template>
 
 <script>
+import thesisController from '@/controllerEndpoints/thesisController'
+import { useUserStore } from '@/store/store'
+
 export default {
   name: 'topicSelection',
   data() {
     return {
-      enteredTopic: ''
+      enteredTopic: '',
+      store: useUserStore()
     }
   },
   computed: {
@@ -30,8 +34,23 @@ export default {
     }
   },
   methods: {
-    sendTopic() {
-      console.log('Entered Topic:', this.enteredTopic)
+    async selectThesisName() {
+      try {
+        const response = await thesisController.selectThesisName(
+          this.store.user?.id,
+          this.enteredTopic
+        )
+        if (response) {
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Uspješno',
+            detail: 'Uspješno ste poslali zahtjev za odobravanje naslova',
+            life: 3000
+          })
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }

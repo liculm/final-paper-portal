@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FinalPaper.Infrastructure; 
+namespace FinalPaper.Infrastructure;
 
 public class FinalPaperDBContext : BaseDbContext
 {
@@ -36,9 +36,9 @@ public class FinalPaperDBContext : BaseDbContext
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(EntityConfiguration<>).Assembly);
         modelBuilder.Entity<User>(builder =>
         {
-        //     // Date is a DateOnly property and date on database
-        //     // builder.Property(x => x.Date)
-        //     //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+            //     // Date is a DateOnly property and date on database
+            //     // builder.Property(x => x.Date)
+            //     //     .HasConversion<DateOnlyConverter, DateOnlyComparer>();
         });
 
         SeedEnums(modelBuilder);
@@ -48,10 +48,10 @@ public class FinalPaperDBContext : BaseDbContext
     {
         builder.Entity<Roles>().HasData(Enumeration.GetAll<Roles>()
             .Select(x => new Roles(x.Id, x.Name)).ToArray());
-        
+
         builder.Entity<ThesisStatusTypes>().HasData(Enumeration.GetAll<ThesisStatusTypes>()
             .Select(x => new ThesisStatusTypes(x.Id, x.Name)).ToArray());
-        
+
         builder.Entity<CourseTypes>().HasData(Enumeration.GetAll<CourseTypes>()
             .Select(x => new CourseTypes(x.Id, x.Name)).ToArray());
     }

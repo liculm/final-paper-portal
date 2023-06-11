@@ -1,42 +1,77 @@
 <template>
   <div class="page-content">
-    <DataTable :value="Students" tableStyle="min-width: 40rem">
-      <Column field="fName" header="Ime"></Column>
-      <Column field="lName" header="Prezime"></Column>
-      <Column field="year" header="Godina studija"></Column>
-      <Column field="topic" header="Tema"></Column>
+    <Button label="Osvježi" icon="pi pi-refresh" class="p-button-info" style="margin-bottom: 30px" @click="getMentoredStudents()" />
+    <DataTable :value="students" tableStyle="min-width: 40rem">
+      <Column field="studentFirstName" header="Ime"></Column>
+      <Column field="studentLastName" header="Prezime"></Column>
+      <Column field="thesisName" header="Tema"></Column>
+      <Column field="courseName" header="Kolegij"></Column>
       <Column header="Pošalji na završni rad">
         <template #body="rowData">
-          <button
+          <button v-if="!rowData.data.requestedThesisDefence"
             class="p-button p-button-success"
-            @click="sendStudent (rowData)"
+            @click="submitThesisDefenceRequest(rowData)"
           >
             <b>Pošalji na završni rad</b>
           </button>
-
-
-
+          <p v-if="rowData.data.requestedThesisDefence">Poslano</p>
         </template>
       </Column>
     </DataTable>
   </div>
+  <Toast />
 </template>
 
 <script>
+import thesisController from '@/controllerEndpoints/thesisController'
+import { useUserStore } from '@/store/store'
+
 export default {
+  async mounted() {
+    await this.getMentoredStudents()
+  },
   data() {
     return {
-      Students: [
-        { fName: 'Marko', lName: 'Marković', year: '1', topic: 'Tematika 1', availableNumberOfStudents: 3 },
-        { fName: 'Ana', lName: 'Anić', year: '2', topic: 'Tematika 2', availableNumberOfStudents: 0 },
-        { fName: 'Ivan', lName: 'Ivančić', year: '2', topic: 'Tematika 3', availableNumberOfStudents: 2 },
-      ],
+      students: [],
+      store: useUserStore(),
     };
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    sendStudent(rowData) {
-
+    async submitThesisDefenceRequest(rowData) {
+      try {
+        const response = await thesisController.submitThesisDefenceRequest(rowData.data.thesisId);
+        if (response) {
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Uspješno',
+            detail: 'Uspješno ste poslali zahtjev za završni rad',
+            life: 3000,
+          });
+          await this.getMentoredStudents();
+        }
+      } catch (error) {
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Greška prilikom slanja zahtjeva za završni rad',
+          life: 3000,
+        });
+      }
+    },
+    async getMentoredStudents() {
+      try {
+        const response = await thesisController.getMentoredStudents(this.store.user.id);
+        if (response) {
+          this.students = response.data;
+        }
+      } catch (error) {
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Greška prilikom dohvaćanja studenata',
+          life: 3000,
+        });
+      }
     },
 
   },

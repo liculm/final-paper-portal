@@ -8,7 +8,8 @@ using Throw;
 namespace FinalPaper.Command.CommandHandlers.User.Register;
 
 public sealed record RegisterCommand
-    (string Username, string Password, string ConfirmPassword, int RoleId, string Firstname, string Lastname) : IRequest<UserViewModel>;
+(string Username, string Password, string ConfirmPassword, int RoleId, string Firstname,
+    string Lastname) : IRequest<UserViewModel>;
 
 public sealed record RegisterCommandHandler : IRequestHandler<RegisterCommand, UserViewModel>
 {

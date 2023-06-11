@@ -6,6 +6,7 @@ public sealed class ThesisStatusTypes : Enumeration {
     public static ThesisStatusTypes PendingApproval = new(1, "Čeka odobrenje");
     public static ThesisStatusTypes Approved = new(2, "Odobreno");
     public static ThesisStatusTypes Rejected = new(3, "Odbijeno");
+    public static ThesisStatusTypes PendingDefence = new(4, "Čeka odbranu");
 
     public ThesisStatusTypes() {
         

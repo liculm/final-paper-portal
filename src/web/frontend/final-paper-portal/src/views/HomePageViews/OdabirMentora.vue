@@ -5,13 +5,14 @@
     <DataTable :value="mentorList" data-key="id" tableStyle="min-width: 50rem">
       <Column field="firstName" header="Ime"></Column>
       <Column field="lastName" header="Prezime"></Column>
+      <Column field="courseName" header="Kolegij"></Column>
       <Column field="availableNumberOfStudents" header="Slobodnih mjesta"></Column>
       <Column field="totalNumberOfStudents" header="Ukupno mjesta"></Column>
       <Column header="Akcija">
         <template #body="rowData">
           <button
             class="p-button p-button-secondary"
-            @click="selectedMentor(rowData)"
+            @click="onMentorSelect(rowData.data.courseId)"
           >
             Odaberi mentora
           </button>
@@ -23,6 +24,8 @@
 
 <script>
 import userController from '@/controllerEndpoints/userController'
+import thesisController from '@/controllerEndpoints/thesisController'
+import { useUserStore } from '@/store/store'
 
 export default {
   name: 'OdabirMentora',
@@ -32,13 +35,11 @@ export default {
   data() {
     return {
       mentorList: [],
-      totalNumberOfStudents: 10
+      totalNumberOfStudents: 10,
+      store: useUserStore()
     }
   },
   methods: {
-    selectedMentor(mentor) {
-      console.log('Selected mentor:', mentor)
-    },
     async getAllMentors() {
       try {
         const response = await userController.getAllMentors()
@@ -48,6 +49,25 @@ export default {
         }
       } catch (error) {
         console.log(error)
+      }
+    },
+    async onMentorSelect(courseId) {
+      const response = await thesisController.addThesis(courseId, this.store.user?.id)
+
+      if (response) {
+        this.$toast.add({
+          severity: 'success',
+          summary: 'Uspješno',
+          detail: 'Mentoru je poslan zahtjev za mentorstvo!',
+          life: 3000
+        })
+      } else {
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Došlo je do greške, pokušajte kasnije!',
+          life: 3000
+        })
       }
     }
   }

@@ -3,6 +3,7 @@ using FinalPaper.Domain.Entities;
 namespace FinalPaper.Domain.ViewModels;
 
 public sealed record UserData(string JwtToken,
+    Guid Id,
     string FirstName,
     string LastName,
     string Username,
@@ -11,6 +12,7 @@ public sealed record UserData(string JwtToken,
     string RoleName
     ) {
     public string JwtToken { get; set; } = JwtToken;
+    public Guid Id { get; set; } = Id;
     public string FirstName { get; set; } = FirstName;
     public string LastName { get; set; } = LastName;
     public string Username { get; set; } = Username;

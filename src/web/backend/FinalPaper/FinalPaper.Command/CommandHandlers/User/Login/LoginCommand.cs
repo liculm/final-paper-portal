@@ -42,6 +42,7 @@ public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, UserData
             user.Password = string.Empty;
             return new UserData( 
                 jwtService.GenerateJwtToken(user),
+                user.Id,
                 user.FirstName,
                 user.LastName,
                 user.Username,
@@ -56,6 +57,7 @@ public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, UserData
             user.Password = string.Empty;
             return new UserData( 
                 jwtService.GenerateJwtToken(user),
+                user.Id,
                 user.FirstName,
                 user.LastName,
                 user.Username,
@@ -71,6 +73,7 @@ public sealed class LoginCommandHandler : IRequestHandler<LoginCommand, UserData
         user.Password = string.Empty;
         return new UserData( 
             jwtService.GenerateJwtToken(user),
+            user.Id,
             user.FirstName,
             user.LastName,
             user.Username,
