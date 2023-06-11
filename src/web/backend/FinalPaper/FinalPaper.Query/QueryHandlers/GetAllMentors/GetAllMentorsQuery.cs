@@ -15,10 +15,25 @@ public sealed class GetAllMentorsQueryHandler : IRequestHandler<GetAllMentorsQue
     }
 
     public async Task<List<MentorViewModel>> Handle(GetAllMentorsQuery request, CancellationToken cancellationToken) {
-        return await context.Users
+        var mentors = await context.Users
             .AsNoTracking()
             .Where(x => x.IsActive && x.Role.Id == 2)
-            .Select(x => new MentorViewModel(x.Id.ToString(), x.FirstName, x.LastName, 5))
+            .Select(x => new MentorViewModel(x.Id.ToString(), x.FirstName, x.LastName, 5, null, null))
             .ToListAsync(cancellationToken);
+
+        foreach (var mentor in mentors) {
+            var courses = await context.Course
+                .AsNoTracking()
+                .Where(course => course.MentorId.ToString() == mentor.Id)
+                .ToListAsync(cancellationToken);
+
+            if (courses.Any()) {
+                mentor.CourseId = courses.First().Id.ToString();
+                mentor.CourseName = courses.First().Name;
+            }
+        }
+
+        return mentors;
     }
-};
+}
+

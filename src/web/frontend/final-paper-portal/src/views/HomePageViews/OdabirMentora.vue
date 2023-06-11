@@ -5,6 +5,7 @@
     <DataTable :value="mentorList" data-key="id" tableStyle="min-width: 50rem">
       <Column field="firstName" header="Ime"></Column>
       <Column field="lastName" header="Prezime"></Column>
+      <Column field="courseName" header="Kolegij"></Column>
       <Column field="availableNumberOfStudents" header="Slobodnih mjesta"></Column>
       <Column field="totalNumberOfStudents" header="Ukupno mjesta"></Column>
       <Column header="Akcija">
@@ -21,6 +22,11 @@
 <script>
 import userController from '@/controllerEndpoints/userController'
 import thesisController from '@/controllerEndpoints/thesisController'
+// import { useUserStore } from '@/store/store'
+
+// const store = useUserStore()
+
+// const studentId = store.user?.id ?? 0
 
 export default {
   name: 'OdabirMentora',
@@ -50,7 +56,7 @@ export default {
     },
     async onMentorSelect() {
       console.log(this.addThesisForm)
-      const response = await thesisController.addThesis(this.addThesisForm)
+      const response = await thesisController.addThesis(/*studentId /*, CourseId*/)
 
       if (response) {
         this.$emit('toggleDialog')
