@@ -25,7 +25,8 @@ const routes = [
         name: 'home',
         meta: {
           title: 'Home',
-          requiresAuth: true
+          requiresAuth: true,
+          allowedRoles: ['Student']
         },
         component: HomeView
       },
@@ -61,7 +62,8 @@ const routes = [
         name: 'users',
         meta: {
           title: 'users',
-          requiresAuth: true
+          requiresAuth: true,
+          allowedRoles: ['Admin']
         },
         component: UserManagementView
       },
@@ -70,7 +72,8 @@ const routes = [
         name: 'myStudents',
         meta: {
           title: 'myStudents',
-          requiresAuth: true
+          requiresAuth: true,
+          allowedRoles: ['Mentor']
         },
         component: MyStudentsView
       },
@@ -79,7 +82,8 @@ const routes = [
         name: 'requests',
         meta: {
           title: 'requests',
-          requiresAuth: true
+          requiresAuth: true,
+          allowedRoles: ['Mentor']
         },
         component: RequestsView
       },
@@ -88,7 +92,8 @@ const routes = [
         name: 'studentsForDefense',
         meta: {
           title: 'studentsForDefense',
-          requiresAuth: true
+          requiresAuth: true,
+          allowedRoles: ['Mentor']
         },
         component: DefenceList
       }
@@ -107,6 +112,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const allowedRoles = to.meta.allowedRoles
+
+  if (allowedRoles && allowedRoles.length > 0) {
+    const userRole = useUserStore().user.roleName
+
+    if (!allowedRoles.includes(userRole)) {
+      next({ name: from.name })
+    }
+  }
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (to.name === 'login' && useUserStore().isAuthenticated) {
       this.clearUserData()
