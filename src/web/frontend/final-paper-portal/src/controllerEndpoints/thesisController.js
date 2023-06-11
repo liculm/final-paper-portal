@@ -5,7 +5,7 @@ const controllerName = 'thesis'
 export default {
   async addThesis(courseId, studentId) {
     try {
-      return await axiosPrivate.post(`${controllerName}/submitThesis`, {courseId, studentId})
+      return await axiosPrivate.post(`${controllerName}/submitThesis`, { courseId, studentId })
     } catch (error) {
       console.log('Error' + error)
       return null
@@ -14,8 +14,7 @@ export default {
   async getMentoringRequests(mentorId) {
     try {
       return await axiosPrivate.get(`${controllerName}/mentoringRequests/${mentorId}`)
-    }
-    catch (error) {
+    } catch (error) {
       console.log('Error' + error)
       return null
     }
@@ -23,8 +22,15 @@ export default {
   async setIsApproved(thesisId, isApproved) {
     try {
       return await axiosPrivate.put(`${controllerName}/isApproved/${thesisId}`, { isApproved })
+    } catch (error) {
+      console.log('Error' + error)
+      return null
     }
-    catch (error) {
+  },
+  async selectThesisName(studentId, thesisName) {
+    try {
+      return await axiosPrivate.put(`${controllerName}/thesisName/${studentId}`, { thesisName })
+    } catch (error) {
       console.log('Error' + error)
       return null
     }

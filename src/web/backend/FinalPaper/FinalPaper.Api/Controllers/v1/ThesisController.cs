@@ -1,5 +1,6 @@
 using Api.Controllers.Base;
 using FinalPaper.Command.CommandHandlers.Thesis.ApproveThesis;
+using FinalPaper.Command.CommandHandlers.Thesis.SelectThesisName;
 using FinalPaper.Command.CommandHandlers.Thesis.SubmitThesis;
 using FinalPaper.Command.CommandHandlers.Thesis.SubmitThesisDefenceRequest;
 using FinalPaper.Query.QueryHandlers.GetMentoredStudents;
@@ -19,6 +20,15 @@ public sealed class ThesisController : BaseController {
     }
 
     [HttpPut("isApproved/{thesisId}")]
+    public async Task<ActionResult<Unit>> ApproveThesis([FromRoute] int thesisId,
+        [FromBody] SetIsApprovedCommand command) =>
+        await Mediator.Send(command with { ThesisId = thesisId });
+
+    [HttpPut("thesisName/{studentId}")]
+    public async Task<ActionResult<Unit>> SelectThesisName([FromRoute] Guid studentId,
+        [FromBody] SelectThesisNameCommand command)
+    {
+        return await Mediator.Send(command with { StudentId = studentId });
     public async Task<ActionResult<Unit>> ApproveThesis([FromRoute] int thesisId,
         [FromBody] SetIsApprovedCommand command) {
         return await Mediator.Send(command with { ThesisId = thesisId });
