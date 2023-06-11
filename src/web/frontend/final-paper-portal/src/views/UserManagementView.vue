@@ -23,52 +23,54 @@
       <AddUserComponent @toggleDialog="toggleDialog"></AddUserComponent>
     </Dialog>
 
-    <DataTable
-      v-model:editingRows="editingRows"
-      :value="userList"
-      editMode="row"
-      dataKey="id"
-      @row-edit-save="onRowEditSave($event)"
-      tableClass="editable-cells-table"
-      tableStyle="min-width: 50rem"
-      selectionMode="single"
-    >
-      <Column
-        v-for="col of columns"
-        :key="col.field"
-        :field="col.field"
-        :header="col.header"
-        style="width: 25%"
+    <div class="table-container">
+      <DataTable
+        v-model:editingRows="editingRows"
+        :value="userList"
+        editMode="row"
+        dataKey="id"
+        @row-edit-save="onRowEditSave($event)"
+        tableClass="editable-cells-table"
+        tableStyle="min-width: 50rem"
+        selectionMode="single"
       >
-        <template #body="{ data, field }">
-          <div v-if="field === 'roleId'">
-            {{ getRole(data.roleId).name }}
-          </div>
-          <div v-else>
-            {{ data[field] }}
-          </div>
-        </template>
-        <template #editor="{ data, field }">
-          <div v-if="field === 'roleId'">
-            <Dropdown
-              v-model="data[field]"
-              :options="roles()"
-              optionLabel="name"
-              optionValue="id"
-              class="w-full"
-            />
-          </div>
-          <div v-else>
-            <InputText v-model="data[field]" />
-          </div>
-        </template>
-      </Column>
-      <Column
-        :rowEditor="true"
-        style="width: 10%; min-width: 8rem"
-        bodyStyle="text-align:center"
-      ></Column>
-    </DataTable>
+        <Column
+          v-for="col of columns"
+          :key="col.field"
+          :field="col.field"
+          :header="col.header"
+          style="width: 25%"
+        >
+          <template #body="{ data, field }">
+            <div v-if="field === 'roleId'">
+              {{ getRole(data.roleId).name }}
+            </div>
+            <div v-else>
+              {{ data[field] }}
+            </div>
+          </template>
+          <template #editor="{ data, field }">
+            <div v-if="field === 'roleId'">
+              <Dropdown
+                v-model="data[field]"
+                :options="roles()"
+                optionLabel="name"
+                optionValue="id"
+                class="w-full"
+              />
+            </div>
+            <div v-else>
+              <InputText v-model="data[field]" />
+            </div>
+          </template>
+        </Column>
+        <Column
+          :rowEditor="true"
+          style="width: 10%; min-width: 8rem"
+          bodyStyle="text-align:center"
+        ></Column>
+      </DataTable>
+    </div>
   </div>
   <Toast />
 </template>
@@ -182,5 +184,10 @@ export default {
 
 .buttons {
   margin-bottom: 30px;
+}
+
+.table-container {
+  height: 400px;
+  overflow-y: auto; 
 }
 </style>
