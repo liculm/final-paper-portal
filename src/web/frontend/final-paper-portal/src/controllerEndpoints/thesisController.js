@@ -28,5 +28,23 @@ export default {
       console.log('Error' + error)
       return null
     }
+  },
+  async getMentoredStudents(mentorId) {
+    try {
+      return await axiosPrivate.get(`${controllerName}/mentoredStudents/${mentorId}`)
+    }
+    catch (error) {
+      console.log('Error' + error)
+      return null
+    }
+  },
+  async submitThesisDefenceRequest(thesisId) {
+    try {
+      return await axiosPrivate.post(`${controllerName}/submitThesisDefenceRequest/${thesisId}`)
+    }
+    catch (error) {
+      console.log('Error' + error)
+      return null
+    }
   }
 }
