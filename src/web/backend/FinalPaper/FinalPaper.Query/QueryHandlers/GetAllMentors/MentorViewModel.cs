@@ -10,7 +10,8 @@ public sealed class MentorViewModel
     public string CourseId { get; set; }
     public string CourseName { get; set; }
 
-    public MentorViewModel(string id, string firstName, string lastName, int availableNumberOfStudents, string courseId, string courseName)
+    public MentorViewModel(string id, string firstName, string lastName, int availableNumberOfStudents, string courseId,
+        string courseName)
     {
         Id = id;
         FirstName = firstName;
@@ -20,4 +21,3 @@ public sealed class MentorViewModel
         CourseName = courseName;
     }
 }
-

@@ -10,7 +10,8 @@ namespace Api.Controllers.v1;
 public class DocumentController : BaseController
 {
     [HttpPost("getPDFFile")]
-    public async Task<IActionResult> GetPdfFile([FromBody] GetPDFFileCommand command) {
+    public async Task<IActionResult> GetPdfFile([FromBody] GetPDFFileCommand command)
+    {
         var result = await Mediator.Send(command);
 
         return File(result.FileContents, result.ContentType, result.FileDownloadName);
