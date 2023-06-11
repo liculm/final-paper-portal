@@ -1,4 +1,5 @@
 using FinalPaper.Domain.Entities.Base;
+using FinalPaper.Domain.Enums;
 
 namespace FinalPaper.Domain.Entities;
 
@@ -26,5 +27,15 @@ public class Thesis : Entity
         ThesisStatusTypeId = thesisStatusTypeId;
         CourseId = courseId;
         StudentId = studentId;
+    }
+    
+    public void SetIsApprovedStatus(bool isApproved)
+    {
+        if (isApproved) {
+            ThesisStatusTypeId = ThesisStatusTypes.Approved.Id;
+        }
+        else {
+            ThesisStatusTypeId = ThesisStatusTypes.Rejected.Id;
+        }
     }
 }

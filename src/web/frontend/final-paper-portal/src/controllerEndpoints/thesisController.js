@@ -10,5 +10,23 @@ export default {
       console.log('Error' + error)
       return null
     }
+  },
+  async getMentoringRequests(mentorId) {
+    try {
+      return await axiosPrivate.get(`${controllerName}/mentoringRequests/${mentorId}`)
+    }
+    catch (error) {
+      console.log('Error' + error)
+      return null
+    }
+  },
+  async setIsApproved(thesisId, isApproved) {
+    try {
+      return await axiosPrivate.put(`${controllerName}/isApproved/${thesisId}`, { isApproved })
+    }
+    catch (error) {
+      console.log('Error' + error)
+      return null
+    }
   }
 }
