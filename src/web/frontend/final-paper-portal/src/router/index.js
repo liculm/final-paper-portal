@@ -10,6 +10,7 @@ import HelpView from '@/views/HelpView.vue'
 import MyStudentsView from '@/views/MentorPageViews/MyStudentsView.vue'
 import RequestsView from '@/views/MentorPageViews/RequestsView.vue'
 import DefenceList from '@/views/CouncilPageViews/DefenceList.vue'
+import Error from '@/views/Error.vue'
 
 const routes = [
   {
@@ -93,6 +94,12 @@ const routes = [
         component: DefenceList
       }
     ]
+  },
+  {
+    path: '/error',
+    name: 'error',
+    component: Error
+
   },
   {
     path: '/login',

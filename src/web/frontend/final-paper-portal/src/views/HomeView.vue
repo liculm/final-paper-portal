@@ -128,9 +128,16 @@ export default {
   methods: {
     async log() {
       const response = await userController.getTest()
-
       console.log(response)
+
     },
+    checkUserRole() {
+    const roleName = this.store.user.roleName;
+    if (roleName === 'Mentor' || roleName === 'Admin') {
+    this.$router.push('error');
+  }
+},
+
 
     openComponent(index) {
       this.selectedComponentIndex = index
@@ -138,12 +145,18 @@ export default {
   },
 
   computed: {
-    selectedComponent() {
-      if (this.selectedComponentIndex !== null) {
-        return this.buttons[this.selectedComponentIndex].component
-      }
-      return null
+  selectedComponent() {
+    if (this.selectedComponentIndex !== null) {
+      this.checkUserRole();
+      return this.buttons[this.selectedComponentIndex].component;
     }
+    return null;
+  }
+},
+
+  mounted() {
+    this.log()
+    this.checkUserRole()
   }
 }
 </script>
@@ -278,3 +291,4 @@ export default {
   margin-top: 15px;
 }
 </style>
+
