@@ -35,6 +35,7 @@ public sealed class ThesisController : BaseController
         return await Mediator.Send(command with { StudentId = studentId });
     }
 
+    [HttpGet("mentoringRequests/{mentorId}")]
     public async Task<ActionResult<List<MentoringRequestsViewModel>>> GetMentoringRequests([FromRoute] Guid mentorId)
     {
         return await Mediator.Send(new GetMentoringRequestsQuery(mentorId));
