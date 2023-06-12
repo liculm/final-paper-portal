@@ -13,39 +13,42 @@ namespace Api.Controllers.v1;
 [ApiVersion("1")]
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
-public sealed class ThesisController : BaseController {
+public sealed class ThesisController : BaseController
+{
     [HttpPost("submitThesis")]
-    public async Task<ActionResult<Unit>> SubmitThesis([FromBody] SubmitThesisCommand command) {
+    public async Task<ActionResult<Unit>> SubmitThesis([FromBody] SubmitThesisCommand command)
+    {
         return await Mediator.Send(command);
     }
 
     [HttpPut("isApproved/{thesisId}")]
     public async Task<ActionResult<Unit>> ApproveThesis([FromRoute] int thesisId,
-        [FromBody] SetIsApprovedCommand command) =>
-        await Mediator.Send(command with { ThesisId = thesisId });
+        [FromBody] SetIsApprovedCommand command)
+    {
+        return await Mediator.Send(command with { ThesisId = thesisId });
+    }
 
     [HttpPut("thesisName/{studentId}")]
     public async Task<ActionResult<Unit>> SelectThesisName([FromRoute] Guid studentId,
         [FromBody] SelectThesisNameCommand command)
     {
         return await Mediator.Send(command with { StudentId = studentId });
-    public async Task<ActionResult<Unit>> ApproveThesis([FromRoute] int thesisId,
-        [FromBody] SetIsApprovedCommand command) {
-        return await Mediator.Send(command with { ThesisId = thesisId });
     }
 
-    [HttpGet("mentoringRequests/{mentorId}")]
-    public async Task<ActionResult<List<MentoringRequestsViewModel>>> GetMentoringRequests([FromRoute] Guid mentorId) {
+    public async Task<ActionResult<List<MentoringRequestsViewModel>>> GetMentoringRequests([FromRoute] Guid mentorId)
+    {
         return await Mediator.Send(new GetMentoringRequestsQuery(mentorId));
     }
 
     [HttpGet("mentoredStudents/{mentorId}")]
-    public async Task<ActionResult<List<MentoringRequestsViewModel>>> GetMentoredStudents([FromRoute] Guid mentorId) {
+    public async Task<ActionResult<List<MentoringRequestsViewModel>>> GetMentoredStudents([FromRoute] Guid mentorId)
+    {
         return await Mediator.Send(new GetMentoredStudentsQuery(mentorId));
     }
-    
+
     [HttpPost("submitThesisDefenceRequest/{thesisId}")]
-    public async Task<ActionResult<Unit>> SubmitThesisDefenceRequest([FromRoute] int thesisId) {
+    public async Task<ActionResult<Unit>> SubmitThesisDefenceRequest([FromRoute] int thesisId)
+    {
         return await Mediator.Send(new SubmitThesisDefenceRequestCommand(thesisId));
     }
 }
