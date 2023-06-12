@@ -1,3 +1,4 @@
+using FinalPaper.Domain.Enums;
 using FinalPaper.Domain.Exceptions;
 using FinalPaper.Infrastructure;
 using MediatR;
@@ -19,7 +20,7 @@ public sealed record SelectThesisNameCommandHandler : IRequestHandler<SelectThes
     public async Task<Unit> Handle(SelectThesisNameCommand request, CancellationToken cancellationToken)
     {
         var thesis = await context.Thesis
-            .FirstOrDefaultAsync(x => x.StudentId == request.StudentId, cancellationToken);
+            .FirstOrDefaultAsync(x => x.StudentId == request.StudentId && x.ThesisStatusTypeId == ThesisStatusTypes.Approved.Id, cancellationToken);
 
         if (thesis is null)
         {

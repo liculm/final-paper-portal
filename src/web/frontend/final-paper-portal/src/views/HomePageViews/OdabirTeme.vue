@@ -15,6 +15,7 @@
     <!--<button :disabled="!topicValidation" @click="selectThesisName">Pošalji temu</button>-->
     <Button :disabled="!topicValidation" @click="selectThesisName" label="Pošalji" icon="pi pi-check" iconPos="right" />
   </div>
+  <Toast />
 </template>
 
 <script>
@@ -45,11 +46,17 @@ export default {
           this.$toast.add({
             severity: 'success',
             summary: 'Uspješno',
-            detail: 'Uspješno ste poslali zahtjev za odobravanje naslova',
+            detail: 'Uspješno ste postavili temu',
             life: 3000
           })
         }
       } catch (error) {
+        this.$toast.add({
+          severity: 'error',
+          summary: 'Greška',
+          detail: 'Greška prilikom postavljanja teme',
+          life: 3000
+        })
         console.log(error)
       }
     }

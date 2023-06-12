@@ -22,11 +22,11 @@ const items = ref([
     to: '/home',
     class: role === 'Student' ? '' : 'hide'
   },
-  {
-    label: 'Poruke',
-    icon: 'pi pi-fw pi-comments',
-    to: '/messages',
-  },
+  // {
+  //   label: 'Poruke',
+  //   icon: 'pi pi-fw pi-comments',
+  //   to: '/messages',
+  // },
   {
     label: 'Pravilnici',
     icon: 'pi pi-fw pi-file-pdf',

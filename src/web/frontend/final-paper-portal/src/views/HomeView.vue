@@ -117,8 +117,8 @@ export default {
       buttons: [
         { label: 'Odabir Mentora', component: OdabirMentora },
         { label: 'Odabir Teme', component: OdabirTeme },
-        { label: 'Mentor I Tema Prihvaceni', component: MentorITemaPrihvaceni },
-        { label: 'U obradi', component: Obrada },
+        // { label: 'Mentor I Tema Prihvaceni', component: MentorITemaPrihvaceni },
+        // { label: 'U obradi', component: Obrada },
         { label: 'Dužnosti', component: Duznosti },
         { label: 'Obrana Rada', component: ObranaRada }
       ],

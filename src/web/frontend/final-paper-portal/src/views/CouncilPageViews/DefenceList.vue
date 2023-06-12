@@ -1,6 +1,7 @@
 <template>
   <div class="page-content">
     <Toast />
+    <Button label="Osvježi" icon="pi pi-refresh" class="p-button-info" style="margin-bottom: 30px" @click="hey()" />
     <DataTable
       :value="Students"
       paginator
@@ -100,6 +101,9 @@ export default {
     };
   },
   methods: {
+    hey() {
+      console.log('hey');
+    },
     showDialog(rowData) {
       this.selectedRowData = rowData;
       this.displayDialog = true;
