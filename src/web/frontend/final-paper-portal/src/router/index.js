@@ -93,7 +93,7 @@ const routes = [
         meta: {
           title: 'studentsForDefense',
           requiresAuth: true,
-          allowedRoles: ['Mentor']
+          allowedRoles: ['Admin']
         },
         component: DefenceList
       }

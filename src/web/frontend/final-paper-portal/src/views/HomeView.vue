@@ -34,19 +34,19 @@
 
       <div class="display-flex-w">
         <p><b>Tema završnog rada: </b></p>
-        <p>Tema</p>
+        <p>‎ Tema</p>
       </div>
       <div class="display-flex">
         <p><b>Mentor: </b></p>
-        <p>Marko Marić</p>
+        <p>‎ Marko Marić</p>
       </div>
       <div class="display-flex">
         <p><b> Status završnog rada: </b></p>
-        <p>U izradi</p>
+        <p>‎ U izradi</p>
       </div>
       <div class="display-flex">
         <p><b> Dužnosti: </b></p>
-        <p>Knjižnica</p>
+        <p>‎ Knjižnica</p>
       </div>
       <div class="display-flex-w">
         <h2>Obrana završnog rada</h2>
