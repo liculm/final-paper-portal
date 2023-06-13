@@ -188,6 +188,6 @@ export default {
 
 .table-container {
   height: 400px;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 </style>

@@ -1,7 +1,13 @@
 <template>
   <div class="page-content">
     <Toast />
-    <Button label="Osvježi" icon="pi pi-refresh" class="p-button-info" style="margin-bottom: 30px" @click="hey()" />
+    <Button
+      label="Osvježi"
+      icon="pi pi-refresh"
+      class="p-button-info"
+      style="margin-bottom: 30px"
+      @click="hey()"
+    />
     <DataTable
       :value="Students"
       paginator
@@ -36,7 +42,8 @@
     >
       <div class="p-grid">
         <div class="input1">
-          <Calendar class="calendar"
+          <Calendar
+            class="calendar"
             v-model="input1"
             :showTime="true"
             placeholder="Odaberite datum i vrijeme"
@@ -51,28 +58,21 @@
         </div>
         <h4>Odaberite članove povjerenstva</h4>
         <div class="input">
-          <Dropdown
-            v-model="input3"
-            :options="councilMembers"
-            placeholder="1. član"
-          />
+          <Dropdown v-model="input3" :options="councilMembers" placeholder="1. član" />
         </div>
         <div class="input">
-          <Dropdown
-            v-model="input4"
-            :options="councilMembers"
-            placeholder="2. član"
-          />
+          <Dropdown v-model="input4" :options="councilMembers" placeholder="2. član" />
         </div>
         <div class="input">
-          <Dropdown
-            v-model="input5"
-            :options="councilMembers"
-            placeholder="3. član"
-          />
+          <Dropdown v-model="input5" :options="councilMembers" placeholder="3. član" />
         </div>
         <div class="input">
-          <Button class="btn" severity="success" label="Definiraj obranu rada" @click="validateAndConfirmDialog" />
+          <Button
+            class="btn"
+            severity="success"
+            label="Definiraj obranu rada"
+            @click="validateAndConfirmDialog"
+          />
           <Button class="btn" severity="danger" label="Natrag" @click="cancelDialog" />
         </div>
       </div>
@@ -85,9 +85,30 @@ export default {
   data() {
     return {
       Students: [
-        { fName: 'Marko', lName: 'Marković', topic: 'Tematika 1', year: '3. godina', faculty: 'Fakultet A', availableNumberOfStudents: 3 },
-        { fName: 'Ana', lName: 'Anić', topic: 'Tematika 2', year: '2. godina', faculty: 'Fakultet B', availableNumberOfStudents: 0 },
-        { fName: 'Ivan', lName: 'Ivančić', topic: 'Tematika 3', year: '4. godina', faculty: 'Fakultet C', availableNumberOfStudents: 2 },
+        {
+          fName: 'Marko',
+          lName: 'Marković',
+          topic: 'Tematika 1',
+          year: '3. godina',
+          faculty: 'Fakultet A',
+          availableNumberOfStudents: 3
+        },
+        {
+          fName: 'Ana',
+          lName: 'Anić',
+          topic: 'Tematika 2',
+          year: '2. godina',
+          faculty: 'Fakultet B',
+          availableNumberOfStudents: 0
+        },
+        {
+          fName: 'Ivan',
+          lName: 'Ivančić',
+          topic: 'Tematika 3',
+          year: '4. godina',
+          faculty: 'Fakultet C',
+          availableNumberOfStudents: 2
+        }
       ],
       displayDialog: false,
       input1: null,
@@ -97,65 +118,64 @@ export default {
       input5: null,
       selectedRowData: null,
       availableRooms: ['101', '329', '401', '429'],
-      councilMembers: ['Member 1', 'Member 2', 'Member 3'],
-    };
+      councilMembers: ['Member 1', 'Member 2', 'Member 3']
+    }
   },
   methods: {
     hey() {
-      console.log('hey');
+      console.log('hey')
     },
     showDialog(rowData) {
-      this.selectedRowData = rowData;
-      this.displayDialog = true;
+      this.selectedRowData = rowData
+      this.displayDialog = true
     },
     resetDialog() {
-      this.selectedRowData = null;
-      this.displayDialog = false;
-      this.input1 = null;
-      this.input2 = null;
-      this.input3 = [];
-      this.input4 = null;
-      this.input5 = null;
+      this.selectedRowData = null
+      this.displayDialog = false
+      this.input1 = null
+      this.input2 = null
+      this.input3 = []
+      this.input4 = null
+      this.input5 = null
     },
     handleCalendarConfirm() {
-      this.displayDialog = false;
+      this.displayDialog = false
     },
     validateAndConfirmDialog() {
-      if (
-        !this.input1 ||
-        !this.input2 ||
-        !this.input3 ||
-        !this.input4 ||
-        !this.input5
-      ) {
+      if (!this.input1 || !this.input2 || !this.input3 || !this.input4 || !this.input5) {
         this.$toast.add({
           severity: 'warn',
           summary: 'Upozorenje',
           detail: 'Molimo unesite sve podatke.',
-          life: 3000,
-        });
-        return;
+          life: 3000
+        })
+        return
       }
 
-      this.confirmDialog();
+      this.confirmDialog()
     },
     confirmDialog() {
-      console.log(this.input1, this.input2, this.input3, this.input4, this.input5);
+      console.log(this.input1, this.input2, this.input3, this.input4, this.input5)
 
       this.$toast.add({
-        severity:'success',
+        severity: 'success',
         summary: 'Akcija uspješna!',
-        detail:'Studentu je definirana obrana završnog rada dana '+this.input1+' u predavaonici '+this.input2+'!',
+        detail:
+          'Studentu je definirana obrana završnog rada dana ' +
+          this.input1 +
+          ' u predavaonici ' +
+          this.input2 +
+          '!',
         life: 5000
-      });
+      })
 
-      this.resetDialog();
+      this.resetDialog()
     },
     cancelDialog() {
-      this.resetDialog();
-    },
-  },
-};
+      this.resetDialog()
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -4,7 +4,7 @@ import router from './router'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import PrimeVue from 'primevue/config'
-import ToastService from 'primevue/toastservice';
+import ToastService from 'primevue/toastservice'
 import 'primevue/resources/themes/lara-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
@@ -22,12 +22,11 @@ import Avatar from 'primevue/avatar'
 import Calendar from 'primevue/calendar'
 import DataTable from 'primevue/dataTable'
 import Column from 'primevue/column'
-import Toast from 'primevue/toast';
-import Accordion from 'primevue/accordion';
+import Toast from 'primevue/toast'
+import Accordion from 'primevue/accordion'
 import AccordionTab from 'primevue/accordiontab'
 import './assets/styles.scss'
 import '/node_modules/primeflex/primeflex.css'
-
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -36,7 +35,7 @@ pinia.use(piniaPluginPersistedState)
 
 app.use(pinia)
 app.use(PrimeVue, { ripple: true })
-app.use(ToastService);
+app.use(ToastService)
 app.use(router)
 
 app.directive('ripple', Ripple)

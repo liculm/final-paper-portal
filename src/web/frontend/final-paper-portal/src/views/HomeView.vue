@@ -3,15 +3,20 @@
     <div class="sidebar left-sidebar">
       <h1>Koraci</h1>
       <div v-for="(button, index) in buttons" :key="index" class="button-container">
-        <Button label="Primary" raised @click="openComponent(index)" class="button-item" size="small">
+        <Button
+          label="Primary"
+          raised
+          @click="openComponent(index)"
+          class="button-item"
+          size="small"
+        >
           <span class="label">{{ button.label }}</span>
           <span class="circle">
-            <i class="pi pi-check" style="color: green;"></i>
+            <i class="pi pi-check" style="color: green"></i>
           </span>
         </Button>
         <hr v-if="index !== buttons.length - 1" class="button-separator" />
         <br />
-
       </div>
     </div>
     <div class="content">
@@ -77,8 +82,8 @@ import moment from 'moment'
 import userController from '@/controllerEndpoints/userController'
 import OdabirMentora from '@/views/HomePageViews/OdabirMentora.vue'
 import OdabirTeme from '@/views/HomePageViews/OdabirTeme.vue'
-import MentorITemaPrihvaceni from '@/views/HomePageViews/MentorITemaPrihvaceni.vue'
-import Obrada from '@/views/HomePageViews/Obrada.vue'
+// import MentorITemaPrihvaceni from '@/views/HomePageViews/MentorITemaPrihvaceni.vue'
+// import Obrada from '@/views/HomePageViews/Obrada.vue'
 import Duznosti from '@/views/HomePageViews/Duznosti.vue'
 import ObranaRada from '@/views/HomePageViews/ObranaRada.vue'
 
@@ -235,7 +240,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .button-item:hover {
@@ -265,11 +269,9 @@ export default {
 }
 
 .button-item {
-
   margin-bottom: 5px;
   display: flex;
   align-items: center;
-
 }
 
 .button-separator {

@@ -1,13 +1,11 @@
 <template>
-<h1>Obrana Rada</h1>
+  <h1>Obrana Rada</h1>
 </template>
 
 <script>
 export default {
-  name: "ObranaRada"
+  name: 'ObranaRada'
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -46,7 +46,7 @@ export default {
       return null
     }
   },
-  async addUser (userData) {
+  async addUser(userData) {
     try {
       return await axiosPrivate.post(`${controllerName}/register`, userData)
     } catch (error) {
@@ -54,7 +54,7 @@ export default {
       return null
     }
   },
-  async deleteUser (userId) {
+  async deleteUser(userId) {
     try {
       return await axiosPrivate.delete(`${controllerName}/deleteUser/${userId}`)
     } catch (error) {
@@ -62,7 +62,7 @@ export default {
       return null
     }
   },
-  async updateUser (userData) {
+  async updateUser(userData) {
     try {
       return await axiosPrivate.put(`${controllerName}/updateUser`, userData)
     } catch (error) {

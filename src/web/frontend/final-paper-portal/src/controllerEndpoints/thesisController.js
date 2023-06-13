@@ -38,8 +38,7 @@ export default {
   async getMentoredStudents(mentorId) {
     try {
       return await axiosPrivate.get(`${controllerName}/mentoredStudents/${mentorId}`)
-    }
-    catch (error) {
+    } catch (error) {
       console.log('Error' + error)
       return null
     }
@@ -47,8 +46,7 @@ export default {
   async submitThesisDefenceRequest(thesisId) {
     try {
       return await axiosPrivate.post(`${controllerName}/submitThesisDefenceRequest/${thesisId}`)
-    }
-    catch (error) {
+    } catch (error) {
       console.log('Error' + error)
       return null
     }

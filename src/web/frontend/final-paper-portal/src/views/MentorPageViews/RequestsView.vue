@@ -1,6 +1,12 @@
 <template>
   <div class="page-content">
-    <Button label="Osvježi" icon="pi pi-refresh" class="p-button-info" style="margin-bottom: 30px" @click="getMentoringRequests()" />
+    <Button
+      label="Osvježi"
+      icon="pi pi-refresh"
+      class="p-button-info"
+      style="margin-bottom: 30px"
+      @click="getMentoringRequests()"
+    />
     <DataTable :value="students" tableStyle="min-width: 40rem">
       <Column field="studentFirstName" header="Ime"></Column>
       <Column field="studentLastName" header="Prezime"></Column>
@@ -8,16 +14,10 @@
       <Column field="courseName" header="Kolegij"></Column>
       <Column header="Prihvaćanje mentorstva">
         <template #body="rowData">
-          <button
-            class="p-button p-button-success"
-            @click="setIsApproved(rowData, true)"
-          >
+          <button class="p-button p-button-success" @click="setIsApproved(rowData, true)">
             <b>Prihvati</b>
           </button>
-          <button
-            class="p-button p-button-danger"
-            @click="setIsApproved(rowData, false)"
-          >
+          <button class="p-button p-button-danger" @click="setIsApproved(rowData, false)">
             <b>Odbij</b>
           </button>
         </template>
@@ -38,27 +38,24 @@ export default {
   data() {
     return {
       students: [],
-      store: useUserStore(),
-    };
+      store: useUserStore()
+    }
   },
   methods: {
     async setIsApproved(rowData, isApproved) {
       try {
-        const response = await thesisController.setIsApproved(
-          rowData.data.thesisId,
-          isApproved
-        );
+        const response = await thesisController.setIsApproved(rowData.data.thesisId, isApproved)
         if (response) {
           this.$toast.add({
             severity: 'success',
             summary: 'Uspješno',
             detail: 'Uspješno ste odgovorili na zahtjev za mentorstvo',
-            life: 3000,
-          });
-          await this.getMentoringRequests();
+            life: 3000
+          })
+          await this.getMentoringRequests()
         }
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     },
     async getMentoringRequests() {
@@ -70,9 +67,9 @@ export default {
       } catch (error) {
         console.log(error)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>

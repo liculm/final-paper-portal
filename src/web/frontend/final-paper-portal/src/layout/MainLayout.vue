@@ -10,10 +10,9 @@ import { ref } from 'vue'
 import { clearUserData } from '@/services/userService'
 import { useUserStore } from '@/store/store'
 
-const store = useUserStore();
+const store = useUserStore()
 
 const role = store.user?.roleName
-
 
 const items = ref([
   {
@@ -35,8 +34,7 @@ const items = ref([
   {
     label: 'Pomoć',
     icon: 'pi pi-fw pi-question',
-    to: '/help',
-
+    to: '/help'
   },
   {
     label: 'Korisnici',
@@ -50,8 +48,6 @@ const items = ref([
     icon: 'pi pi-fw pi-user-plus',
     to: '/requests',
     class: role === 'Mentor' ? '' : 'hide'
-
-
   },
   {
     label: 'Studenti pod Mentorstvom',
@@ -66,7 +62,6 @@ const items = ref([
     class: role === 'Admin' ? '' : 'hide'
   },
 
-
   {
     label: 'Odjava',
     icon: 'pi pi-fw pi-power-off',
@@ -77,7 +72,6 @@ const items = ref([
     to: '/login'
   }
 ])
-
 </script>
 
 <style>
@@ -93,7 +87,7 @@ const items = ref([
   right: 1em;
 }
 
-.hide{
+.hide {
   display: none;
 }
 </style>

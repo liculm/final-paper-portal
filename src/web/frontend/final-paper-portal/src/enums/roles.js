@@ -5,7 +5,7 @@ export const roles = [
   },
   {
     id: 2,
-    name: 'Mentor',
+    name: 'Mentor'
   },
   {
     id: 3,

@@ -77,10 +77,9 @@ export default {
 
       if (response) {
         this.store.setUser(response.data)
-        if(response.data.roleName==='Student'){
+        if (response.data.roleName === 'Student') {
           this.$router.push('home')
-
-        }else{
+        } else {
           this.$router.push('rulebooks')
         }
       } else {

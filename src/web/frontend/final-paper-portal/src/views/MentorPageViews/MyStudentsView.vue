@@ -1,6 +1,12 @@
 <template>
   <div class="page-content">
-    <Button label="Osvježi" icon="pi pi-refresh" class="p-button-info" style="margin-bottom: 30px" @click="getMentoredStudents()" />
+    <Button
+      label="Osvježi"
+      icon="pi pi-refresh"
+      class="p-button-info"
+      style="margin-bottom: 30px"
+      @click="getMentoredStudents()"
+    />
     <DataTable :value="students" tableStyle="min-width: 40rem">
       <Column field="studentFirstName" header="Ime"></Column>
       <Column field="studentLastName" header="Prezime"></Column>
@@ -8,7 +14,8 @@
       <Column field="courseName" header="Kolegij"></Column>
       <Column header="Pošalji na završni rad">
         <template #body="rowData">
-          <button v-if="!rowData.data.requestedThesisDefence"
+          <button
+            v-if="!rowData.data.requestedThesisDefence"
             class="p-button p-button-success"
             @click="submitThesisDefenceRequest(rowData)"
           >
@@ -33,49 +40,48 @@ export default {
   data() {
     return {
       students: [],
-      store: useUserStore(),
-    };
+      store: useUserStore()
+    }
   },
   methods: {
     async submitThesisDefenceRequest(rowData) {
       try {
-        const response = await thesisController.submitThesisDefenceRequest(rowData.data.thesisId);
+        const response = await thesisController.submitThesisDefenceRequest(rowData.data.thesisId)
         if (response) {
           this.$toast.add({
             severity: 'success',
             summary: 'Uspješno',
             detail: 'Uspješno ste poslali zahtjev za završni rad',
-            life: 3000,
-          });
-          await this.getMentoredStudents();
+            life: 3000
+          })
+          await this.getMentoredStudents()
         }
       } catch (error) {
         this.$toast.add({
           severity: 'error',
           summary: 'Greška',
           detail: 'Greška prilikom slanja zahtjeva za završni rad',
-          life: 3000,
-        });
+          life: 3000
+        })
       }
     },
     async getMentoredStudents() {
       try {
-        const response = await thesisController.getMentoredStudents(this.store.user.id);
+        const response = await thesisController.getMentoredStudents(this.store.user.id)
         if (response) {
-          this.students = response.data;
+          this.students = response.data
         }
       } catch (error) {
         this.$toast.add({
           severity: 'error',
           summary: 'Greška',
           detail: 'Greška prilikom dohvaćanja studenata',
-          life: 3000,
-        });
+          life: 3000
+        })
       }
-    },
-
-  },
-};
+    }
+  }
+}
 </script>
 
 <style scoped>

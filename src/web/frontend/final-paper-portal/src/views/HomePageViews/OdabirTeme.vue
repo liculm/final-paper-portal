@@ -13,7 +13,13 @@
       />
     </div>
     <!--<button :disabled="!topicValidation" @click="selectThesisName">Pošalji temu</button>-->
-    <Button :disabled="!topicValidation" @click="selectThesisName" label="Pošalji" icon="pi pi-check" iconPos="right" />
+    <Button
+      :disabled="!topicValidation"
+      @click="selectThesisName"
+      label="Pošalji"
+      icon="pi pi-check"
+      iconPos="right"
+    />
   </div>
   <Toast />
 </template>
